@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Webpack 学习示例 | 顾大仙MQ | 博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="介绍Webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 Webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle  本章节主要介绍Webpack的核心概念的Demo使用示例，建议读者查看之前请阅读Webpack的官方文">
+<meta name="keywords" content="webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack 学习示例">
+<meta property="og:url" content="http://gulj.cn/2018/04/09/webpack-教程/index.html">
+<meta property="og:site_name" content="顾大仙MQ | 博客">
+<meta property="og:description" content="介绍Webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 Webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle  本章节主要介绍Webpack的核心概念的Demo使用示例，建议读者查看之前请阅读Webpack的官方文">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-02T07:14:47.970Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Webpack 学习示例">
+<meta name="twitter:description" content="介绍Webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 Webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle  本章节主要介绍Webpack的核心概念的Demo使用示例，建议读者查看之前请阅读Webpack的官方文">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="顾大仙MQ | 博客" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">顾大仙MQ | 博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/categories/Java/">Java</a>
+                
+                    <a class="main-nav-link" href="/categories/运维/">运维</a>
+                
+                    <a class="main-nav-link" href="/categories/工具/">工具</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/categories/Java/">Java</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/运维/">运维</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/工具/">工具</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">顾立剑</h2>
+            <h3 id="title">没有收拾残局的能力，就别放纵善变的情绪</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国-上海</span>
+            <a id="follow" target="_blank" href="https://github.com/gulijian">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                27
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                13
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/gulijian" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://git.oschina.net/gulijian" target="_blank" title="git" class=tooltip>
+                            <i class="fa fa-git"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="mailto:1175327069@qq.com" target="_blank" title="envelope" class=tooltip>
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-webpack-教程" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Webpack 学习示例
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/04/09/webpack-教程/">
+            <time datetime="2018-04-09T08:13:54.000Z" itemprop="datePublished">2018-04-09</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Java/">Java</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/webpack/">webpack</a>
+    </div>
+
+                        
+                            <div class="article-tag">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_container_page_pv" style="display: inline;"> <span id="busuanzi_value_page_pv">0</span>  ℃</span>
+</div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p><a href="https://doc.webpack-china.org/concepts" target="_blank" rel="noopener">Webpack</a> 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 Webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle </p>
+<p>本章节主要介绍Webpack的核心概念的Demo使用示例，建议读者查看之前请阅读Webpack的<a href="https://webpack.js.org/concepts/" target="_blank" rel="noopener">官方文档</a>也可以查看<a href="https://doc.webpack-china.org/concepts" target="_blank" rel="noopener">中文</a>地址文档</p>
+<p><strong>Webpack版本</strong>： 3.9.0</p>
+<p><strong>代码GitHub地址</strong>： <a href="https://github.com/gulijian/webpack-learning-example" target="_blank" rel="noopener">https://github.com/gulijian/webpack-learning-example</a></p>
+<a id="more"></a>
+<h4 id="How-to-use"><a href="#How-to-use" class="headerlink" title="How to use"></a>How to use</h4><p>Install webpack</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i -g webpack</span><br></pre></td></tr></table></figure>
+<p>Clone the repo.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/gulijian/webpack-learning-example.git</span><br></pre></td></tr></table></figure>
+<p>Install the dependencies</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入每个章节根目录，执行 npm install </span></span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+<p>Open the each chapter  index.html</p>
+<h4 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h4><p><a href="https://github.com/gulijian/webpack-learning-example/blob/master/README.md#chapter4-1-source" target="_blank" rel="noopener">Style-loader</a></p>
+<p><a href="https://github.com/gulijian/webpack-learning-example/blob/master/README.md#chapter4-2-source" target="_blank" rel="noopener">Style-loader/url</a></p>
+<p><a href="https://github.com/gulijian/webpack-learning-example/blob/master/README.md#chapter4-3-source" target="_blank" rel="noopener">Css-loader And Css-Module</a></p>
+<p><a href="https://github.com/gulijian/webpack-learning-example/blob/master/README.md#chapter5-1-source" target="_blank" rel="noopener">Js Tree-shaking</a></p>
+<p><a href="https://github.com/gulijian/webpack-learning-example/blob/master/README.md#chapter6-1-source" target="_blank" rel="noopener">Url-loader</a></p>
+<p><a href="https://github.com/gulijian/webpack-learning-example/blob/master/README.md#chapter7-1-source" target="_blank" rel="noopener">ProvidePlugin</a></p>
+<p><a href="https://github.com/gulijian/webpack-learning-example/blob/master/README.md#chapter8-1-source" target="_blank" rel="noopener">Clean-webpack-plugin</a></p>
+<h3 id="chapter4-1-source"><a href="#chapter4-1-source" class="headerlink" title="chapter4-1 (source)"></a>chapter4-1 (<a href="https://github.com/gulijian/webpack-learning-example/tree/master/chapter4-1" target="_blank" rel="noopener">source</a>)</h3><p>style-loader use</p>
+<blockquote>
+<p>处理css，以 style 标签形式引入css</p>
+</blockquote>
+<h5 id="app-js"><a href="#app-js" class="headerlink" title="app.js"></a>app.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'./css/app.css'</span></span><br></pre></td></tr></table></figure>
+<h5 id="app-css"><a href="#app-css" class="headerlink" title="app.css"></a>app.css</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#00bcd4b5</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="index-html"><a href="#index-html" class="headerlink" title="index.html"></a>index.html</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./dist/app.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="webpack-config-js"><a href="#webpack-config-js" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        <span class="string">'app'</span>: <span class="string">'./src/app.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname,<span class="string">'./dist/'</span>),</span><br><span class="line">        filename: <span class="string">'[name].bundle.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader: <span class="string">'style-loader'</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader: <span class="string">'css-loader'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="chapter4-2-source"><a href="#chapter4-2-source" class="headerlink" title="chapter4-2 (source)"></a>chapter4-2 (<a href="https://github.com/gulijian/webpack-learning-example/tree/master/chapter4-2" target="_blank" rel="noopener">source</a>)</h3><p>style-loader/url use</p>
+<blockquote>
+<p>处理css，以<link>标签形式引入css</p>
+</blockquote>
+<h5 id="app-js-1"><a href="#app-js-1" class="headerlink" title="app.js"></a>app.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'./css/app.css'</span></span><br></pre></td></tr></table></figure>
+<h5 id="app-css-1"><a href="#app-css-1" class="headerlink" title="app.css"></a>app.css</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#00bcd4b5</span>;   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#styleLoaderUrl</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">color</span>: white;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="index-html-1"><a href="#index-html-1" class="headerlink" title="index.html"></a>index.html</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"styleLoaderUrl"</span>&gt;</span> hello style-loader/url<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./dist/app.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="webpak-config-js"><a href="#webpak-config-js" class="headerlink" title="webpak.config.js"></a>webpak.config.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        <span class="string">'app'</span>: <span class="string">'./src/app.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname,<span class="string">'./dist/'</span>),</span><br><span class="line">        publicPath: <span class="string">'./dist/'</span>,</span><br><span class="line">        filename: <span class="string">'[name].bundle.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader: <span class="string">'style-loader/url'</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader: <span class="string">'file-loader'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="chapter4-3-source"><a href="#chapter4-3-source" class="headerlink" title="chapter4-3 (source)"></a>chapter4-3 (<a href="https://github.com/gulijian/webpack-learning-example/tree/master/chapter4-3" target="_blank" rel="noopener">source</a>)</h3><p>css-loader and css-module use</p>
+<blockquote>
+<p>处理css，支持 css-module 形式</p>
+</blockquote>
+<h5 id="app-js-2"><a href="#app-js-2" class="headerlink" title="app.js"></a>app.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> app1 <span class="keyword">from</span> <span class="string">'./css/app1.css'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> app2 <span class="keyword">from</span>  <span class="string">'./css/app2.css'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = <span class="built_in">document</span>.getElementById(<span class="string">'app'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用样式</span></span><br><span class="line">app.innerHTML = <span class="string">'&lt;div class = "'</span>+app1.box+<span class="string">'"&gt;&lt;/div&gt;'</span></span><br></pre></td></tr></table></figure>
+<h5 id="app1-css"><a href="#app1-css" class="headerlink" title="app1.css"></a>app1.css</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">composes</span>: borderBox from <span class="string">'./app2.css'</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#76d4e0ab</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="app2-css"><a href="#app2-css" class="headerlink" title="app2.css"></a>app2.css</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.borderBox</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">4px</span> solid <span class="number">#e87ff5</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="index-html-2"><a href="#index-html-2" class="headerlink" title="index.html"></a>index.html</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./dist/app.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="webpack-config-js-1"><a href="#webpack-config-js-1" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        <span class="string">'app'</span>: <span class="string">'./src/app.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname,<span class="string">'./dist/'</span>),</span><br><span class="line">        filename: <span class="string">'[name].bundle.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader: <span class="string">'style-loader'</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader: <span class="string">'css-loader'</span>,</span><br><span class="line">                        options: &#123;</span><br><span class="line">                            minimize: <span class="literal">true</span>,  <span class="comment">// 启用压缩</span></span><br><span class="line">                            modules: <span class="literal">true</span>    <span class="comment">// 启用 css module</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="chapter5-1-source"><a href="#chapter5-1-source" class="headerlink" title="chapter5-1 (source)"></a>chapter5-1 (<a href="https://github.com/gulijian/webpack-learning-example/tree/master/chapter5-1" target="_blank" rel="noopener">source</a>)</h3><p>UglifyJsPlugin  use</p>
+<blockquote>
+<p>使用 <strong>UglifyJsPlugin</strong> 插件； 不打包没有使用的 js</p>
+</blockquote>
+<h5 id="util-js"><a href="#util-js" class="headerlink" title="util.js"></a>util.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">a</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'this is a'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">b</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'this is b'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">c</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'this is c'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="app-js-3"><a href="#app-js-3" class="headerlink" title="app.js"></a>app.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; a &#125; <span class="keyword">from</span> <span class="string">'./common/util.js'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a())</span><br></pre></td></tr></table></figure>
+<h5 id="index-html-3"><a href="#index-html-3" class="headerlink" title="index.html"></a>index.html</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./dist/app.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="webpack-config-js-2"><a href="#webpack-config-js-2" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        <span class="string">'app'</span>: <span class="string">'./src/app.js'</span>,</span><br><span class="line">        </span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname,<span class="string">'./dist/'</span>),</span><br><span class="line">        filename: <span class="string">'[name].bundle.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin()</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>app.js 中只使用了 util.js 中的 a 函数 打包的时候只会打包 a 函数；因为 b 和  c 函数没有使用到，则不会被打包</p>
+</blockquote>
+<h3 id="chapter6-1-source"><a href="#chapter6-1-source" class="headerlink" title="chapter6-1 (source)"></a>chapter6-1 (<a href="https://github.com/gulijian/webpack-learning-example/tree/master/chapter6-1" target="_blank" rel="noopener">source</a>)</h3><p>url-loader use</p>
+<blockquote>
+<p>图片文件处理</p>
+</blockquote>
+<h5 id="app-js-4"><a href="#app-js-4" class="headerlink" title="app.js"></a>app.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img1 = <span class="built_in">document</span>.getElementById(<span class="string">'img1'</span>)</span><br><span class="line"><span class="keyword">var</span> img2 = <span class="built_in">document</span>.getElementById(<span class="string">'img2'</span>)</span><br><span class="line"></span><br><span class="line">img1.src = <span class="built_in">require</span>(<span class="string">'./assets/img1.jpg'</span>)</span><br><span class="line">img2.src = <span class="built_in">require</span>(<span class="string">'./assets/img2.png'</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="index-html-4"><a href="#index-html-4" class="headerlink" title="index.html"></a>index.html</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">     <span class="comment">&lt;!-- size &lt; 30kb --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"img1"</span>/&gt;</span></span><br><span class="line">     <span class="comment">&lt;!-- size &gt; 30kb --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"img2"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./dist/app.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="webpack-config-js-3"><a href="#webpack-config-js-3" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line"></span><br><span class="line">    entry: &#123;</span><br><span class="line">        <span class="string">'app'</span>: <span class="string">'./src/app.js'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname,<span class="string">'./dist/'</span>),</span><br><span class="line">        filename: <span class="string">'[name].bundle.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.(png|jpg|jpeg|gif)$/</span>,</span><br><span class="line">                use: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        loader:<span class="string">'url-loader'</span>,</span><br><span class="line">                        options: &#123;</span><br><span class="line">                            limit: <span class="number">30000</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>图片 小于 30kb 会变成base64编码，大于 30kb 会生成图片地址</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"img1"</span> <span class="attr">src</span>=<span class="string">"6443347e97d394b23b05746b2fe41cd1.jpg"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"img2"</span> <span class="attr">src</span>=<span class="string">"data:image/png;base64,iVBORw0KGgoAXBIWXMAAC4jAAAuIwF4pT92AAAKTWlD"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="chapter7-1-source"><a href="#chapter7-1-source" class="headerlink" title="chapter7-1 (source)"></a>chapter7-1 (<a href="https://github.com/gulijian/webpack-learning-example/tree/master/chapter7-1" target="_blank" rel="noopener">source</a>)</h3><p>ProvidePlugin use</p>
+<blockquote>
+<p>处理第三方 JS 库，方式一：（ jquery 作为npm的一个module）</p>
+</blockquote>
+<h5 id="app-js-5"><a href="#app-js-5" class="headerlink" title="app.js"></a>app.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'#app'</span>).append(<span class="string">'hello jquery'</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="index-html-5"><a href="#index-html-5" class="headerlink" title="index.html"></a>index.html</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./dist/app.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="webpack-config-js-4"><a href="#webpack-config-js-4" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        <span class="string">'app'</span>: <span class="string">'./src/app.js'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname,<span class="string">'./dist/'</span>),</span><br><span class="line">        filename: <span class="string">'[name].bundle.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> webpack.ProvidePlugin(&#123;</span><br><span class="line">            $: <span class="string">'jquery'</span></span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="chapter7-2-source"><a href="#chapter7-2-source" class="headerlink" title="chapter7-2 (source)"></a>chapter7-2 (<a href="https://github.com/gulijian/webpack-learning-example/tree/master/chapter7-2" target="_blank" rel="noopener">source</a>)</h3><blockquote>
+<p>处理第三方 JS 库，方式二：（引入本地的 jquery 库）</p>
+</blockquote>
+<h5 id="app-js-6"><a href="#app-js-6" class="headerlink" title="app.js"></a>app.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'#app'</span>).append(<span class="string">'hello jquery'</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="index-html-6"><a href="#index-html-6" class="headerlink" title="index.html"></a>index.html</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./dist/app.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="webpack-config-js-5"><a href="#webpack-config-js-5" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        <span class="string">'app'</span>: <span class="string">'./src/app.js'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname,<span class="string">'./dist/'</span>),</span><br><span class="line">        filename: <span class="string">'[name].bundle.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注意 jquery$ 的名字 要和 ProvidePlugin 插件中配置的名称（jquery）保持一致</span></span><br><span class="line">    resolve: &#123;</span><br><span class="line">        alias: &#123;</span><br><span class="line">            jquery$: path.resolve(__dirname,<span class="string">'src/libs/jquery.min.js'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> webpack.ProvidePlugin(&#123;</span><br><span class="line">            $: <span class="string">'jquery'</span></span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果 jquery 在CDN上，直接引入即可</p>
+</blockquote>
+<h3 id="chapter8-1-source"><a href="#chapter8-1-source" class="headerlink" title="chapter8-1 (source)"></a>chapter8-1 (<a href="https://github.com/gulijian/webpack-learning-example/tree/master/chapter8-1" target="_blank" rel="noopener">source</a>)</h3><p>clean-webpack-plugin use</p>
+<blockquote>
+<p>每次打包清除原先的打包目录</p>
+</blockquote>
+<h5 id="app-js-7"><a href="#app-js-7" class="headerlink" title="app.js"></a>app.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="built_in">document</span>.getElementById(<span class="string">'app'</span>)</span><br><span class="line"></span><br><span class="line">app.innerHTML = <span class="string">'&lt;h1&gt;使用 clean-webpack-plugin 插件，可以每次打包清除原先的打包目录&lt;/h1&gt;'</span></span><br></pre></td></tr></table></figure>
+<h5 id="index-html-7"><a href="#index-html-7" class="headerlink" title="index.html"></a>index.html</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./dist/app.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="webpack-config-js-6"><a href="#webpack-config-js-6" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">var</span> CleanWebpackPlugin = <span class="built_in">require</span>(<span class="string">'clean-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        <span class="string">'app'</span>: <span class="string">'./src/app.js'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname,<span class="string">'./dist/'</span>),</span><br><span class="line">        filename: <span class="string">'[name].bundle.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    plugins: [</span><br><span class="line">       <span class="keyword">new</span> CleanWebpackPlugin([</span><br><span class="line">           <span class="string">'dist'</span></span><br><span class="line">       ])</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/webpack/">webpack</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://gulj.cn/2018/04/09/webpack-教程/#comments" id="sourceId::2018/04/09/webpack-教程/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/03/31/docker-linux命名空间/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">【Docker教程】Docker Linux网络命名空间</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="SOHUCS" sid="2018/04/09/webpack-教程/"></div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2018/04/09/webpack-教程/" class="title">Webpack 学习示例</a></p>
+                            <p class="item-date"><time datetime="2018-04-09T08:13:54.000Z" itemprop="datePublished">2018-04-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2018/03/31/docker-linux命名空间/" class="title">【Docker教程】Docker Linux网络命名空间</a></p>
+                            <p class="item-date"><time datetime="2018-03-31T02:44:25.000Z" itemprop="datePublished">2018-03-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2018/03/30/docker-数据持久化/" class="title">【Docker教程】Docker 数据持久化</a></p>
+                            <p class="item-date"><time datetime="2018-03-30T03:47:38.000Z" itemprop="datePublished">2018-03-30</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">12</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html">docker</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-expand-info" class="row" style="text-align: left;">
+            <div class="col-md-3 col-sm-6">
+                <!--关注我们-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">其他平台</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="https://github.com/dyc87112">Github</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="http://gitee.com/didispace">码云</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">联系合作</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="#">微信：glj88258</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">QQ：1175327069</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">邮箱：1175327069@qq.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--友情链接-->
+                
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">友情链接</h3>
+                    <div class="widget">
+                        <ul>
+                            <span class="label">
+                                <a target="_blank" href="http://cmsblogs.com/">chenssy</a>
+                            </span>
+
+                             <span class="label">
+                                <a target="_blank" href="http://blog.didispace.com/">程序猿DD</a>
+                            </span>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">我的公众号</h3>
+                    <div class="widget">
+                        <img style="width: 150px;height: 150px;" src="/css/images/qrcode_for_gh.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-base-info">
+            <div class="copy-info">
+                © 2018 顾立剑 版权所有<br>
+            </div>
+            <div class="busuanzi-info">
+                <span id="busuanzi_container_site_pv" style="display: inline;">访问量<span class="foot-count" id="busuanzi_value_site_pv">5868330</span>次</span>
+                <span id="busuanzi_container_site_uv" style="display: inline;">访客数<span class="foot-count" id="busuanzi_value_site_uv">359288</span>人次</span>
+                <br>
+                <span style="color: #888">苏ICP备15055047号-3</span>
+            </div>
+        </div>
+    </div>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+</footer>
+        
+    
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytaiyU6E"></script>
+    <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+    <script type="text/javascript">
+    window.changyan.api.config({
+    appid: 'cytaiyU6E',
+    conf: 'eae4b65d27f952474df2788e98a39555'
+    });
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

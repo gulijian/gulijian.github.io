@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Linux服务管理 | 顾大仙MQ | 博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="运行级别   运行级别 含义     0 关机   1 单用户模式，只要用于系统修复   2 不完全的命令行模式，不含NFS模式   3 完整的命令行模式，就是标准字符页面   4 系统保留   5 图形模式   6 重启">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux服务管理">
+<meta property="og:url" content="http://gulj.cn/2017/10/11/Linux服务管理/index.html">
+<meta property="og:site_name" content="顾大仙MQ | 博客">
+<meta property="og:description" content="运行级别   运行级别 含义     0 关机   1 单用户模式，只要用于系统修复   2 不完全的命令行模式，不含NFS模式   3 完整的命令行模式，就是标准字符页面   4 系统保留   5 图形模式   6 重启">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://gulj.cn/images/linux-service-manage.png">
+<meta property="og:updated_time" content="2018-05-02T07:14:47.967Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux服务管理">
+<meta name="twitter:description" content="运行级别   运行级别 含义     0 关机   1 单用户模式，只要用于系统修复   2 不完全的命令行模式，不含NFS模式   3 完整的命令行模式，就是标准字符页面   4 系统保留   5 图形模式   6 重启">
+<meta name="twitter:image" content="http://gulj.cn/images/linux-service-manage.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="顾大仙MQ | 博客" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">顾大仙MQ | 博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/categories/Java/">Java</a>
+                
+                    <a class="main-nav-link" href="/categories/运维/">运维</a>
+                
+                    <a class="main-nav-link" href="/categories/工具/">工具</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/categories/Java/">Java</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/运维/">运维</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/工具/">工具</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">顾立剑</h2>
+            <h3 id="title">没有收拾残局的能力，就别放纵善变的情绪</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国-上海</span>
+            <a id="follow" target="_blank" href="https://github.com/gulijian">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                27
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                13
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/gulijian" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://git.oschina.net/gulijian" target="_blank" title="git" class=tooltip>
+                            <i class="fa fa-git"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="mailto:1175327069@qq.com" target="_blank" title="envelope" class=tooltip>
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Linux服务管理" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Linux服务管理
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/11/Linux服务管理/">
+            <time datetime="2017-10-11T09:36:27.000Z" itemprop="datePublished">2017-10-11</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/运维/">运维</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/linux/">linux</a>
+    </div>
+
+                        
+                            <div class="article-tag">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_container_page_pv" style="display: inline;"> <span id="busuanzi_value_page_pv">0</span>  ℃</span>
+</div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="运行级别"><a href="#运行级别" class="headerlink" title="运行级别"></a>运行级别</h3><table>
+<thead>
+<tr>
+<th>运行级别</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>关机</td>
+</tr>
+<tr>
+<td>1</td>
+<td>单用户模式，只要用于系统修复</td>
+</tr>
+<tr>
+<td>2</td>
+<td>不完全的命令行模式，不含NFS模式</td>
+</tr>
+<tr>
+<td>3</td>
+<td>完整的命令行模式，就是标准字符页面</td>
+</tr>
+<tr>
+<td>4</td>
+<td>系统保留</td>
+</tr>
+<tr>
+<td>5</td>
+<td>图形模式</td>
+</tr>
+<tr>
+<td>6</td>
+<td>重启</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h3 id="查看及修改系统运行级别"><a href="#查看及修改系统运行级别" class="headerlink" title="查看及修改系统运行级别"></a>查看及修改系统运行级别</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 查看系统运行级别</span><br><span class="line">// N：NULL。当前级别为3即字符界面，其上一个级别为N即为空，表示系统开机直接进入字符界面</span><br><span class="line"><span class="section"># runlevel</span></span><br><span class="line">N 3             </span><br><span class="line"></span><br><span class="line">// 修改系统运行级别</span><br><span class="line">// 进入图形级别，前提是安装图形界面</span><br><span class="line"><span class="section"># init 5 // 若未安装图形界面则会报错</span></span><br><span class="line"><span class="section"># runlevel</span></span><br><span class="line">3 5     // 仍然进入了5级别</span><br></pre></td></tr></table></figure>
+<h3 id="查看及修改系统默认的运行级别"><a href="#查看及修改系统默认的运行级别" class="headerlink" title="查看及修改系统默认的运行级别"></a>查看及修改系统默认的运行级别</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># vim /etc/inittab</span></span><br><span class="line">id:3:initdefault:</span><br></pre></td></tr></table></figure>
+<p><strong>注：不要把开机启动级别设置为0或6级别。</strong></p>
+<h3 id="服务启动和自启动"><a href="#服务启动和自启动" class="headerlink" title="服务启动和自启动"></a>服务启动和自启动</h3><p>启动：就是在当前系统中让服务启动，并提供功能。</p>
+<p>自启动：指让服务在系统开机或重启动之后，随着系统的启动而自动启动服务。</p>
+<p>注：在chkconfig –list 查看到服务在不同运行级别时，<strong>服务自启动</strong>是否开启，不能确定现在服务是否已经开启。</p>
+<h3 id="查询已安装的服务"><a href="#查询已安装的服务" class="headerlink" title="查询已安装的服务"></a>查询已安装的服务</h3><h5 id="①、RPM包安装的服务"><a href="#①、RPM包安装的服务" class="headerlink" title="①、RPM包安装的服务"></a>①、RPM包安装的服务</h5><p>chkconfig –list命令查看服务自启动状态，可以看到所有RPM包安装的服务</p>
+<h5 id="②、源码包安装的服务"><a href="#②、源码包安装的服务" class="headerlink" title="②、源码包安装的服务"></a>②、源码包安装的服务</h5><p>查看服务安装位置，一般是/usr/local/目录下<br><em>service、chkconfig、ntsysv</em>都不能找到源码包安装的服务。</p>
+<p><strong>两者区别：</strong>主要是安装位置的不同</p>
+<p>源码包：一般安装在/usr/local/目录下<br>RPM包：默认安装位置</p>
+<h3 id="RMP包服务管理"><a href="#RMP包服务管理" class="headerlink" title="RMP包服务管理"></a>RMP包服务管理</h3><p>常规的rpm包文件安装位置：</p>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/etc/init.d/</td>
+<td>启动脚本位置</td>
+</tr>
+<tr>
+<td>/etc/sysconfig/</td>
+<td>初始化环境配置文件位置</td>
+</tr>
+<tr>
+<td>/etc/</td>
+<td>配置文件位置</td>
+</tr>
+<tr>
+<td>/etc/xinetd.conf</td>
+<td>xinetd配置文件</td>
+</tr>
+<tr>
+<td>/etc/xinetd.d</td>
+<td>基于xinetd服务的启动脚本</td>
+</tr>
+<tr>
+<td>/var/lib/</td>
+<td>服务产生的数据放在这里</td>
+</tr>
+<tr>
+<td>/var/log/</td>
+<td>日志</td>
+</tr>
+</tbody>
+</table>
+<h3 id="RMP包服务管理——独立服务的管理"><a href="#RMP包服务管理——独立服务的管理" class="headerlink" title="RMP包服务管理——独立服务的管理"></a>RMP包服务管理——独立服务的管理</h3><h5 id="①、独立服务的启动"><a href="#①、独立服务的启动" class="headerlink" title="①、独立服务的启动"></a>①、独立服务的启动</h5><ul>
+<li>法一：/etc/init.d/ 独立服务名 或者 /etc/rc.d/init.d/ 独立服务名 start|stop|status|restart|</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 查看apache http服务的状态，其中httpd为一个shell脚本文件</span><br><span class="line"><span class="section"># /etc/init.d/httpd status</span></span><br><span class="line">// 启动apache服务</span><br><span class="line"><span class="section"># /etc/init.d/httpd start</span></span><br><span class="line"></span><br><span class="line">// 早期Linux版本服务管理脚本放在/etc/rc.d/init.d/目录</span><br><span class="line"><span class="section"># /etc/rc.d/init.d/httpd status</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>法二：service 独立服务名 start|stop|restart|status|</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># service httpd status</span></span><br><span class="line">// centos 7</span><br><span class="line"><span class="section"># systemctl [start/stop/status/restart] 独立服务名</span></span><br></pre></td></tr></table></figure>
+<p>备注：上面两种方法一般无法管理源码包启动脚本，但可以把源码包启动脚本放置在/etc/init.d/目录下统一管理</p>
+<h5 id="②、独立服务的自启动"><a href="#②、独立服务的自启动" class="headerlink" title="②、独立服务的自启动"></a>②、独立服务的自启动</h5><ul>
+<li>法一：chkconfig  [ - - level 运行级别 ] 服务名</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># chkconfig [--level 运行级别] [独立服务名] [on/off]</span></span><br><span class="line">例如：</span><br><span class="line"><span class="section"># chkconfig --level 2345 httpd on   </span></span><br><span class="line"><span class="section"># chkconfig httpd off   # --level 2345 可以省略，默认就是2345级别</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>法二：修改文件：/etc/rc.d/rc.local  或者 /etc/rc.local 文件</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># vi /etc/rc.local 或者 vi /etc/rc.d/rc.local</span></span><br><span class="line">// 然后在尾部添加一行，例如</span><br><span class="line"><span class="section"># /etc/init.d/httpd start   # 开机apache服务就会自启动</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>法三：ntsysv 命令管理自启动（可管理独立服务，和基于xinetd服务）</li>
+</ul>
+<p><strong>备注</strong></p>
+<blockquote>
+<p>①、/etc/rc.d/rc.local文件是在系统启动时，把所有的服务启动完，用户登录到系统前最后执行的文件，因此系统会执行这个文件中的命令</p>
+<p>②、/etc/rc.local文件是/etc/rc.d/rc.local文件的软连接</p>
+</blockquote>
+<h3 id="RMP包服务管理——基于xinetd服务的管理"><a href="#RMP包服务管理——基于xinetd服务的管理" class="headerlink" title="RMP包服务管理——基于xinetd服务的管理"></a>RMP包服务管理——基于xinetd服务的管理</h3><p>安装xinetd服务</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># yum -y install xinetd</span></span><br></pre></td></tr></table></figure>
+<p>基于xinetd服务的启动</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 显示rsync服务的端口</span><br><span class="line"><span class="section"># grep rsync /etc/services</span></span><br><span class="line"></span><br><span class="line"><span class="section"># vim /etc/xinetd.d/rsync</span></span><br><span class="line">service rsync</span><br><span class="line">&#123;</span><br><span class="line"><span class="code">    flags = REUSE // 设置TCP/IP socket可重用</span></span><br><span class="line"><span class="code">    socket_type = stream</span></span><br><span class="line"><span class="code">    wait = no     // 允许多个连接同时连接</span></span><br><span class="line"><span class="code">    user = root   // 启动服务的用户为root</span></span><br><span class="line"><span class="code">    server = /usr/bin/rsync</span></span><br><span class="line"><span class="code">    server_args = --daemon</span></span><br><span class="line"><span class="code">    log_on_failure += USERID // 登录失败后，记录用户的ID</span></span><br><span class="line"><span class="code">    disable = no // 开启rsync服务，开启：no 关闭：yes</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 重启动xinetd服务</span><br><span class="line"><span class="section"># service xinetd restart </span></span><br><span class="line">或者</span><br><span class="line"><span class="section"># systemctl restart  xinetd (centos 7)</span></span><br></pre></td></tr></table></figure>
+<p>基于xinetd服务的自启动</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># checkconfig time-stream on</span></span><br><span class="line">// ntsysv命令</span><br><span class="line"><span class="section"># ntsysv</span></span><br></pre></td></tr></table></figure>
+<p><strong>备注</strong></p>
+<p>xinetd的服务：实际上自启动与启动完全同步，自启动关闭/开启，启动同时关闭/开启,启动关闭/开启，自启动同时关闭/开启</p>
+<h3 id="源码包服务管理"><a href="#源码包服务管理" class="headerlink" title="源码包服务管理"></a>源码包服务管理</h3><h5 id="①、源码包安装服务的启动"><a href="#①、源码包安装服务的启动" class="headerlink" title="①、源码包安装服务的启动"></a>①、源码包安装服务的启动</h5><p>使用绝对路径，调用启动脚本来启动。不同的源码包的启动脚本不通，可以查看源码包的安装说明，查看启动脚本的方法</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># /usr/local/apache2/bin/apachectl start|stop</span></span><br></pre></td></tr></table></figure>
+<h5 id="②、源码包安装服务的自启动"><a href="#②、源码包安装服务的自启动" class="headerlink" title="②、源码包安装服务的自启动"></a>②、源码包安装服务的自启动</h5><p>通过修改/etc/rc.d/rc.local文件加入启动命令</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># vim /etc/rc.d/rc.local // 加入/usr/local/apache2/bin/apachectl start</span></span><br></pre></td></tr></table></figure>
+<h5 id="③、让源码包服务被服务管理命令识别（chkconfig，ntsysv，service）"><a href="#③、让源码包服务被服务管理命令识别（chkconfig，ntsysv，service）" class="headerlink" title="③、让源码包服务被服务管理命令识别（chkconfig，ntsysv，service）"></a>③、让源码包服务被服务管理命令识别（chkconfig，ntsysv，service）</h5><ul>
+<li>让源码包的apache服务能被service命令管理启动</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># ln -s /usr/local/apache2/bin/apachectl /etc/init.d/apache # 软链接</span></span><br><span class="line"><span class="section"># service apache start</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>让源码包的apache服务能被chkconfig与ntsysv命令管理自启动</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/init.d/apache </span><br><span class="line">// 在apache启动脚本中添加</span><br><span class="line"><span class="section"># chkconfig: 35 86 76 # 格式：chkconfig : 运行级别 启动顺序 关闭顺序</span></span><br><span class="line"><span class="section"># description: source package apache  # description的内容随意</span></span><br><span class="line">// 把源码包apache加入chkconfig 命令</span><br><span class="line"><span class="section"># chkconfig --add apache</span></span><br><span class="line"><span class="section"># chkconfig --list |grep apache</span></span><br><span class="line"><span class="section"># apache 0:关闭 1:关闭  2:关闭 3:开启 4:关闭 5:开启 6:关闭</span></span><br><span class="line"></span><br><span class="line">// 这时，ntsysv命令也可以管理apache</span><br><span class="line"><span class="section"># ntsysv</span></span><br></pre></td></tr></table></figure>
+<h3 id="systemctl"><a href="#systemctl" class="headerlink" title="systemctl"></a>systemctl</h3><p>systemctl命令将service和chkconfig命令结合在了一起。这样通过一个命令就可以实现两个命令的功能。(<strong>CentOS 7 和 Ubuntu可用</strong>)</p>
+<p>格式：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl   动作   服务名.service</span><br><span class="line">systemctl start|stop|restart|status 服务名.service</span><br></pre></td></tr></table></figure>
+<p>设置开机启动：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable httpd.service</span><br></pre></td></tr></table></figure>
+<p>取消开机启动：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable httpd.service</span><br></pre></td></tr></table></figure>
+<p>系统操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl reboot 重启</span><br><span class="line">systemctl poweroff 关机</span><br><span class="line">systemctl suspend 睡眠</span><br><span class="line">systemctl hibernate 休眠</span><br></pre></td></tr></table></figure>
+<p>分析启动进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemd-analyze</span><br></pre></td></tr></table></figure>
+<p>分析各进程启动的时间</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemd-analyze blame</span><br></pre></td></tr></table></figure>
+<h3 id="服务管理总结"><a href="#服务管理总结" class="headerlink" title="服务管理总结"></a>服务管理总结</h3><p><img src="/images/linux-service-manage.png" alt=""></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/linux/">linux</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://gulj.cn/2017/10/11/Linux服务管理/#comments" id="sourceId::2017/10/11/Linux服务管理/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/11/10/ElasticSearch常用API使用教程/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    ElasticSearch常用API使用教程
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/09/28/Java设计模式—适配器模式/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Java设计模式—适配器模式</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="SOHUCS" sid="2017/10/11/Linux服务管理/"></div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2018/04/09/webpack-教程/" class="title">Webpack 学习示例</a></p>
+                            <p class="item-date"><time datetime="2018-04-09T08:13:54.000Z" itemprop="datePublished">2018-04-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2018/03/31/docker-linux命名空间/" class="title">【Docker教程】Docker Linux网络命名空间</a></p>
+                            <p class="item-date"><time datetime="2018-03-31T02:44:25.000Z" itemprop="datePublished">2018-03-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2018/03/30/docker-数据持久化/" class="title">【Docker教程】Docker 数据持久化</a></p>
+                            <p class="item-date"><time datetime="2018-03-30T03:47:38.000Z" itemprop="datePublished">2018-03-30</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">12</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html">docker</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-expand-info" class="row" style="text-align: left;">
+            <div class="col-md-3 col-sm-6">
+                <!--关注我们-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">其他平台</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="https://github.com/dyc87112">Github</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="http://gitee.com/didispace">码云</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">联系合作</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="#">微信：glj88258</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">QQ：1175327069</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">邮箱：1175327069@qq.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--友情链接-->
+                
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">友情链接</h3>
+                    <div class="widget">
+                        <ul>
+                            <span class="label">
+                                <a target="_blank" href="http://cmsblogs.com/">chenssy</a>
+                            </span>
+
+                             <span class="label">
+                                <a target="_blank" href="http://blog.didispace.com/">程序猿DD</a>
+                            </span>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">我的公众号</h3>
+                    <div class="widget">
+                        <img style="width: 150px;height: 150px;" src="/css/images/qrcode_for_gh.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-base-info">
+            <div class="copy-info">
+                © 2018 顾立剑 版权所有<br>
+            </div>
+            <div class="busuanzi-info">
+                <span id="busuanzi_container_site_pv" style="display: inline;">访问量<span class="foot-count" id="busuanzi_value_site_pv">5868330</span>次</span>
+                <span id="busuanzi_container_site_uv" style="display: inline;">访客数<span class="foot-count" id="busuanzi_value_site_uv">359288</span>人次</span>
+                <br>
+                <span style="color: #888">苏ICP备15055047号-3</span>
+            </div>
+        </div>
+    </div>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+</footer>
+        
+    
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytaiyU6E"></script>
+    <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+    <script type="text/javascript">
+    window.changyan.api.config({
+    appid: 'cytaiyU6E',
+    conf: 'eae4b65d27f952474df2788e98a39555'
+    });
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

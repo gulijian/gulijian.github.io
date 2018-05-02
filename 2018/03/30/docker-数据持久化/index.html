@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>【Docker教程】Docker 数据持久化 | 顾大仙MQ | 博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="介绍Docker 容器一旦删除，那么我们在容器内的一切操作将不复存在，比如我们在容器内存储的数据等；为了解决这个问题，Docker 提出了数据卷概念，就像我们运行一个mysql容器，我们需要存储我们的数据，日志之类，想要他们不会随着容器的删除而销毁，或者我们需要在各个容器间共享数据，那么这些数据卷或者数据卷容器都能做到。 数据卷是一个可供一个或多个容器使用的特殊目录，它绕过 UFS，可以提供很多有">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Docker教程】Docker 数据持久化">
+<meta property="og:url" content="http://gulj.cn/2018/03/30/docker-数据持久化/index.html">
+<meta property="og:site_name" content="顾大仙MQ | 博客">
+<meta property="og:description" content="介绍Docker 容器一旦删除，那么我们在容器内的一切操作将不复存在，比如我们在容器内存储的数据等；为了解决这个问题，Docker 提出了数据卷概念，就像我们运行一个mysql容器，我们需要存储我们的数据，日志之类，想要他们不会随着容器的删除而销毁，或者我们需要在各个容器间共享数据，那么这些数据卷或者数据卷容器都能做到。 数据卷是一个可供一个或多个容器使用的特殊目录，它绕过 UFS，可以提供很多有">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-02T07:14:47.969Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Docker教程】Docker 数据持久化">
+<meta name="twitter:description" content="介绍Docker 容器一旦删除，那么我们在容器内的一切操作将不复存在，比如我们在容器内存储的数据等；为了解决这个问题，Docker 提出了数据卷概念，就像我们运行一个mysql容器，我们需要存储我们的数据，日志之类，想要他们不会随着容器的删除而销毁，或者我们需要在各个容器间共享数据，那么这些数据卷或者数据卷容器都能做到。 数据卷是一个可供一个或多个容器使用的特殊目录，它绕过 UFS，可以提供很多有">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="顾大仙MQ | 博客" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">顾大仙MQ | 博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/categories/Java/">Java</a>
+                
+                    <a class="main-nav-link" href="/categories/运维/">运维</a>
+                
+                    <a class="main-nav-link" href="/categories/工具/">工具</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/categories/Java/">Java</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/运维/">运维</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/工具/">工具</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">顾立剑</h2>
+            <h3 id="title">没有收拾残局的能力，就别放纵善变的情绪</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国-上海</span>
+            <a id="follow" target="_blank" href="https://github.com/gulijian">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                27
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                13
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/gulijian" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://git.oschina.net/gulijian" target="_blank" title="git" class=tooltip>
+                            <i class="fa fa-git"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="mailto:1175327069@qq.com" target="_blank" title="envelope" class=tooltip>
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-docker-数据持久化" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            【Docker教程】Docker 数据持久化
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/03/30/docker-数据持久化/">
+            <time datetime="2018-03-30T03:47:38.000Z" itemprop="datePublished">2018-03-30</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/运维/">运维</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/docker/">docker</a>
+    </div>
+
+                        
+                            <div class="article-tag">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_container_page_pv" style="display: inline;"> <span id="busuanzi_value_page_pv">0</span>  ℃</span>
+</div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>Docker 容器一旦删除，那么我们在容器内的一切操作将不复存在，比如我们在容器内存储的数据等；为了解决这个问题，Docker 提出了数据卷概念，就像我们运行一个mysql容器，我们需要存储我们的数据，日志之类，想要他们不会随着容器的删除而销毁，或者我们需要在各个容器间共享数据，那么这些<strong>数据卷</strong>或者<strong>数据卷容器</strong>都能做到。</p>
+<p>数据卷是一个可供一个或多个容器使用的特殊目录，它绕过 UFS，可以提供很多有用的特性：</p>
+<ul>
+<li>数据卷可以在容器之间共享和重用</li>
+<li>对数据卷的修改会立马生效</li>
+<li>对数据卷的更新，不会影响镜像</li>
+<li>数据卷默认会一直存在，即使容器被删除</li>
+<li>数据卷的生命周期一直持续到没有容器使用它为止</li>
+</ul>
+<blockquote>
+<p>数据卷的使用，类似于 Linux 下对目录或文件进行 mount，镜像中的被指定为挂载点的目录中的文件会隐藏掉，能显示看的是挂载的数据卷</p>
+</blockquote>
+<a id="more"></a>
+<p><strong>Docker提供了两种方式管理数据</strong></p>
+<ul>
+<li>数据卷</li>
+<li>数据卷容器</li>
+</ul>
+<h4 id="数据卷"><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h4><h5 id="添加数据卷"><a href="#添加数据卷" class="headerlink" title="添加数据卷"></a>添加数据卷</h5><p>在 <strong>docker run</strong> 命令中 使用 <strong>-v</strong> 标识给容器内添加一个或者多个数据卷</p>
+<p>在容器内创建一个新的数据卷 /data/shop</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d -P --name my-shop-web -v /data/shop sqgulj/shop-web</span><br></pre></td></tr></table></figure>
+<p>这种方式我们也可以在Dockerfile中使用<strong>VOLUME</strong>指令来给创建的容器添加一个或者多个数据卷，比如官方的 mysql 的 <a href="https://github.com/docker-library/mysql/blob/ad625c64a06e16683e997e5a0147508d115f4989/5.7/Dockerfile" target="_blank" rel="noopener">Dockerfile</a> 中用 <strong>VOLUME</strong> 指定了数据卷</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.........</span><br><span class="line"></span><br><span class="line">RUN &#123;</span><br><span class="line">    apt-get update &amp;&amp; apt-get install -y mysql-server=<span class="string">"<span class="variable">$&#123;MYSQL_VERSION&#125;</span>"</span> &amp;&amp; rm -rf /var/lib/apt/lists/* \</span><br><span class="line">	&amp;&amp; rm -rf /var/lib/mysql &amp;&amp; mkdir -p /var/lib/mysql /var/run/mysqld \</span><br><span class="line">	&amp;&amp; chown -R mysql:mysql /var/lib/mysql /var/run/mysqld \</span><br><span class="line"><span class="comment"># ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime</span></span><br><span class="line">	&amp;&amp; chmod 777 /var/run/mysqld \</span><br><span class="line"><span class="comment"># comment out a few problematic configuration values</span></span><br><span class="line">	&amp;&amp; find /etc/mysql/ -name <span class="string">'*.cnf'</span> -print0 \</span><br><span class="line">		| xargs -0 grep -lZE <span class="string">'^(bind-address|log)'</span> \</span><br><span class="line">		| xargs -rt -0 sed -Ei <span class="string">'s/^(bind-address|log)/#&amp;/'</span> \</span><br><span class="line"><span class="comment"># don't reverse lookup hostnames, they are usually another container</span></span><br><span class="line">	&amp;&amp; <span class="built_in">echo</span> <span class="string">'[mysqld]\nskip-host-cache\nskip-name-resolve'</span> &gt; /etc/mysql/conf.d/docker.cnf</span><br><span class="line"></span><br><span class="line">VOLUME /var/lib/mysql</span><br><span class="line"></span><br><span class="line">COPY docker-entrypoint.sh /usr/<span class="built_in">local</span>/bin/</span><br><span class="line">RUN ln -s usr/<span class="built_in">local</span>/bin/docker-entrypoint.sh /entrypoint.sh <span class="comment"># backwards compat</span></span><br><span class="line">ENTRYPOINT [<span class="string">"docker-entrypoint.sh"</span>]</span><br><span class="line">............</span><br></pre></td></tr></table></figure>
+<p>其中 <strong>VOLUME /var/lib/mysql</strong>  指定了mysql的数据卷</p>
+<h5 id="将宿主机的一个目录，挂在到容器里"><a href="#将宿主机的一个目录，挂在到容器里" class="headerlink" title="将宿主机的一个目录，挂在到容器里"></a>将宿主机的一个目录，挂在到容器里</h5><p>使用 <strong>-v</strong>，除了可以创建一个数据卷，还可以挂载本地主机目录到容器中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d -P --name my-shop-web -v /<span class="built_in">local</span>/data/shop:/data/shop sqgulj/shop-web</span><br></pre></td></tr></table></figure>
+<p>这将会把本地目录/local/data/shop挂载到容器的/data/shop目录，宿主机上的目录必须是绝对路径，如果目录不存在docker会自动创建它。</p>
+<blockquote>
+<p>出于可移植和分享的考虑，在Dockerfile中这种方式不支持</p>
+</blockquote>
+<p>docker默认情况下是对数据卷有读写权限，但是我们通过这样的方式让数据卷只读：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d -P --name my-shop-web -v /<span class="built_in">local</span>/data/shop:/data/shop:ro sqgulj/shop-web</span><br></pre></td></tr></table></figure>
+<p>这里我们同样挂载了/local/data/shop目录，只是添加了 <strong>ro</strong> 选项来限制它只读。</p>
+<h5 id="将宿主机上单个文件挂载到容器中"><a href="#将宿主机上单个文件挂载到容器中" class="headerlink" title="将宿主机上单个文件挂载到容器中"></a>将宿主机上单个文件挂载到容器中</h5><p>除了能挂载目录外，<strong>-v</strong> 标识还可以将宿主机的一个特定文件挂载为数据卷</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run --rm -it -v ~/.bash_history:/.bash_history ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+<p>这样就可以记录在容器输入过的命令了</p>
+<blockquote>
+<p>如果直接挂载一个文件，很多文件编辑工具，包括 vi 或者 sed –in-place，可能会造成文件 inode 的改变，从 Docker 1.1.0起，这会导致报错误信息。所以最简单的办法就直接挂载文件的父目录。</p>
+</blockquote>
+<h5 id="查看数据卷"><a href="#查看数据卷" class="headerlink" title="查看数据卷"></a>查看数据卷</h5><ul>
+<li>使用命令 <strong>docker volume</strong> 可以查看我们生成的数据卷</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker volume ls </span><br><span class="line">DRIVER              VOLUME NAME</span><br><span class="line"><span class="built_in">local</span>               b202765855d3b77e574284fde0079d31fb0258997a7b72eb6f7c8299053f216b</span><br></pre></td></tr></table></figure>
+<p>我们可以看到我们添加的数据卷 /data/shop ，当我们查看的时候并不是我们提供的名称，而是生成一系列的随机串，当我们为多个容器添加数据卷的时候，它也会为其生成一系列的随机串，这样不利于我们辨识哪些数据卷挂在哪个容器中，为了解决这个问题，我们可以在添加数据数据卷的时候，为数据卷起个辨识的名称，比如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d -P --name my-shop-web -v shopwebdata:/data/shop sqgulj/shop-web</span><br></pre></td></tr></table></figure>
+<p>我们发现，这次我们为容器添加一个数据的时候我们在前面加了一个 <strong>shopwebdata</strong> ，注意<strong>shopwebdata</strong>前面没有<strong>斜杠( / )</strong>，如果有斜杠那是把本地的一个目录挂载到容器内的一个目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker volume ls </span><br><span class="line">DRIVER              VOLUME NAME</span><br><span class="line"><span class="built_in">local</span>               shopwebdata</span><br></pre></td></tr></table></figure>
+<p>这次我们就能看到我们添加的数据卷就是我们起的名称，而不是一些列的随机串</p>
+<ul>
+<li>使用命令 <strong>docker inspect</strong> 查看数据卷</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># my-shop-web 为容器的名称</span></span><br><span class="line">$ docker inspect my-shop-web</span><br><span class="line">............</span><br><span class="line"></span><br><span class="line"><span class="string">"Mounts"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"Type"</span>: <span class="string">"volume"</span>,</span><br><span class="line">                <span class="string">"Name"</span>: <span class="string">"b202765855d3b77e574284fde0079d31fb0258997a7b72eb6f7c8299053f216b"</span>,</span><br><span class="line">                <span class="string">"Source"</span>: <span class="string">"/var/lib/docker/volumes/b202765855d3b77e574284fde0079d31fb0258997a7b72eb6f7c8299053f216b/_data"</span>,</span><br><span class="line">                <span class="string">"Destination"</span>: <span class="string">"/data/shop"</span>,</span><br><span class="line">                <span class="string">"Driver"</span>: <span class="string">"local"</span>,</span><br><span class="line">                <span class="string">"Mode"</span>: <span class="string">""</span>,</span><br><span class="line">                <span class="string">"RW"</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="string">"Propagation"</span>: <span class="string">""</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        </span><br><span class="line">.............</span><br></pre></td></tr></table></figure>
+<p>这里只列出了其中的 Mounts 属性，从中可以看到Source字段显示了数据卷存放的位置</p>
+<h5 id="删除数据卷"><a href="#删除数据卷" class="headerlink" title="删除数据卷"></a>删除数据卷</h5><p>数据卷是被设计来持久化数据的，因此，删除容器并不会删除数据卷。如果想要在删除容器时同时删除数据卷，可使用如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker rm -v 容器ID</span><br></pre></td></tr></table></figure>
+<p>这样既可在<strong>删除容器</strong>的同时也将<strong>数据卷删除</strong>。</p>
+<p>我们还可以使用 <strong>docker volume rm</strong> 命令删除数据卷</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看数据卷</span></span><br><span class="line">$ docker volume ls</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定数据卷名称删除</span></span><br><span class="line">$ docker volume rm volume_name volume_name</span><br></pre></td></tr></table></figure>
+<p>删除所有的数据卷</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume rm $(docker volume ls -f dangling=<span class="literal">true</span> -q)</span><br></pre></td></tr></table></figure>
+<h4 id="数据卷容器"><a href="#数据卷容器" class="headerlink" title="数据卷容器"></a>数据卷容器</h4><p>如果有些数据，需要在多个容器之间进行共享，这时候可以使用数据卷容器<br>创建数据卷容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql-volume -v /data mysql</span><br></pre></td></tr></table></figure>
+<p>其它容器可以使用–volumes-from标识，来使用通过刚刚创建的数据卷容器，来挂载对应的数据卷</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --volumes-from mysql-volume --name db1 mysql</span><br><span class="line"></span><br><span class="line">$ docker run -d --volumes-from mysql-volume --name db2 mysql</span><br></pre></td></tr></table></figure>
+<p>这样 db1 和 db2 两个容器都共享 mysql-volume 这个容器中的文件</p>
+<p>挂载相同数据卷的容器，容器的停止和删除，不会对数据卷产生影响</p>
+<p>我们也还可以对一个容器使用多个 –volumes-from 标识，来将多个数据卷桥接到这个容器中</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/docker/">docker</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://gulj.cn/2018/03/30/docker-数据持久化/#comments" id="sourceId::2018/03/30/docker-数据持久化/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/03/31/docker-linux命名空间/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    【Docker教程】Docker Linux网络命名空间
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/03/29/docker-容器/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">【Docker教程】Docker 容器</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="SOHUCS" sid="2018/03/30/docker-数据持久化/"></div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2018/04/09/webpack-教程/" class="title">Webpack 学习示例</a></p>
+                            <p class="item-date"><time datetime="2018-04-09T08:13:54.000Z" itemprop="datePublished">2018-04-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2018/03/31/docker-linux命名空间/" class="title">【Docker教程】Docker Linux网络命名空间</a></p>
+                            <p class="item-date"><time datetime="2018-03-31T02:44:25.000Z" itemprop="datePublished">2018-03-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2018/03/30/docker-数据持久化/" class="title">【Docker教程】Docker 数据持久化</a></p>
+                            <p class="item-date"><time datetime="2018-03-30T03:47:38.000Z" itemprop="datePublished">2018-03-30</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">12</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html">docker</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-expand-info" class="row" style="text-align: left;">
+            <div class="col-md-3 col-sm-6">
+                <!--关注我们-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">其他平台</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="https://github.com/dyc87112">Github</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="http://gitee.com/didispace">码云</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">联系合作</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="#">微信：glj88258</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">QQ：1175327069</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">邮箱：1175327069@qq.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--友情链接-->
+                
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">友情链接</h3>
+                    <div class="widget">
+                        <ul>
+                            <span class="label">
+                                <a target="_blank" href="http://cmsblogs.com/">chenssy</a>
+                            </span>
+
+                             <span class="label">
+                                <a target="_blank" href="http://blog.didispace.com/">程序猿DD</a>
+                            </span>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">我的公众号</h3>
+                    <div class="widget">
+                        <img style="width: 150px;height: 150px;" src="/css/images/qrcode_for_gh.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-base-info">
+            <div class="copy-info">
+                © 2018 顾立剑 版权所有<br>
+            </div>
+            <div class="busuanzi-info">
+                <span id="busuanzi_container_site_pv" style="display: inline;">访问量<span class="foot-count" id="busuanzi_value_site_pv">5868330</span>次</span>
+                <span id="busuanzi_container_site_uv" style="display: inline;">访客数<span class="foot-count" id="busuanzi_value_site_uv">359288</span>人次</span>
+                <br>
+                <span style="color: #888">苏ICP备15055047号-3</span>
+            </div>
+        </div>
+    </div>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+</footer>
+        
+    
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytaiyU6E"></script>
+    <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+    <script type="text/javascript">
+    window.changyan.api.config({
+    appid: 'cytaiyU6E',
+    conf: 'eae4b65d27f952474df2788e98a39555'
+    });
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

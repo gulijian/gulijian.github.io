@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>ELK(5.6.3)技术栈集群搭建 | 顾大仙MQ | 博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="1、ElasticSearch单节点和集群搭建 系统环境    系统/软件 版本     centos 7   jdk            # es 依赖jdk 8   node        # es 安装head插件需要 8.2.1   elasticsearch 5.6.3   logstash 5.6.3   kibana 5.6.3">
+<meta name="keywords" content="elk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELK(5.6.3)技术栈集群搭建">
+<meta property="og:url" content="http://gulj.cn/2017/11/24/ELK5-X技术栈集群搭建/index.html">
+<meta property="og:site_name" content="顾大仙MQ | 博客">
+<meta property="og:description" content="1、ElasticSearch单节点和集群搭建 系统环境    系统/软件 版本     centos 7   jdk            # es 依赖jdk 8   node        # es 安装head插件需要 8.2.1   elasticsearch 5.6.3   logstash 5.6.3   kibana 5.6.3">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://gulj.cn/images/es-cluster-head.jpeg">
+<meta property="og:image" content="http://gulj.cn/images/es-kibana.jpeg">
+<meta property="og:updated_time" content="2018-05-02T07:14:47.965Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ELK(5.6.3)技术栈集群搭建">
+<meta name="twitter:description" content="1、ElasticSearch单节点和集群搭建 系统环境    系统/软件 版本     centos 7   jdk            # es 依赖jdk 8   node        # es 安装head插件需要 8.2.1   elasticsearch 5.6.3   logstash 5.6.3   kibana 5.6.3">
+<meta name="twitter:image" content="http://gulj.cn/images/es-cluster-head.jpeg">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="顾大仙MQ | 博客" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">顾大仙MQ | 博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/categories/Java/">Java</a>
+                
+                    <a class="main-nav-link" href="/categories/运维/">运维</a>
+                
+                    <a class="main-nav-link" href="/categories/工具/">工具</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/categories/Java/">Java</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/运维/">运维</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/工具/">工具</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">顾立剑</h2>
+            <h3 id="title">没有收拾残局的能力，就别放纵善变的情绪</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国-上海</span>
+            <a id="follow" target="_blank" href="https://github.com/gulijian">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                27
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                13
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/gulijian" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://git.oschina.net/gulijian" target="_blank" title="git" class=tooltip>
+                            <i class="fa fa-git"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="mailto:1175327069@qq.com" target="_blank" title="envelope" class=tooltip>
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-ELK5-X技术栈集群搭建" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            ELK(5.6.3)技术栈集群搭建
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/11/24/ELK5-X技术栈集群搭建/">
+            <time datetime="2017-11-24T14:28:29.000Z" itemprop="datePublished">2017-11-24</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/运维/">运维</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/elk/">elk</a>
+    </div>
+
+                        
+                            <div class="article-tag">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_container_page_pv" style="display: inline;"> <span id="busuanzi_value_page_pv">0</span>  ℃</span>
+</div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><strong>1、ElasticSearch单节点和集群搭建</strong></p>
+<p><strong>系统环境</strong></p>
+<table>
+<thead>
+<tr>
+<th>系统/软件</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>centos</td>
+<td>7</td>
+</tr>
+<tr>
+<td>jdk            # <strong>es 依赖jdk</strong></td>
+<td>8</td>
+</tr>
+<tr>
+<td>node        # <strong>es 安装head插件需要</strong></td>
+<td>8.2.1</td>
+</tr>
+<tr>
+<td>elasticsearch</td>
+<td>5.6.3</td>
+</tr>
+<tr>
+<td>logstash</td>
+<td>5.6.3</td>
+</tr>
+<tr>
+<td>kibana</td>
+<td>5.6.3</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<p><strong>机器规划及节点分布</strong></p>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>节点</th>
+<th>节点</th>
+<th>节点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.1.110</td>
+<td>elasticsearch-master</td>
+<td>logstash</td>
+<td>kibana</td>
+</tr>
+<tr>
+<td>192.168.1.111</td>
+<td>Elasticsearch-slave1</td>
+<td>logstash</td>
+<td></td>
+</tr>
+<tr>
+<td>192.168.1.112</td>
+<td>Elasticsearch-slave2</td>
+<td>logstash</td>
+</tr>
+</tbody>
+</table>
+<p><strong>目录分配</strong></p>
+<ul>
+<li>下载软件源码包存放的位置:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/src/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装位置:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/</span><br></pre></td></tr></table></figure>
+<p><strong>相关软件包官方下载地址</strong></p>
+<blockquote>
+<p><a href="https://www.elastic.co/downloads" target="_blank" rel="noopener">https://www.elastic.co/downloads</a></p>
+</blockquote>
+<h5 id="①、elasticsearch-单节点安装（192-168-1-110）"><a href="#①、elasticsearch-单节点安装（192-168-1-110）" class="headerlink" title="①、elasticsearch 单节点安装（192.168.1.110）"></a>①、elasticsearch 单节点安装（192.168.1.110）</h5><p>下载：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.3.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压缩</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf elasticsearch-5.6.3.tar.gz</span><br></pre></td></tr></table></figure>
+<p>创建软链接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/elasticsearch-5.6.3/ /usr/local/elasticsearch-master</span><br></pre></td></tr></table></figure>
+<p>创建elasticsearch用户，把elasticsearch-master的所有者和所有组设置为用户elasticsearch（ES不能以root用户启动）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 添加 elasticsearch 用户</span></span><br><span class="line">useradd elasticsearch</span><br><span class="line"><span class="meta">#</span><span class="bash"> 为 elasticsearch 用户设置密码</span></span><br><span class="line">passwd elasticsearch</span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 elasticsearch-master 的目录的所有者和所属组设置为用户 elasticsearch</span></span><br><span class="line">chown -R elasticsearch:elasticsearch /usr/local/elasticsearch-master</span><br></pre></td></tr></table></figure>
+<p>启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 进入es的根目录</span></span><br><span class="line">cd elasticsearch-master</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动(放入后台启动，注意不能以root用户启动,以elasticsearch用户启动)</span></span><br><span class="line">./bin/elasticsearch -d</span><br><span class="line"><span class="meta">#</span><span class="bash"> 访问es</span></span><br><span class="line">http://localhost:9200</span><br></pre></td></tr></table></figure>
+<p><strong>elastisearch 安装常见错误日志和解决方案参考地址：</strong></p>
+<ul>
+<li>报错”max virtual memory areas vm.max<em>map</em>count [65530] is too low”，要运行下面的命令。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sysctl -w vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
+<ul>
+<li>其它报错信息解决方案参考地址</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.jianshu.com/p/4c6f9361565b</span><br></pre></td></tr></table></figure>
+<p>测试ES服务是否启动正常（默认监听9200端口）</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 访问地址</span><br><span class="line">http://192.168.1.110:9200</span><br><span class="line"># 返回数据</span><br><span class="line">&#123;</span><br><span class="line">name: "aRvmIj4",</span><br><span class="line">cluster_name: "elasticsearch",</span><br><span class="line">cluster_uuid: "tXoxyBvmSFGNkiJfAOJWXw",</span><br><span class="line">version: &#123;</span><br><span class="line">  number: "5.6.3",</span><br><span class="line">  build_hash: "1a2f265",</span><br><span class="line">  build_date: "2017-11-24T20:33:39.012Z",</span><br><span class="line">  build_snapshot: false,</span><br><span class="line">  lucene_version: "6.6.1"</span><br><span class="line">&#125;,</span><br><span class="line">tagline: "You Know, for Search"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ES的Head插件安装（提供友好的web界面，es一些基本信息的查询）</p>
+<p>下载</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget  https://github.com/mobz/elasticsearch-head/archive/master.zip</span><br></pre></td></tr></table></figure>
+<p>解压缩</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip master.zip</span><br></pre></td></tr></table></figure>
+<p>安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 进入 elasticsearch-head-master 目录</span></span><br><span class="line">cd elasticsearch-head-master</span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行 npm install </span></span><br><span class="line">npm install</span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行 npm run start</span></span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure>
+<p>访问ESHead插件（默认监听9100端口）</p>
+<blockquote>
+<p><a href="http://localhost:9100" target="_blank" rel="noopener">http://localhost:9100</a></p>
+</blockquote>
+<p>ES和Head插件关联配置(ES和Head插件属于两个不同的进程，解决跨域问题)</p>
+<p>修改:<strong>elasticsearch-5.6.3/config/elasticsearch.yml</strong>配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编辑ES配置文件</span></span><br><span class="line">vim elasticsearch.yml</span><br><span class="line"><span class="meta">#</span><span class="bash"> 在配置文件最后添加两行配置</span></span><br><span class="line">http.cors.enabled: true   # 注意yml文件的格式，true 前面有空格</span><br><span class="line">http.cors.allow-origin: "*"</span><br></pre></td></tr></table></figure>
+<p>最后重启ES服务和ES的Head插件，配置完成</p>
+<h5 id="②、elasticsearch-集群（1-master，2个slave）-gt-192-168-1-110-master-192-168-1-111-192-168-1-112"><a href="#②、elasticsearch-集群（1-master，2个slave）-gt-192-168-1-110-master-192-168-1-111-192-168-1-112" class="headerlink" title="②、elasticsearch 集群（1 master，2个slave）-&gt; (192.168.1.110(master),192.168.1.111,192.168.1.112)"></a>②、elasticsearch 集群（1 master，2个slave）-&gt; (192.168.1.110(master),192.168.1.111,192.168.1.112)</h5><p>基于第一步单节点(192.168.1.110)安装集群（我们把它设置为Master节点）</p>
+<p>修改:<strong>elasticsearch-master/config/elasticsearch.yml</strong>配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 解决跨域问题</span></span><br><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: "*"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 集群名称</span></span><br><span class="line">cluster.name: gulj-es</span><br><span class="line"><span class="meta">#</span><span class="bash"> 节点名称</span></span><br><span class="line">node.name: es-master</span><br><span class="line"><span class="meta">#</span><span class="bash"> 告知节点为master节点</span></span><br><span class="line">node.master: true</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置是否为数据节点</span></span><br><span class="line">node.data: true</span><br><span class="line"><span class="meta">#</span><span class="bash"> Ip地址</span></span><br><span class="line">network.host: 192.168.1.110</span><br><span class="line"><span class="meta">#</span><span class="bash"> 端口</span></span><br><span class="line">http.port: 9200</span><br><span class="line"><span class="meta">#</span><span class="bash"> 日志存放位置</span></span><br><span class="line">path.logs: /data/elasticsearch/logs</span><br><span class="line"><span class="meta">#</span><span class="bash"> 数据存放位置</span></span><br><span class="line">path.data: /data/elasticsearch/data</span><br><span class="line"><span class="meta">#</span><span class="bash"> 单播，配置集群中的所有节点</span></span><br><span class="line">discovery.zen.ping.unicast.hosts: ["192.168.1.110","192.168.1.111"]</span><br></pre></td></tr></table></figure>
+<p>重新解压缩elasticsearch-5.6.3.tar.gz包复制两份，</p>
+<p>分别命名为 elasticsearch_slave1（节点：192.168.1.111）和elasticsearch_slave2（节点：192.168.1.112）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 解压缩 es 包</span></span><br><span class="line">tar -zxvf elasticsearch-5.6.3.tar.gz</span><br><span class="line"><span class="meta">#</span><span class="bash"> 复制两份 es 并重命名</span></span><br><span class="line">cp -r elasticsearch-5.6.3 elasticsearch_slave1</span><br><span class="line">cp -r elasticsearch-5.6.3 elasticsearch_slave2</span><br></pre></td></tr></table></figure>
+<p>分别修改 elasticsearch_slave1、elasticsearch_slave2 的 <strong>elasticsearch.yml</strong> 配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 集群名称</span></span><br><span class="line">cluster.name: gulj-es</span><br><span class="line"><span class="meta">#</span><span class="bash"> 节点名称,注意salve2节点,需要命名为对应的es-slave02</span></span><br><span class="line">node.name: es-slave01</span><br><span class="line"><span class="meta">#</span><span class="bash"> 不是master</span></span><br><span class="line">node.master: false</span><br><span class="line"><span class="meta">#</span><span class="bash"> 数据节点</span></span><br><span class="line">node.data: true</span><br><span class="line"><span class="meta">#</span><span class="bash"> 绑定的Ip</span></span><br><span class="line">network.host: 0.0.0.0</span><br><span class="line"><span class="meta">#</span><span class="bash"> 绑定端口</span></span><br><span class="line">http.port: 9200</span><br><span class="line"><span class="meta">#</span><span class="bash"> 日志位置</span></span><br><span class="line">path.logs: /data/elasticsearch/logs</span><br><span class="line"><span class="meta">#</span><span class="bash"> 数据位置</span></span><br><span class="line">path.data: /data/elasticsearch/data</span><br><span class="line"><span class="meta">#</span><span class="bash"> 单播发现</span></span><br><span class="line">discovery.zen.ping.unicast.hosts: ["192.168.1.110"]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 解决跨域</span></span><br><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: "*"</span><br></pre></td></tr></table></figure>
+<p>elasticsearch_slave2的配置文件和elasticsearch_slave1的配置文件大致相同，只需要修改node.name（节点名称）这里不再演示(<strong>注意防火墙的设置，建议关闭</strong>)</p>
+<p>Elasticsearch Head 插件页面展示</p>
+<p><img src="/images/es-cluster-head.jpeg" alt=""></p>
+<h2 id="2、logStash安装"><a href="#2、logStash安装" class="headerlink" title="2、logStash安装"></a>2、logStash安装</h2><h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget  https://artifacts.elastic.co/downloads/logstash/logstash-5.6.3.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压缩</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf logstash-5.6.3.tar.gz</span><br></pre></td></tr></table></figure>
+<p>创建软链接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建软连接</span></span><br><span class="line">ln -s /usr/local/logstash-5.6.3  /usr/local/logstash</span><br></pre></td></tr></table></figure>
+<p>创建logstash配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建logstash配置文件</span></span><br><span class="line">vim logstash.conf</span><br></pre></td></tr></table></figure>
+<p><strong>logstash.conf</strong>  文件内容（根据各自的业务需求，收集相应的日志，具体语法，参考官方文档）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">input &#123;</span><br><span class="line">     file &#123;</span><br><span class="line">        # 收集ES的Log日志</span><br><span class="line">        path =&gt; "/data/elasticsearch/logs/gulj-es.log"</span><br><span class="line">        # 自定义类型</span><br><span class="line">        type =&gt; "es-master"</span><br><span class="line">        # 从开始位置进行收集</span><br><span class="line">        start_position =&gt; "beginning"</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">output&#123;</span><br><span class="line">  elasticsearch&#123;</span><br><span class="line">       # ES节点主机地址</span><br><span class="line">       hosts =&gt; ["192.168.1.110:9200"]   </span><br><span class="line">       # 设置索引名称</span><br><span class="line">       index =&gt; "es-master-log"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动logstash</span></span><br><span class="line">./bin/logstash -f  logstash.conf</span><br></pre></td></tr></table></figure>
+<h2 id="3、Kibana安装"><a href="#3、Kibana安装" class="headerlink" title="3、Kibana安装"></a>3、Kibana安装</h2><p>下载</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/kibana/kibana-5.6.3-linux-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压缩</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf kibana-5.6.3-linux-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>创建软连接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/kibana-5.6.3-linux-x86_64 /usr/local/kibana</span><br></pre></td></tr></table></figure>
+<p>修改配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 打开kibana配置文件</span></span><br><span class="line">vim kibana/conf/kibana.yml</span><br><span class="line"><span class="meta">#</span><span class="bash"> 打开或修改以下配置参数</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 监听端口</span></span><br><span class="line">server.port: 5601</span><br><span class="line"><span class="meta">#</span><span class="bash"> 监听主机</span></span><br><span class="line">server.host: "192.168.1.110"</span><br><span class="line"><span class="meta">#</span><span class="bash"> ES服务地址</span></span><br><span class="line">elasticsearch.url: "http://192.168.1.110:9200"</span><br><span class="line"><span class="meta">#</span><span class="bash"> kibana的索引</span></span><br><span class="line">kibana.index: ".kibana"</span><br></pre></td></tr></table></figure>
+<p>启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动kibana</span></span><br><span class="line">./bin/kibana</span><br></pre></td></tr></table></figure>
+<p>Kibana页面展示</p>
+<p><img src="/images/es-kibana.jpeg" alt=""></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/elk/">elk</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://gulj.cn/2017/11/24/ELK5-X技术栈集群搭建/#comments" id="sourceId::2017/11/24/ELK5-X技术栈集群搭建/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/12/27/Charles进行HTTPS抓包/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Charles进行HTTPS抓包
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/11/10/ElasticSearch常用API使用教程/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">ElasticSearch常用API使用教程</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="SOHUCS" sid="2017/11/24/ELK5-X技术栈集群搭建/"></div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2018/04/09/webpack-教程/" class="title">Webpack 学习示例</a></p>
+                            <p class="item-date"><time datetime="2018-04-09T08:13:54.000Z" itemprop="datePublished">2018-04-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2018/03/31/docker-linux命名空间/" class="title">【Docker教程】Docker Linux网络命名空间</a></p>
+                            <p class="item-date"><time datetime="2018-03-31T02:44:25.000Z" itemprop="datePublished">2018-03-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2018/03/30/docker-数据持久化/" class="title">【Docker教程】Docker 数据持久化</a></p>
+                            <p class="item-date"><time datetime="2018-03-30T03:47:38.000Z" itemprop="datePublished">2018-03-30</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">12</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html">docker</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-expand-info" class="row" style="text-align: left;">
+            <div class="col-md-3 col-sm-6">
+                <!--关注我们-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">其他平台</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="https://github.com/dyc87112">Github</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="http://gitee.com/didispace">码云</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">联系合作</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="#">微信：glj88258</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">QQ：1175327069</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">邮箱：1175327069@qq.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--友情链接-->
+                
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">友情链接</h3>
+                    <div class="widget">
+                        <ul>
+                            <span class="label">
+                                <a target="_blank" href="http://cmsblogs.com/">chenssy</a>
+                            </span>
+
+                             <span class="label">
+                                <a target="_blank" href="http://blog.didispace.com/">程序猿DD</a>
+                            </span>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">我的公众号</h3>
+                    <div class="widget">
+                        <img style="width: 150px;height: 150px;" src="/css/images/qrcode_for_gh.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-base-info">
+            <div class="copy-info">
+                © 2018 顾立剑 版权所有<br>
+            </div>
+            <div class="busuanzi-info">
+                <span id="busuanzi_container_site_pv" style="display: inline;">访问量<span class="foot-count" id="busuanzi_value_site_pv">5868330</span>次</span>
+                <span id="busuanzi_container_site_uv" style="display: inline;">访客数<span class="foot-count" id="busuanzi_value_site_uv">359288</span>人次</span>
+                <br>
+                <span style="color: #888">苏ICP备15055047号-3</span>
+            </div>
+        </div>
+    </div>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+</footer>
+        
+    
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytaiyU6E"></script>
+    <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+    <script type="text/javascript">
+    window.changyan.api.config({
+    appid: 'cytaiyU6E',
+    conf: 'eae4b65d27f952474df2788e98a39555'
+    });
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
