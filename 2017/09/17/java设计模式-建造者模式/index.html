@@ -5,18 +5,20 @@
     
     <title>java设计模式-建造者模式 | 顾大仙MQ | 博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="本站是顾大仙MQ（顾立剑）的技术分享博客。内容涵盖Java后端技术、大数据、优秀开发工具、Mac推荐工具、视屏书籍分享、运维开发、系统监控等相关的研究与知识分享">
+    <meta name="description" content="介绍建造者模式（英：Builder Pattern）是一种创建型设计模式，又名：生成器模式。GOF 给建造者模式的定义为：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式负责按顺序创建复杂对象（把内部的建造过程和细节隐藏起来)。 结构">
 <meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java设计模式-建造者模式">
 <meta property="og:url" content="http://www.gulj.cn/2017/09/17/java设计模式-建造者模式/index.html">
 <meta property="og:site_name" content="顾大仙MQ | 博客">
-<meta property="og:description" content="本站是顾大仙MQ（顾立剑）的技术分享博客。内容涵盖Java后端技术、大数据、优秀开发工具、Mac推荐工具、视屏书籍分享、运维开发、系统监控等相关的研究与知识分享">
+<meta property="og:description" content="介绍建造者模式（英：Builder Pattern）是一种创建型设计模式，又名：生成器模式。GOF 给建造者模式的定义为：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式负责按顺序创建复杂对象（把内部的建造过程和细节隐藏起来)。 结构">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-08T09:45:22.492Z">
+<meta property="og:image" content="http://p6nkwri76.bkt.clouddn.com/15269687200075.jpg">
+<meta property="og:updated_time" content="2018-05-22T06:10:39.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java设计模式-建造者模式">
-<meta name="twitter:description" content="本站是顾大仙MQ（顾立剑）的技术分享博客。内容涵盖Java后端技术、大数据、优秀开发工具、Mac推荐工具、视屏书籍分享、运维开发、系统监控等相关的研究与知识分享">
+<meta name="twitter:description" content="介绍建造者模式（英：Builder Pattern）是一种创建型设计模式，又名：生成器模式。GOF 给建造者模式的定义为：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式负责按顺序创建复杂对象（把内部的建造过程和细节隐藏起来)。 结构">
+<meta name="twitter:image" content="http://p6nkwri76.bkt.clouddn.com/15269687200075.jpg">
     
 
     
@@ -262,7 +264,28 @@
         <div class="article-entry" itemprop="articleBody">
         
             
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#结构"><span class="toc-number">2.</span> <span class="toc-text">结构</span></a></li></ol>
+                </div>
             
+            <h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>建造者模式（英：Builder Pattern）是一种创建型设计模式，又名：生成器模式。GOF 给建造者模式的定义为：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式负责按顺序创建复杂对象（把内部的建造过程和细节隐藏起来)。</p>
+<h5 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h5><p><img src="http://p6nkwri76.bkt.clouddn.com/15269687200075.jpg" alt=""></p>
+<a id="more"></a>
+<p><strong>抽象建造者（Builder）角色</strong>: 可以是一个接口或者抽象类，主要用于规范产品对象的各个组成成分的建造</p>
+<p><strong>具体建造者（ConcreteBuilder）角色</strong>: </p>
+<ul>
+<li><p>实现抽象建造者Builder所声明的接口</p>
+</li>
+<li><p>提供产品实例，用户构建产品</p>
+</li>
+</ul>
+<p><strong>导演者（Director）角色</strong>: 调用具体建造者角色以创建产品对象</p>
+<p><strong>产品（Product）角色</strong>: 最终构建成具体产品</p>
+<blockquote>
+<p>导演者角色是与客户端打交道的角色。导演者将客户端创建产品的请求划分为对各个零件的建造请求，再将这些请求委派给具体建造者角色。具体建造者角色是做具体建造工作的，但是却不为客户端所知</p>
+</blockquote>
+
         
         </div>
         <footer class="article-footer">
