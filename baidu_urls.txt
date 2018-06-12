@@ -1,5 +1,5 @@
 http://www.gulj.cn/2018/06/12/ActiveMQ入门教程/
-http://www.gulj.cn/2018/06/12/2018-06-12/
 http://www.gulj.cn/2018/06/08/OSX平台使用jenv管理多个Java版本/
 http://www.gulj.cn/2018/06/07/OSX平台开发工具和常用软件推荐/
 http://www.gulj.cn/2018/05/23/idea-使用技巧/
+http://www.gulj.cn/2018/05/22/intellij-idea-必备插件/
