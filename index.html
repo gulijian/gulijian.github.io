@@ -154,7 +154,7 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                38
+                39
                 <span>文章</span>
             </div>
             <div class="article-info-block">
@@ -201,6 +201,121 @@
 
             
             <section id="main">
+    <article id="post-awk命令" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/02/14/awk命令/">awk命令</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">转载</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/02/14/awk命令/">
+            <time datetime="2019-02-14T07:13:37.000Z" itemprop="datePublished">2019-02-14</time>
+        </a>
+    </div>
+
+
+                        <!--  -->
+                        
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            
+        
+        </div>
+        <footer class="article-footer">
+            
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2019/02/14/awk命令/#comments" id="sourceId::2019/02/14/awk命令/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-Btrace监控调试基本教程" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -1485,145 +1600,6 @@
 
 
 
-    <article id="post-docker-linux命名空间" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/03/31/docker-linux命名空间/">【Docker教程】Docker Linux网络命名空间</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-type">		  
-            <span class="article-type type-1">原创</span>  
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/03/31/docker-linux命名空间/">
-            <time datetime="2018-03-31T02:44:25.000Z" itemprop="datePublished">2018-03-31</time>
-        </a>
-    </div>
-
-
-                        <!-- 
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/运维/">运维</a>
-    </div>
- -->
-                        
-    <div class="article-tag">
-        <i class="fa fa-user"></i>
-        顾立剑
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/docker/">docker</a>
-    </div>
-
-                        
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>到现在我们已经了解到Docker的镜像、容器等概念，我们可以在一台宿主机上运行一个或者多个容器，也可以将不同的容器运行在不同的宿主机上，那么这些容器是怎样进行互相通信呢？本文将介绍Linux网络命名空间概念，来帮助读者更好地了解到Docker容器之间的通信。</p>
-<h4 id="容器之间的通信-同一台宿主机上"><a href="#容器之间的通信-同一台宿主机上" class="headerlink" title="容器之间的通信(同一台宿主机上)"></a>容器之间的通信(同一台宿主机上)</h4><p>默认情况下，在同一台宿主机上的多个容器是可以互相访问的，容器的网络命名空间和宿主机的网络命名空间是相互独立隔离的</p>
-<p>查看宿主机的网络命名空间</p></p>
-            <p class="article-more-link">
-                <a href="/2018/03/31/docker-linux命名空间/#more">查看更多</a>
-            </p>
-        
-        </div>
-        <footer class="article-footer">
-            
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/docker/">docker</a>
-    </div>
-
-            <div class="share-container">
-
-    <div class="jiathis_style">
-    <span class="jiathis_txt">分享到：</span>
-    <a class="jiathis_button_qzone">QQ空间</a>
-    <a class="jiathis_button_tsina">新浪微博</a>
-    <a class="jiathis_button_tqq">腾讯微博</a>
-    <a class="jiathis_button_weixin">微信</a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-    <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<style>
-    .jiathis_style div:first-child:not(.jiadiv_01) {
-        width: auto !important;
-        border: none !important;
-    }
-    .jiathis_style .jiadiv_01 {
-        margin: 10px 0;
-        border-radius: 4px;
-        border: #e1e1e1 solid 1px;
-    }
-    .jiathis_style .jiadiv_01 div:first-child {
-        display: none;
-    }
-    .jiathis_style .jiadiv_02 {
-        padding: 7px 0 !important;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle {
-        width: 85px;
-        border: none;
-        height: auto;
-        margin: 3px 10px;
-        padding: 6px 10px;
-        border-radius: 4px;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle:hover {
-        border: none;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
-        margin-left: 0;
-    }
-    .jiathis_style .jtico:hover {
-        opacity: 1;
-    }
-    .jiathis_style .ckepopBottom,
-    .jiathis_style .centerBottom {
-        width: auto !important;
-        padding: 5px;
-        background: #f7f7f7;
-    }
-</style>
-
-
-
-</div>
-
-           
-            <!-- 
-    
-        <a href="http://www.gulj.cn/2018/03/31/docker-linux命名空间/#comments" id="sourceId::2018/03/31/docker-linux命名空间/" class="article-comment-link cy_cmt_count">评论</a>
-    
- -->
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <nav id="page-nav">
         <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
     </nav>
@@ -1641,6 +1617,15 @@
                     <li>
                         
                         <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2019/02/14/awk命令/" class="title">awk命令</a></p>
+                            <p class="item-date"><time datetime="2019-02-14T07:13:37.000Z" itemprop="datePublished">2019-02-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
                             <p class="item-title"><a href="/2018/07/30/Btrace监控调试基本教程/" class="title">Btrace监控调试基本教程</a></p>
                             <p class="item-date"><time datetime="2018-07-30T07:53:46.000Z" itemprop="datePublished">2018-07-30</time></p>
@@ -1653,15 +1638,6 @@
                             <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
                             <p class="item-title"><a href="/2018/07/30/Java-线上问题排查神器-BTrace-入门/" class="title">Java 线上问题排查神器 BTrace 入门</a></p>
                             <p class="item-date"><time datetime="2018-07-30T03:27:13.000Z" itemprop="datePublished">2018-07-30</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
-                            <p class="item-title"><a href="/2018/06/20/Spring集成ActiveMQ/" class="title">Spring集成ActiveMQ</a></p>
-                            <p class="item-date"><time datetime="2018-06-20T10:29:51.000Z" itemprop="datePublished">2018-06-20</time></p>
                         </div>
                     </li>
                 
