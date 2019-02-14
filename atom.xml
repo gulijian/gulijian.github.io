@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.gulj.cn/"/>
-  <updated>2019-02-14T07:17:44.361Z</updated>
+  <updated>2019-02-14T07:20:36.207Z</updated>
   <id>http://www.gulj.cn/</id>
   
   <author>
@@ -21,12 +21,23 @@
     <link href="http://www.gulj.cn/2019/02/14/find%E5%92%8Cgrep%E5%91%BD%E4%BB%A4-1/"/>
     <id>http://www.gulj.cn/2019/02/14/find和grep命令-1/</id>
     <published>2019-02-14T07:17:44.000Z</published>
-    <updated>2019-02-14T07:17:44.361Z</updated>
+    <updated>2019-02-14T07:20:36.207Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="find"><a href="#find" class="headerlink" title="find"></a>find</h4><h5 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find 【路径】【选项】【操作】</span><br></pre></td></tr></table></figure><h5 id="选项参数"><a href="#选项参数" class="headerlink" title="选项参数"></a>选项参数</h5><table><thead><tr><th>选项</th><th>含义</th></tr></thead><tbody><tr><td>-name</td><td>根据文件名查找</td></tr><tr><td>-iname</td><td>根据文件名查找不区分大小写</td></tr><tr><td>-perm</td><td>根据文件权限查找</td></tr><tr><td>-prune</td><td>该选项可以排除某些目录</td></tr><tr><td>-user</td><td>根据文件属主查找</td></tr><tr><td>-group</td><td>根据文件属组查找</td></tr><tr><td>-mtime  -n \</td><td>+n</td><td>根据文件更改时间查找，以天为单位</td></tr><tr><td>-mmin   -n \</td><td>+n</td><td>根据文件更改时间查找，以分钟为单位</td></tr><tr><td>-nogroup</td><td>查找无有效属组的文件</td></tr><tr><td>-nouser</td><td>查找无有效属主的文件</td></tr><tr><td>-type</td><td>按文件类型查找</td></tr><tr><td>-size -n \</td><td>+n</td><td>按文件大小查找</td></tr><tr><td>-mindepth n</td><td>从n级子目录开始查找</td></tr><tr><td>-maxdepth n</td><td>最多搜多到n级子目录</td></tr></tbody></table><h5 id="示例说明"><a href="#示例说明" class="headerlink" title="示例说明"></a>示例说明</h5><ul><li><p>-name</p><p>查找/etc目录下已conf结尾的文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /etc  -name "*.conf"</span><br></pre></td></tr></table></figure></li><li><p>-user</p><p>查找当前目录下属主食hadoop的文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -user hadoop</span><br></pre></td></tr></table></figure></li><li><p>-type</p><ul><li>f     (文件)</li><li>d    (目录)</li><li>c     (字符设备文件)</li><li>l     (链接文件)</li><li>p    (管道文件)</li></ul><p>查找当前路径下的文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -type f</span><br></pre></td></tr></table></figure></li><li><p>-size</p><ul><li>-n   (大小小于n的文件)</li><li>+n   (大小大于n的文件)</li></ul><p>查找/etc目录下小于1000的字节文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /etc -size -1000c</span><br></pre></td></tr></table></figure><p>查找/etc目录下大于1兆的文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /etc -size +1M</span><br></pre></td></tr></table></figure></li><li><p>-mtime</p><ul><li>-n   (n天以内修改的文件)</li><li>+n   (n天以外修改的文件)</li></ul><p>查找/etc目录下3天以内修改的文件且以conf结尾的文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /etc -mtime -3 -name "*.conf"</span><br></pre></td></tr></table></figure><p>查找/etc目录下30分钟之前修改的目录</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /etc -mmin +30 -type d</span><br></pre></td></tr></table></figure></li><li><p>mindepth</p><p>从/etc目录下3级子目录开始搜索文件</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /etc -mindepth 3 -type f</span><br></pre></td></tr></table></figure></li><li><p>maxdepth</p><p>从/etc目录下查找文件权限为644，最多搜索到2级目录（当前位置表示一级目录）</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /etc -maxdepth 2 -perm 644</span><br></pre></td></tr></table></figure></li><li><p>-prune</p><blockquote><p>通常和path一起使用，用于将特定的目录排除在搜索之外</p></blockquote><p>查找当前目录下所有文件，但排除log目录</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -path ./log -prune -o -type f</span><br></pre></td></tr></table></figure><p>查找当前目录下所有文件，但排除log目录和lib目录</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -path ./log -prune -o -path ./lib -prune -o -type f</span><br></pre></td></tr></table></figure></li></ul>]]></content>
     
     <summary type="html">
     
+      
+      
+        &lt;h4 id=&quot;find&quot;&gt;&lt;a href=&quot;#find&quot; class=&quot;headerlink&quot; title=&quot;find&quot;&gt;&lt;/a&gt;find&lt;/h4&gt;&lt;h5 id=&quot;语法格式&quot;&gt;&lt;a href=&quot;#语法格式&quot; class=&quot;headerlink&quot; title=&quot;语法格式&quot;&gt;&lt;/a
+      
+    
     </summary>
     
+      <category term="运维" scheme="http://www.gulj.cn/categories/%E8%BF%90%E7%BB%B4/"/>
+    
+    
+      <category term="linux" scheme="http://www.gulj.cn/tags/linux/"/>
     
   </entry>
   
