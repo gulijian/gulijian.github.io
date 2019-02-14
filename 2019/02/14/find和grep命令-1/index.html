@@ -5,18 +5,18 @@
     
     <title>find和grep命令 | 顾大仙MQ | 博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="find语法格式1find 【路径】【选项】【操作】 选项参数   选项 含义     -name 根据文件名查找   -iname 根据文件名查找不区分大小写   -perm 根据文件权限查找   -prune 该选项可以排除某些目录   -user 根据文件属主查找   -group 根据文件属组查找   -mtime  -n \ +n 根据文件更改时间查找，以天为单位   -mmin   -">
+    <meta name="description" content="find语法格式1find 【路径】【选项】【操作】 选项参数   选项 含义     -name 根据文件名查找   -iname 根据文件名查找不区分大小写   -perm 根据文件权限查找   -prune 该选项可以排除某些目录   -user 根据文件属主查找   -group 根据文件属组查找   -mtime  -n +n 根据文件更改时间查找，以天为单位   -mmin   -n">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="find和grep命令">
 <meta property="og:url" content="http://www.gulj.cn/2019/02/14/find和grep命令-1/index.html">
 <meta property="og:site_name" content="顾大仙MQ | 博客">
-<meta property="og:description" content="find语法格式1find 【路径】【选项】【操作】 选项参数   选项 含义     -name 根据文件名查找   -iname 根据文件名查找不区分大小写   -perm 根据文件权限查找   -prune 该选项可以排除某些目录   -user 根据文件属主查找   -group 根据文件属组查找   -mtime  -n \ +n 根据文件更改时间查找，以天为单位   -mmin   -">
+<meta property="og:description" content="find语法格式1find 【路径】【选项】【操作】 选项参数   选项 含义     -name 根据文件名查找   -iname 根据文件名查找不区分大小写   -perm 根据文件权限查找   -prune 该选项可以排除某些目录   -user 根据文件属主查找   -group 根据文件属组查找   -mtime  -n +n 根据文件更改时间查找，以天为单位   -mmin   -n">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-14T07:50:41.971Z">
+<meta property="og:updated_time" content="2019-02-14T07:52:42.304Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="find和grep命令">
-<meta name="twitter:description" content="find语法格式1find 【路径】【选项】【操作】 选项参数   选项 含义     -name 根据文件名查找   -iname 根据文件名查找不区分大小写   -perm 根据文件权限查找   -prune 该选项可以排除某些目录   -user 根据文件属主查找   -group 根据文件属组查找   -mtime  -n \ +n 根据文件更改时间查找，以天为单位   -mmin   -">
+<meta name="twitter:description" content="find语法格式1find 【路径】【选项】【操作】 选项参数   选项 含义     -name 根据文件名查找   -iname 根据文件名查找不区分大小写   -perm 根据文件权限查找   -prune 该选项可以排除某些目录   -user 根据文件属主查找   -group 根据文件属组查找   -mtime  -n +n 根据文件更改时间查找，以天为单位   -mmin   -n">
     
 
     
@@ -296,12 +296,12 @@
 <td>根据文件属组查找</td>
 </tr>
 <tr>
-<td>-mtime  -n \</td>
+<td>-mtime  -n</td>
 <td>+n</td>
 <td>根据文件更改时间查找，以天为单位</td>
 </tr>
 <tr>
-<td>-mmin   -n \</td>
+<td>-mmin   -n</td>
 <td>+n</td>
 <td>根据文件更改时间查找，以分钟为单位</td>
 </tr>
@@ -318,7 +318,7 @@
 <td>按文件类型查找</td>
 </tr>
 <tr>
-<td>-size -n \</td>
+<td>-size -n</td>
 <td>+n</td>
 <td>按文件大小查找</td>
 </tr>
