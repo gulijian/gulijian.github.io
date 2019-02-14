@@ -425,13 +425,11 @@
 <td>根据文件属组查找</td>
 </tr>
 <tr>
-<td>-mtime  -n</td>
-<td>+n</td>
+<td>-mtime  -n 或 +n</td>
 <td>根据文件更改时间查找，以天为单位</td>
 </tr>
 <tr>
-<td>-mmin   -n</td>
-<td>+n</td>
+<td>-mmin   -n 或 +n</td>
 <td>根据文件更改时间查找，以分钟为单位</td>
 </tr>
 <tr>
@@ -447,8 +445,7 @@
 <td>按文件类型查找</td>
 </tr>
 <tr>
-<td>-size -n</td>
-<td>+n</td>
+<td>-size -n 或 +n</td>
 <td>按文件大小查找</td>
 </tr>
 <tr>
@@ -526,6 +523,94 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /etc -name "*.conf" -size +2K -type f -exec cp -r &#123;&#125; /root/hadoop \;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<h4 id="find、locate、whereis和which总结及使用场景分析"><a href="#find、locate、whereis和which总结及使用场景分析" class="headerlink" title="find、locate、whereis和which总结及使用场景分析"></a>find、locate、whereis和which总结及使用场景分析</h4><h5 id="find和locate的区别"><a href="#find和locate的区别" class="headerlink" title="find和locate的区别"></a>find和locate的区别</h5><table>
+<thead>
+<tr>
+<th>find</th>
+<th>locate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>在整块磁盘中搜索</td>
+<td>在数据库文件中查找</td>
+</tr>
+<tr>
+<td>默认是全部匹配</td>
+<td>默认是模糊匹配</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>新创建的文件，使用locate命令暂时查找不到，因为后台cron任务还未执行，可以使用updatedb命令刷新locate查找的数据库，这样就能查找到刚才新建的文件了</p>
+</blockquote>
+<h5 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h5><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-b</td>
+<td>只返回二进制文件</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>只返回帮助文档文件</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>只返回源代码文件</td>
+</tr>
+</tbody>
+</table>
+<h5 id="which"><a href="#which" class="headerlink" title="which"></a>which</h5><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-b</td>
+<td>只返回二进制文件</td>
+</tr>
+</tbody>
+</table>
+<h5 id="各命令使用场景及优缺点"><a href="#各命令使用场景及优缺点" class="headerlink" title="各命令使用场景及优缺点"></a>各命令使用场景及优缺点</h5><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>适用场景</th>
+<th>优缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>find</td>
+<td>查找某一类文件</td>
+<td>功能强大，速度慢</td>
+</tr>
+<tr>
+<td>locate</td>
+<td>只能查找单个文件</td>
+<td>功能单一，速度快</td>
+</tr>
+<tr>
+<td>whereis</td>
+<td>查找程序的可执行文件、帮助文档等</td>
+<td>不常用</td>
+</tr>
+<tr>
+<td>which</td>
+<td>只查找程序的可执行文件</td>
+<td>常用于查找程序的绝对路径</td>
+</tr>
+</tbody>
+</table>
 
         
         </div>
