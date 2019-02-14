@@ -5,18 +5,18 @@
     
     <title>find和grep命令 | 顾大仙MQ | 博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="find语法格式1find 【路径】【选项】【操作】">
+    <meta name="description" content="find语法格式1find 【路径】【选项】【操作】 选项参数   选项 含义     -name 根据文件名查找   -iname 根据文件名查找不区分大小写   -perm 根据文件权限查找   -prune 该选项可以排除某些目录   -user 根据文件属主查找   -group 根据文件属组查找   -mtime  -n \ +n 根据文件更改时间查找，以天为单位   -mmin   -">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="find和grep命令">
 <meta property="og:url" content="http://www.gulj.cn/2019/02/14/find和grep命令-1/index.html">
 <meta property="og:site_name" content="顾大仙MQ | 博客">
-<meta property="og:description" content="find语法格式1find 【路径】【选项】【操作】">
+<meta property="og:description" content="find语法格式1find 【路径】【选项】【操作】 选项参数   选项 含义     -name 根据文件名查找   -iname 根据文件名查找不区分大小写   -perm 根据文件权限查找   -prune 该选项可以排除某些目录   -user 根据文件属主查找   -group 根据文件属组查找   -mtime  -n \ +n 根据文件更改时间查找，以天为单位   -mmin   -">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-14T07:22:45.602Z">
+<meta property="og:updated_time" content="2019-02-14T07:50:41.971Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="find和grep命令">
-<meta name="twitter:description" content="find语法格式1find 【路径】【选项】【操作】">
+<meta name="twitter:description" content="find语法格式1find 【路径】【选项】【操作】 选项参数   选项 含义     -name 根据文件名查找   -iname 根据文件名查找不区分大小写   -perm 根据文件权限查找   -prune 该选项可以排除某些目录   -user 根据文件属主查找   -group 根据文件属组查找   -mtime  -n \ +n 根据文件更改时间查找，以天为单位   -mmin   -">
     
 
     
@@ -263,7 +263,6 @@
         
             
             <h4 id="find"><a href="#find" class="headerlink" title="find"></a>find</h4><h5 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find 【路径】【选项】【操作】</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
 <h5 id="选项参数"><a href="#选项参数" class="headerlink" title="选项参数"></a>选项参数</h5><table>
 <thead>
 <tr>
@@ -389,6 +388,13 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -path ./log -prune -o -type f</span><br></pre></td></tr></table></figure>
 <p>查找当前目录下所有文件，但排除log目录和lib目录</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -path ./log -prune -o -path ./lib -prune -o -type f</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>-exec </p>
+<blockquote>
+<p>对搜索到文件执行特定的操作，格式为：-exec  ‘command’  {}  \;     {} 表示find查询到的结果集</p>
+</blockquote>
+<p>搜索/etc下的文件，文件名以conf结尾，且大小大于2K，然后将其复制到/root/hadoop目录下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /etc -name "*.conf" -size +2K -type f -exec cp -r &#123;&#125; /root/hadoop \;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 
