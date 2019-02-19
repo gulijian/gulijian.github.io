@@ -3,20 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Java内部类—匿名内部类 | 顾大仙MQ | 博客</title>
+    <title>grep命令 | 顾大仙MQ | 博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="1、介绍①、匿名内部类是没有名字的内部类，因为没有名字所以没办法引用。必须在创建时，作为 new 语句的一部分来声明，只能使用一次 ②、使用前提：必须继承一个父类或实现一个接口 2、结构">
-<meta name="keywords" content="java">
+    <meta name="description" content="grep 命令介绍Linux grep命令用于查找文件里符合条件的字符串。 语法格式 第一种形式  1$ grep [option][pattern][file1,file2]  第二种形式  1$ command | grep [option][pattern]">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java内部类—匿名内部类">
-<meta property="og:url" content="http://www.gulj.cn/2017/09/11/Java-内部类之匿名内部类/index.html">
+<meta property="og:title" content="grep命令">
+<meta property="og:url" content="http://www.gulj.cn/2019/02/19/grep命令/index.html">
 <meta property="og:site_name" content="顾大仙MQ | 博客">
-<meta property="og:description" content="1、介绍①、匿名内部类是没有名字的内部类，因为没有名字所以没办法引用。必须在创建时，作为 new 语句的一部分来声明，只能使用一次 ②、使用前提：必须继承一个父类或实现一个接口 2、结构">
+<meta property="og:description" content="grep 命令介绍Linux grep命令用于查找文件里符合条件的字符串。 语法格式 第一种形式  1$ grep [option][pattern][file1,file2]  第二种形式  1$ command | grep [option][pattern]">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-14T07:07:12.861Z">
+<meta property="og:updated_time" content="2019-02-19T03:36:13.784Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java内部类—匿名内部类">
-<meta name="twitter:description" content="1、介绍①、匿名内部类是没有名字的内部类，因为没有名字所以没办法引用。必须在创建时，作为 new 语句的一部分来声明，只能使用一次 ②、使用前提：必须继承一个父类或实现一个接口 2、结构">
+<meta name="twitter:title" content="grep命令">
+<meta name="twitter:description" content="grep 命令介绍Linux grep命令用于查找文件里符合条件的字符串。 语法格式 第一种形式  1$ grep [option][pattern][file1,file2]  第二种形式  1$ command | grep [option][pattern]">
     
 
     
@@ -201,7 +201,7 @@
 </aside>
 
             
-            <section id="main"><article id="post-Java-内部类之匿名内部类" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-grep命令" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -209,7 +209,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            Java内部类—匿名内部类
+            grep命令
         </h1>
     
 
@@ -223,8 +223,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/09/11/Java-内部类之匿名内部类/">
-            <time datetime="2017-09-11T06:19:43.000Z" itemprop="datePublished">2017-09-11</time>
+        <a href="/2019/02/19/grep命令/">
+            <time datetime="2019-02-19T03:30:44.000Z" itemprop="datePublished">2019-02-19</time>
         </a>
     </div>
 
@@ -232,7 +232,7 @@
                         <!-- 
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Java/">Java</a>
+        <a class="article-category-link" href="/categories/运维/">运维</a>
     </div>
  -->
                         
@@ -244,7 +244,7 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/java/">java</a>
+        <a class="tag-link" href="/tags/linux/">linux</a>
     </div>
 
                         
@@ -262,29 +262,173 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h3 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h3><p>①、匿名内部类是没有名字的内部类，因为没有名字所以没办法引用。必须在创建时，作为 new 语句的一部分来声明，只能使用一次</p>
-<p>②、使用前提：必须继承一个<strong>父类</strong>或实现一个<strong>接口</strong></p>
-<h3 id="2、结构"><a href="#2、结构" class="headerlink" title="2、结构"></a>2、结构</h3><a id="more"></a>
-<p>①、匿名内部类形式如下：</p>
-<blockquote>
-<p>new 类或接口{</p>
-<p>​    //方法主体</p>
-<p>}</p>
-</blockquote>
-<h3 id="3、代码示例"><a href="#3、代码示例" class="headerlink" title="3、代码示例"></a>3、代码示例</h3><p>①、原始抽象类的基本实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 动物有吃的行为</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"猫吃鱼。。。。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCatMain</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Animal animal = <span class="keyword">new</span> Cat();</span><br><span class="line">        animal.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>备注：</strong></p>
-<p>​    如果此处的Cat类只使用一次，那么将其编写为独立的一个类岂不是很麻烦？这个时候就引入了匿名内部类</p>
-<p>②、在抽象类中使用内部类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 动物有吃的行为</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestAnonymousInnerClassCatMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Animal animal = <span class="keyword">new</span> Animal() &#123;<span class="comment">//直接将抽象类Animal中的方法在大括号中实现了</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"在chou。。。。"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        animal.eat();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>③、在接口上使用匿名内部类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接口定义</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IAnimal</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 动物有吃的行为</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试匿名内部类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestAnonymousInnerClassCatMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        IAnimal iAnimal = <span class="keyword">new</span> IAnimal() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"在接口中使用的匿名内部类。。。。"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        iAnimal.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>总结</strong></p>
-<ul>
-<li>匿名内部类不能有构造方法，但可以调用父类的构造方法。</li>
-<li>匿名内部类不能定义任何静态成员，方法和类。</li>
-<li>一般使用代码块为匿名内部类提供初始化工作</li>
+            <h1 id="grep-命令"><a href="#grep-命令" class="headerlink" title="grep 命令"></a>grep 命令</h1><h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>Linux grep命令用于查找文件里符合条件的字符串。</p>
+<h5 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h5><ul>
+<li>第一种形式</li>
 </ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep [option][pattern][file1,file2]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二种形式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">command</span> | grep [option][pattern]</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h5 id="参数（-option-）"><a href="#参数（-option-）" class="headerlink" title="参数（[option]）"></a>参数（[option]）</h5><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-v</td>
+<td>不显示匹配行信息</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>搜索时忽略大小写</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>指定字符串做为查找文件内容的样式</td>
+</tr>
+<tr>
+<td>-E</td>
+<td>支持扩展正则表达式</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>指定规则文件，其内容含有一个或多个规则样式，按照规则文件查找</td>
+</tr>
+<tr>
+<td>-F</td>
+<td>不按正则表达式匹配，将样式视为固定字符串的列表</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>显示行</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>只显示匹配PATTERN 部分</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>递归搜索</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>只显示匹配行的总数</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>匹配整词</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>只显示文件名，不显示内容</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>不显示错误信息</td>
+</tr>
+<tr>
+<td>-A  n</td>
+<td>输出匹配行的后n行</td>
+</tr>
+<tr>
+<td>-B  n</td>
+<td>输出匹配行的前n行</td>
+</tr>
+<tr>
+<td>-C  n</td>
+<td>输出匹配行的前后n行</td>
+</tr>
+</tbody>
+</table>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><ul>
+<li><font color="blue">准备文本文件app.txt</font>
+
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i love java</span><br><span class="line">i love JAVA</span><br><span class="line">I LOVE JAVA</span><br><span class="line">i lovelove java</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查找字符</li>
+</ul>
+<p>在app.txt文件中查找字符 “java”</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep java app.txt</span></span><br><span class="line">i love java</span><br><span class="line">i lovelove java</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-e</li>
+</ul>
+<p>在不同文件中查找 “java” 和 “root” 字符，使用-e参数，我们可以查找多个模式。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -e <span class="string">"java"</span> app.txt -e <span class="string">"root"</span> /etc/passwd</span></span><br><span class="line">app.txt:i love java</span><br><span class="line">app.txt:i lovelove java</span><br><span class="line">/etc/passwd:root:x:0:0:root:/root:/bin/bash</span><br><span class="line">/etc/passwd:operator:x:11:0:operator:/root:/sbin/nologin</span><br></pre></td></tr></table></figure>
+<ul>
+<li><font color="green">使用 $ 符号输出所有以指定模式结尾的行</font>
+
+
+</li>
+</ul>
+<p>  匹配/etc/passwd文件中以nologin字符结尾的行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep <span class="string">"nologin$"</span> /etc/passwd</span></span><br><span class="line">bin:x:1:1:bin:/bin:/sbin/nologin</span><br><span class="line">daemon:x:2:2:daemon:/sbin:/sbin/nologin</span><br><span class="line">mail:x:8:12:mail:/var/spool/mail:/sbin/nologin</span><br><span class="line">operator:x:11:0:operator:/root:/sbin/nologin</span><br><span class="line">games:x:12:100:games:/usr/games:/sbin/nologin</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-f</li>
+</ul>
+<p>-e 选项中我们指定了两个-e选项，一个是 -e “java” 另外一个是 -e “root” 我们可以把这个两个搜索的词，写到一个文件中，按照文件中定义的模式进行搜索</p>
+<p>  定义文件 <strong>grep_file_pattern</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 匹配以root开头的行、以nologin结尾的行、包含vagrant字符的行</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat grep_file_pattern</span></span><br><span class="line">^root</span><br><span class="line"><span class="meta">nologin$</span><span class="bash"></span></span><br><span class="line">vagrant</span><br></pre></td></tr></table></figure>
+<p>  使用 <strong>grep_file_pattern</strong> 文件进行搜索</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -f grep_file_pattern /etc/passwd</span></span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">bin:x:1:1:bin:/bin:/sbin/nologin</span><br><span class="line">daemon:x:2:2:daemon:/sbin:/sbin/nologin</span><br><span class="line">mail:x:8:12:mail:/var/spool/mail:/sbin/nologin</span><br><span class="line">operator:x:11:0:operator:/root:/sbin/nologin</span><br><span class="line">games:x:12:100:games:/usr/games:/sbin/nologin</span><br><span class="line">vagrant:x:1000:1000:vagrant:/home/vagrant:/bin/bash</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-F</li>
+</ul>
+<p>使用-F”选项，则查找的字符当做普通字符来处理，比如：”^i”  如果不加-F选项，则匹配到包含ja的字符行，加了-F选项，只匹配  “^i”  的字符</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 不加-F选项,匹配以 i 开头的行</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> grep <span class="string">"^i"</span> app.txt</span></span><br><span class="line">i love java</span><br><span class="line">i love JAVA</span><br><span class="line">i lovelove java</span><br><span class="line"><span class="meta">#</span><span class="bash"> 加-F选项,匹配包含字符 <span class="string">"^i"</span> 的行,输出结果为空</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> grep -F <span class="string">"^i"</span> app.txt</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>-v </li>
+</ul>
+<p>输出 app.txt 文件中不包含 “java” 字符的行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -v java app.txt</span></span><br><span class="line">i love JAVA</span><br><span class="line">I LOVE JAVA</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-i</li>
+</ul>
+<p>使用-i选项，则忽略匹配字符的大小写，java或JAVA字符都能匹配到</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -i java app.txt</span></span><br><span class="line">i love java</span><br><span class="line">i love JAVA</span><br><span class="line">I LOVE JAVA</span><br><span class="line">i lovelove java</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-n </li>
+</ul>
+<p>使用-n选项，则匹配到的行的内容，前面会加上对应的行号</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -n java app.txt</span></span><br><span class="line">1:i love java</span><br><span class="line">4:i lovelove java</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-E</li>
+</ul>
+<p>使用-E选项，支持 <strong>|</strong> 等的<font color="red">扩展表达式</font>，意思是匹配包含java或者JAVA字符的行，如果不加-E选项，则 “java|JAVA” 就看作一个整体的字符来处理</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 加-E选项</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> grep -E <span class="string">"java|JAVA"</span> app.txt</span></span><br><span class="line">i love java</span><br><span class="line">i love JAVA</span><br><span class="line">I LOVE JAVA</span><br><span class="line">i lovelove java</span><br><span class="line"><span class="meta">#</span><span class="bash"> 不加-E选项，输出结果为空</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> grep <span class="string">"java|JAVA"</span> app.txt</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>-r</li>
+</ul>
+<p>使用-r参数，递归/etc/目录下包含 “vagrant”字符的行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -r vagrant /etc/</span></span><br><span class="line">/etc/group:vagrant:x:1000:vagrant</span><br><span class="line">/etc/sudoers.d/vagrant:%vagrant ALL=(ALL) NOPASSWD: ALL</span><br><span class="line">/etc/passwd-:vagrant:x:1000:1000:vagrant:/home/vagrant:/bin/bash</span><br><span class="line">/etc/gshadow:vagrant:!!::vagrant</span><br><span class="line">/etc/gshadow:docker:!::vagrant</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-l</li>
+</ul>
+<p>使用-l参数，输出包含”vagrant”字符的文件名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -l vagrant /etc/passwd /etc/shadow app.txt</span></span><br><span class="line">/etc/passwd</span><br><span class="line">/etc/shadow</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-o</li>
+</ul>
+<p>使用-o参数，只显示匹配 LOVE 字符</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -o -n LOVE app.txt</span></span><br><span class="line">3:LOVE</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-C</li>
+</ul>
+<p>使用-C参数，输出匹字符”dbus”行的前后 2 行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -C 2 dbus /etc/passwd</span></span><br><span class="line">nobody:x:99:99:Nobody:/:/sbin/nologin</span><br><span class="line">systemd-network:x:192:192:systemd Network Management:/:/sbin/nologin</span><br><span class="line">dbus:x:81:81:System message bus:/:/sbin/nologin</span><br><span class="line">polkitd:x:999:998:User for polkitd:/:/sbin/nologin</span><br><span class="line">rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nologin</span><br></pre></td></tr></table></figure>
+<ul>
+<li><font color="green">查找文件中所有的空行</font>
+
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep ^$ /data/<span class="built_in">log</span>/nginx.log</span></span><br></pre></td></tr></table></figure>
 
         
         </div>
@@ -292,7 +436,7 @@
             
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/java/">java</a>
+        <a class="tag-link" href="/tags/linux/">linux</a>
     </div>
 
             <div class="share-container">
@@ -355,7 +499,7 @@
            
             <!-- 
     
-        <a href="http://www.gulj.cn/2017/09/11/Java-内部类之匿名内部类/#comments" id="sourceId::2017/09/11/Java-内部类之匿名内部类/" class="article-comment-link cy_cmt_count">评论</a>
+        <a href="http://www.gulj.cn/2019/02/19/grep命令/#comments" id="sourceId::2019/02/19/grep命令/" class="article-comment-link cy_cmt_count">评论</a>
     
  -->
         </footer>
@@ -364,19 +508,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2017/09/12/JAVA三大特性—多态/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    JAVA三大特性—多态
-                
-            </div>
-        </a>
     
-    
-        <a href="/2017/09/01/shell编程之条件表达式/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/02/15/awk命令/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">shell编程—条件表达式</div>
+            <div class="article-nav-title">awk命令</div>
         </a>
     
 </nav>
@@ -389,7 +524,7 @@
     
     
         <section id="comments">
-    <div id="SOHUCS" sid="2017/09/11/Java-内部类之匿名内部类/"></div>
+    <div id="SOHUCS" sid="2019/02/19/grep命令/"></div>
 </section>
     
 
