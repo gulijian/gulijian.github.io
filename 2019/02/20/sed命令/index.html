@@ -3,20 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>awk命令 | 顾大仙MQ | 博客</title>
+    <title>sed命令 | 顾大仙MQ | 博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="本站是顾大仙MQ（顾立剑）的技术分享博客。内容涵盖Java后端技术、大数据、优秀开发工具、Mac推荐工具、视屏书籍分享、运维开发、系统监控等相关的研究与知识分享">
+    <meta name="description" content="介绍sed（Stream Editor） ， 流编辑器。对标准输出或文件逐行处理 语法格式 第一种形式  1$ stdout | sed [option] &quot;pattern command&quot;  第二种形式  1$ sed [option] &quot;pattern command&quot; file">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="awk命令">
-<meta property="og:url" content="http://www.gulj.cn/2019/02/15/awk命令/index.html">
+<meta property="og:title" content="sed命令">
+<meta property="og:url" content="http://www.gulj.cn/2019/02/20/sed命令/index.html">
 <meta property="og:site_name" content="顾大仙MQ | 博客">
-<meta property="og:description" content="本站是顾大仙MQ（顾立剑）的技术分享博客。内容涵盖Java后端技术、大数据、优秀开发工具、Mac推荐工具、视屏书籍分享、运维开发、系统监控等相关的研究与知识分享">
+<meta property="og:description" content="介绍sed（Stream Editor） ， 流编辑器。对标准输出或文件逐行处理 语法格式 第一种形式  1$ stdout | sed [option] &quot;pattern command&quot;  第二种形式  1$ sed [option] &quot;pattern command&quot; file">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-14T07:22:07.272Z">
+<meta property="og:updated_time" content="2019-02-20T03:41:33.914Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="awk命令">
-<meta name="twitter:description" content="本站是顾大仙MQ（顾立剑）的技术分享博客。内容涵盖Java后端技术、大数据、优秀开发工具、Mac推荐工具、视屏书籍分享、运维开发、系统监控等相关的研究与知识分享">
+<meta name="twitter:title" content="sed命令">
+<meta name="twitter:description" content="介绍sed（Stream Editor） ， 流编辑器。对标准输出或文件逐行处理 语法格式 第一种形式  1$ stdout | sed [option] &quot;pattern command&quot;  第二种形式  1$ sed [option] &quot;pattern command&quot; file">
     
 
     
@@ -201,7 +201,7 @@
 </aside>
 
             
-            <section id="main"><article id="post-awk命令" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-sed命令" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -209,7 +209,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            awk命令
+            sed命令
         </h1>
     
 
@@ -223,8 +223,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2019/02/15/awk命令/">
-            <time datetime="2019-02-15T07:13:37.000Z" itemprop="datePublished">2019-02-15</time>
+        <a href="/2019/02/20/sed命令/">
+            <time datetime="2019-02-20T03:37:10.000Z" itemprop="datePublished">2019-02-20</time>
         </a>
     </div>
 
@@ -262,7 +262,239 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            
+            <h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>sed（Stream Editor） ， 流编辑器。对标准输出或文件逐行处理</p>
+<h5 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h5><ul>
+<li>第一种形式</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ stdout | sed [option] <span class="string">"pattern command"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二种形式</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed [option] <span class="string">"pattern command"</span> file</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h5 id="sed中选项（option）"><a href="#sed中选项（option）" class="headerlink" title="sed中选项（option）"></a>sed中选项（option）</h5><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-n</td>
+<td>取消默认输出</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>多点编辑，可以执行多个子命令</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>直接修改文件内容</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>支持扩展正则表达式</td>
+</tr>
+</tbody>
+</table>
+<h5 id="正则的一些基本知识点（下文会用到）"><a href="#正则的一些基本知识点（下文会用到）" class="headerlink" title="正则的一些基本知识点（下文会用到）"></a>正则的一些基本知识点（下文会用到）</h5><ul>
+<li><code>^</code> 表示一行的开头</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/^<span class="comment">#/      # 以#号开头的匹配</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>$</code>表示一行的结尾</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/root$/   <span class="comment"># 以root结尾的匹配</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>.</code>表示任何单个字符</li>
+<li><code>*</code>表示某一个字符出现了0次或多次</li>
+<li><code>[]</code>表示字符集合</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ABC]    <span class="comment"># 表示匹配A或B或C</span></span><br></pre></td></tr></table></figure>
+<h5 id="sed中pattern详解（重要）"><a href="#sed中pattern详解（重要）" class="headerlink" title="sed中pattern详解（重要）"></a>sed中pattern详解（<font color="red">重要</font>）</h5><ul>
+<li><strong><font color="green">LineNumber </font></strong> (直接指定行号)</li>
+</ul>
+<p>打印file中17行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -n <span class="string">'17p'</span> file</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其中的p表示打印，下面讲解编辑命令会提到</p>
+</blockquote>
+<ul>
+<li><strong><font color="green">StartLine,EndLine </font></strong> (指定起始行到结束行号)</li>
+</ul>
+<p>打印file中10到12行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -n <span class="string">'10,12p'</span> file</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><font color="green">StartLine,+N </font></strong> (指定起始行然后到后面N行)</li>
+</ul>
+<p>打印file中从第10行开始，往后面加5行的内容</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -n <span class="string">'10,+5p'</span> file</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><font color="green">/pattern1/ </font></strong> （正则表达式匹配）</li>
+</ul>
+<p>打印file文件中以root开头的行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -n <span class="string">'/^root/p'</span> file</span><br></pre></td></tr></table></figure>
+<p>打印file文件中中包含字符为 /sbin/halt 的行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -n <span class="string">'/\/sbin\/halt/p'</span> /etc/passwd</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>匹配字符中 /sbin/halt  带有斜杠 / 在匹配时，需要用反斜杠 \ 转义</p>
+</blockquote>
+<ul>
+<li><strong><font color="green">/pattern1/,/pattern2/ </font></strong>   (从匹配到pattern1的行，到匹配到pattern2的行)</li>
+</ul>
+<p>打印file文件中第一个匹配到以ftp开头的行，到第二个匹配到以mail开头的行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -n <span class="string">'/^ftp/,/^mail/p'</span> file</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><font color="green">LineNumber,/pattern1/ </font></strong>   (从指定行号开始匹配，直到匹配到pattern1的行)</li>
+</ul>
+<p>打印file中从第4行开始匹配，直到匹配到以hdfs开头的行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -n <span class="string">'4,/^hdfs/p'</span> file</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果指定LineNumber的行</p>
+<p>​    在匹配目标字符前面，则输出的是从LineNumber行到目标字符行的所有内容</p>
+<p>​     在匹配目标字符后面，则输出的是从LineNumber行一直到文件末尾的所有内容</p>
+</blockquote>
+<h5 id="sed中编辑命令（command）详解"><a href="#sed中编辑命令（command）详解" class="headerlink" title="sed中编辑命令（command）详解"></a>sed中编辑命令（command）详解</h5><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><font color="green">查询</font></strong></td>
+<td></td>
+</tr>
+<tr>
+<td>p</td>
+<td>打印</td>
+</tr>
+<tr>
+<td><strong><font color="green">增加</font></strong></td>
+<td></td>
+</tr>
+<tr>
+<td>a</td>
+<td>行后增加</td>
+</tr>
+<tr>
+<td>i</td>
+<td>行前增加</td>
+</tr>
+<tr>
+<td>r</td>
+<td>外部文件读入，行后增加</td>
+</tr>
+<tr>
+<td>w</td>
+<td>匹配行，写入外部文件</td>
+</tr>
+<tr>
+<td><strong><font color="green">删除</font></strong></td>
+<td></td>
+</tr>
+<tr>
+<td>d</td>
+<td>删除</td>
+</tr>
+<tr>
+<td><strong><font color="green">修改</font></strong></td>
+<td></td>
+</tr>
+<tr>
+<td>s/old/new</td>
+<td>将行内第一个old替换为new</td>
+</tr>
+<tr>
+<td>s/old/new/g</td>
+<td>将行内全部的old替换为new</td>
+</tr>
+<tr>
+<td>s/old/new/2g</td>
+<td>将行内从第二2个开始到后面所有的old替换为new</td>
+</tr>
+<tr>
+<td>s/old/new/ig</td>
+<td>将行内全部的old替换为new，忽略大小写</td>
+</tr>
+<tr>
+<td><strong><font color="green">取代</font></strong></td>
+<td></td>
+</tr>
+<tr>
+<td>c</td>
+<td>替换匹配行</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>备注，下文提到的文件 file，读者可以使用 /etc/passwd 文件作为练习（记得拷贝一份）</p>
+</blockquote>
+<font color="blue">案例中的示例都是基于下方的形式：</font>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'pattern command'</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其中的</p>
+<p>​    pattern：是上文提到的几种形式</p>
+<p>​        command：是下文提到的 比如：p是打印，d是删除等</p>
+</blockquote>
+<ul>
+<li><strong><font color="green">d</font></strong>  （删除）</li>
+</ul>
+<p>删除源文件中以ftp开头的行到mail结束的行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -i <span class="string">'/^ftp/,/^mail/d'</span> file</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在讲解sed中pattern的时候，我们已经用过编辑命令 p 的功能，其它功能都可以使用 pattern讲解中的形式</p>
+</blockquote>
+<ul>
+<li><strong><font color="green">a</font></strong>  （增加，行后）</li>
+</ul>
+<p>在file中匹配到root的行，在其行后增加字符 “123”</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -i <span class="string">'/root/a 123'</span> file</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><font color="green">r</font></strong>  （将后面指定文件的内容追加到匹配到行后面）</li>
+</ul>
+<p>在file中匹配到root的行，将当前路劲下文件append.txt中的内容，添加到匹配行的后面</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -i <span class="string">'/root/r append.txt'</span> file</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><font color="green">w</font></strong>  （将匹配到行内容，另存到其它文件中）</li>
+</ul>
+<p>在file中匹配到/bin/bash的行保存在/etc/result.log文件中</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -n <span class="string">'/\/bin/\bash/w /etc/result.log'</span> file</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><font color="green">s/pattern/string/ig</font></strong>  （将匹配到行内容，另存到其它文件中）</li>
+</ul>
+<p>在file中匹配到不区分大小写的hadoop的字符替换为hive</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -i <span class="string">'s/hadoop/hive/ig'</span> file</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><font color="green">=</font></strong>  （将匹配到行，只显示行号，不显示内容）</li>
+</ul>
+<p>在file中匹配到root的行，只显示行号，不输出内容</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -n <span class="string">'/root/='</span> file</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><font color="green">&amp; 和 \1</font></strong>  （反向引用，引用模式匹配到的整个串）</li>
+</ul>
+<p>在file文件中匹配到springcl..d的字符，在后面加上字符abc</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -i <span class="string">'s/springcl..d/&amp;abc/g'</span> file</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>sed 中引用变量时，则建议使用双引号，否则会将变量当做普通字符串来处理</p>
+</blockquote>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">old_hadoop=hadoop</span><br><span class="line">new_hadoop=HADOOP</span><br><span class="line">$ sed -i <span class="string">"s/<span class="variable">$old_hadoop</span>/<span class="variable">$new_hadoop</span>/g"</span> file   <span class="comment"># 使用双引号引起来</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><font color="green">c</font></strong></li>
+</ul>
+<p>匹配字符daemon的行，替换为字符 input repalce content</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed <span class="string">'/daemon/c input repalce content'</span> file</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><font color="green">多行匹配</font></strong></li>
+</ul>
+<p>在file文件中匹配到以ssh字符开头的行，替换第一个字符sshd为hive和匹配以false结尾的字符的行，在行前面插入内容 ABC</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed  <span class="string">'/^ssh/s/sshd/hive/1g; /false$/i ABC'</span> file</span><br></pre></td></tr></table></figure>
+<p>上面的命令等价于：（使用sed的-e命令行参数）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -e <span class="string">'/^ssh/s/sshd/hive/1g'</span> -e <span class="string">'/false$/i ABC'</span> file</span><br></pre></td></tr></table></figure>
+
         
         </div>
         <footer class="article-footer">
@@ -332,7 +564,7 @@
            
             <!-- 
     
-        <a href="http://www.gulj.cn/2019/02/15/awk命令/#comments" id="sourceId::2019/02/15/awk命令/" class="article-comment-link cy_cmt_count">评论</a>
+        <a href="http://www.gulj.cn/2019/02/20/sed命令/#comments" id="sourceId::2019/02/20/sed命令/" class="article-comment-link cy_cmt_count">评论</a>
     
  -->
         </footer>
@@ -341,19 +573,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2019/02/19/grep命令/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    grep命令
-                
-            </div>
-        </a>
     
-    
-        <a href="/2019/02/14/find和grep命令-1/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/02/19/grep命令/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">find命令</div>
+            <div class="article-nav-title">grep命令</div>
         </a>
     
 </nav>
@@ -366,7 +589,7 @@
     
     
         <section id="comments">
-    <div id="SOHUCS" sid="2019/02/15/awk命令/"></div>
+    <div id="SOHUCS" sid="2019/02/20/sed命令/"></div>
 </section>
     
 
@@ -385,8 +608,8 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
-                            <p class="item-title"><a href="/2019/02/19/grep命令/" class="title">grep命令</a></p>
-                            <p class="item-date"><time datetime="2019-02-19T03:30:44.000Z" itemprop="datePublished">2019-02-19</time></p>
+                            <p class="item-title"><a href="/2019/02/20/sed命令/" class="title">sed命令</a></p>
+                            <p class="item-date"><time datetime="2019-02-20T03:37:10.000Z" itemprop="datePublished">2019-02-20</time></p>
                         </div>
                     </li>
                 
@@ -394,8 +617,8 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
-                            <p class="item-title"><a href="/2019/02/15/awk命令/" class="title">awk命令</a></p>
-                            <p class="item-date"><time datetime="2019-02-15T07:13:37.000Z" itemprop="datePublished">2019-02-15</time></p>
+                            <p class="item-title"><a href="/2019/02/19/grep命令/" class="title">grep命令</a></p>
+                            <p class="item-date"><time datetime="2019-02-19T03:30:44.000Z" itemprop="datePublished">2019-02-19</time></p>
                         </div>
                     </li>
                 
