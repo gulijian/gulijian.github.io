@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>awk命令使用详解 | 顾大仙MQ | 博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="awk 命令介绍AWK是一种处理文本文件的语言，是一个强大的文本分析工具，之所以叫AWK是因为其取了三位创始人 Alfred Aho，Peter Weinberger， 和 Brian Kernighan 的 Family Name 的首字符。 语法 第一种形式  1$ awk &apos;BEGIN&amp;#123;&amp;#125;pattern&amp;#123;commands&amp;#125;END&amp;#123;&amp;#125;">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="awk命令使用详解">
+<meta property="og:url" content="http://www.gulj.cn/2019/02/25/awk命令使用详解/index.html">
+<meta property="og:site_name" content="顾大仙MQ | 博客">
+<meta property="og:description" content="awk 命令介绍AWK是一种处理文本文件的语言，是一个强大的文本分析工具，之所以叫AWK是因为其取了三位创始人 Alfred Aho，Peter Weinberger， 和 Brian Kernighan 的 Family Name 的首字符。 语法 第一种形式  1$ awk &apos;BEGIN&amp;#123;&amp;#125;pattern&amp;#123;commands&amp;#125;END&amp;#123;&amp;#125;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://gulj-hexo-blog-oss-1258699535.cos.ap-shanghai.myqcloud.com/image-20190221143102173.png?q-sign-algorithm=sha1&q-ak=AKIDWRTBckTNEGH8sq22tTQ03CrUqJAnA5OI&q-sign-time=1551050390;1551052190&q-key-time=1551050390;1551052190&q-header-list=&q-url-param-list=&q-signature=a37227486a8917fa5c3e93008fcef57332cfde30&x-cos-security-token=1b8cf7317f48a65fde9fa88df2e932f22da14e0710001">
+<meta property="og:updated_time" content="2019-02-24T23:38:40.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="awk命令使用详解">
+<meta name="twitter:description" content="awk 命令介绍AWK是一种处理文本文件的语言，是一个强大的文本分析工具，之所以叫AWK是因为其取了三位创始人 Alfred Aho，Peter Weinberger， 和 Brian Kernighan 的 Family Name 的首字符。 语法 第一种形式  1$ awk &apos;BEGIN&amp;#123;&amp;#125;pattern&amp;#123;commands&amp;#125;END&amp;#123;&amp;#125;">
+<meta name="twitter:image" content="https://gulj-hexo-blog-oss-1258699535.cos.ap-shanghai.myqcloud.com/image-20190221143102173.png?q-sign-algorithm=sha1&q-ak=AKIDWRTBckTNEGH8sq22tTQ03CrUqJAnA5OI&q-sign-time=1551050390;1551052190&q-key-time=1551050390;1551052190&q-header-list=&q-url-param-list=&q-signature=a37227486a8917fa5c3e93008fcef57332cfde30&x-cos-security-token=1b8cf7317f48a65fde9fa88df2e932f22da14e0710001">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="顾大仙MQ | 博客" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">顾大仙MQ | 博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/categories/Java/">Java</a>
+                
+                    <a class="main-nav-link" href="/categories/运维/">运维</a>
+                
+                    <a class="main-nav-link" href="/categories/工具/">工具</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/categories/Java/">Java</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/运维/">运维</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/工具/">工具</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">顾立剑</h2>
+            <h3 id="title">没有收拾残局的能力，就别放纵善变的情绪</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国-上海</span>
+            <a id="follow" target="_blank" href="https://github.com/gulijian">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                41
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                16
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/gulijian" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://git.oschina.net/gulijian" target="_blank" title="git" class=tooltip>
+                            <i class="fa fa-git"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="mailto:1175327069@qq.com" target="_blank" title="envelope" class=tooltip>
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-awk命令使用详解" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            awk命令使用详解
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/02/25/awk命令使用详解/">
+            <time datetime="2019-02-24T23:37:10.000Z" itemprop="datePublished">2019-02-25</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/运维/">运维</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/linux/">linux</a>
+    </div>
+
+                        
+                            <div class="article-tag">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_container_page_pv" style="display: inline;"> <span id="busuanzi_value_page_pv">0</span>  ℃</span>
+</div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="awk-命令"><a href="#awk-命令" class="headerlink" title="awk 命令"></a>awk 命令</h1><h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>AWK是一种处理文本文件的语言，是一个强大的文本分析工具，之所以叫AWK是因为其取了三位创始人 Alfred Aho，Peter Weinberger， 和 Brian Kernighan 的 Family Name 的首字符。</p>
+<h5 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h5><ul>
+<li>第一种形式</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN&#123;&#125;pattern&#123;commands&#125;END&#123;&#125;'</span> file</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二种形式</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ standard output | <span class="string">'BEGIN&#123;&#125;pattern&#123;commands&#125;END&#123;&#125;'</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h5 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h5><p><img src="https://gulj-hexo-blog-oss-1258699535.cos.ap-shanghai.myqcloud.com/image-20190221143102173.png?q-sign-algorithm=sha1&amp;q-ak=AKIDWRTBckTNEGH8sq22tTQ03CrUqJAnA5OI&amp;q-sign-time=1551050390;1551052190&amp;q-key-time=1551050390;1551052190&amp;q-header-list=&amp;q-url-param-list=&amp;q-signature=a37227486a8917fa5c3e93008fcef57332cfde30&amp;x-cos-security-token=1b8cf7317f48a65fde9fa88df2e932f22da14e0710001" alt="image-20190221143102173"></p>
+<blockquote>
+<p>其中数字1，2，3…代表是文本中的数据行</p>
+<p>BEGIN{} 表示在处理文本数据之前进行一些操作</p>
+<p>pattern{commands} 表示从文本中的第一行开始匹配满足pattern规则的行，执行commands命令，直到文本最后一行</p>
+<p>END{}    表示在处理文本数据之后进行一些操作</p>
+</blockquote>
+<h5 id="内建变量"><a href="#内建变量" class="headerlink" title="内建变量"></a>内建变量</h5><table>
+<thead>
+<tr>
+<th>内置变量</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0</td>
+<td>整行内容</td>
+</tr>
+<tr>
+<td>$1-$n</td>
+<td>当前行的第1-n个字段</td>
+</tr>
+<tr>
+<td>NF</td>
+<td>当前行的字段个数，也就是有多少列</td>
+</tr>
+<tr>
+<td>NR</td>
+<td>当前的行号，从1开始计数</td>
+</tr>
+<tr>
+<td>FNR</td>
+<td>各文件分别计数的行号</td>
+</tr>
+<tr>
+<td>FS</td>
+<td>字段分隔符(默认以空格或tab键分割)</td>
+</tr>
+<tr>
+<td>RS</td>
+<td>输入行分隔符。默认回车换行</td>
+</tr>
+<tr>
+<td>OFS</td>
+<td>输出字段分隔符。默认为空格</td>
+</tr>
+<tr>
+<td>ORS</td>
+<td>输出行分隔符。默认为回车换行</td>
+</tr>
+<tr>
+<td>FILENAME</td>
+<td>当前文件名</td>
+</tr>
+</tbody>
+</table>
+<p>内置变量如何使用，我们以文本score.txt内容来做演示</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cat  score.txt</span><br><span class="line">marry <span class="number">90</span>  <span class="number">49</span>  <span class="number">23</span>  <span class="number">14</span></span><br><span class="line">join  <span class="number">44</span>  <span class="number">55</span>  <span class="number">66</span>  <span class="number">24</span></span><br><span class="line">smile <span class="number">55</span>  <span class="number">78</span>  <span class="number">80</span>  <span class="number">34</span></span><br><span class="line">jack  <span class="number">20</span>  <span class="number">51</span>  <span class="number">66</span>  <span class="number">44</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>$0</code>来打印输出文件的每一整行的内容</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'&#123;print $0&#125;'</span> score.txt</span><br><span class="line">marry <span class="number">90</span>  <span class="number">49</span>  <span class="number">23</span>  <span class="number">14</span></span><br><span class="line">join  <span class="number">44</span>  <span class="number">55</span>  <span class="number">66</span>  <span class="number">24</span></span><br><span class="line">smile <span class="number">55</span>  <span class="number">78</span>  <span class="number">80</span>  <span class="number">34</span></span><br><span class="line">jack  <span class="number">20</span>  <span class="number">51</span>  <span class="number">66</span>  <span class="number">44</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：行匹配语句 awk   ‘  ‘ 只能用<strong>单引号</strong></p>
+</blockquote>
+<p>使用<code>$1</code>、<code>$3</code>来打印输出文件的的每一行第1列和第3列内容</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'&#123;print $1,$3&#125;'</span> score.txt</span><br><span class="line">marry <span class="number">49</span></span><br><span class="line">join <span class="number">55</span></span><br><span class="line">smile <span class="number">78</span></span><br><span class="line">jack <span class="number">51</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>NF</code>来输出每一行的列数</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ awk  <span class="string">'&#123;print NF&#125;'</span> score.txt</span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用awk没有指定分隔符，默认是以空格或者tab键来作分隔，在score.txt 文件中，经过分隔，每行都有5列</p>
+</blockquote>
+<p>使用变量<code>$NF</code>来输出文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'&#123;print $NF&#125;'</span> score.txt</span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">24</span></span><br><span class="line"><span class="number">34</span></span><br><span class="line"><span class="number">44</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>从输出结果我们总结出，$NF就表示每一行的最后一列，因为文件中每一行有5列，则 $NF = $5</p>
+</blockquote>
+<p>之前我们打印每一行的第1列和第3列我们使用的是：$1，$3；那么现在我们也可以使用：<strong>$(NF-2)</strong>，<strong>$(NF-4)</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'&#123;print $(NF-4),$(NF-2)&#125;'</span> score.txt</span><br><span class="line">marry <span class="number">49</span></span><br><span class="line">join <span class="number">55</span></span><br><span class="line">smile <span class="number">78</span></span><br><span class="line">jack <span class="number">51</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>NR</code>来输出每一行的行号，这次我们把每一行的内容也打印出来</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'&#123;print NR "\t" $0&#125;'</span> score.txt</span><br><span class="line"><span class="number">1</span>	marry <span class="number">90</span>  <span class="number">49</span>  <span class="number">23</span>  <span class="number">85</span></span><br><span class="line"><span class="number">2</span>	join  <span class="number">44</span>  <span class="number">55</span>  <span class="number">66</span>  <span class="number">22</span></span><br><span class="line"><span class="number">3</span>	smile <span class="number">55</span>  <span class="number">78</span>  <span class="number">80</span>  <span class="number">24</span></span><br><span class="line"><span class="number">4</span>	jack  <span class="number">20</span>  <span class="number">51</span>  <span class="number">66</span>  <span class="number">89</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>ORS</code>来指定输出每一行的指定的分隔符</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN&#123;ORS="---"&#125; &#123;print $1,$NF&#125;'</span> score.txt</span><br><span class="line">marry <span class="number">14</span>---join <span class="number">24</span>---smile <span class="number">34</span>---jack <span class="number">44</span>---</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>指定了每一行的分隔符为”—“，现在输出的每一行都用—做分隔，而不在是默认的回车换行做分隔</p>
+</blockquote>
+<p>使用<code>ORS</code>指定了行的分隔符为”—“，但是现在我们看到每一行输出的分隔符还是默认的空格来做分隔，比如：输出第一行的 <code>marry 14</code>，现在我们使用<code>OFS</code>来指定输出字段的分隔符，比如：<code>*</code>号</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN&#123;ORS="---";OFS="*"&#125; &#123;print $1,$NF&#125;'</span> score.txt</span><br><span class="line">marry*<span class="number">14</span>---join*<span class="number">24</span>---smile*<span class="number">34</span>---jack*<span class="number">44</span>---</span><br></pre></td></tr></table></figure>
+<p>使用<code>FS</code>指定每一行的字段分隔符</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN&#123;FS=":"&#125; &#123;print $1,$NF&#125;'</span> /etc/passwd</span><br><span class="line">root /bin/bash</span><br><span class="line">bin /sbin/nologin</span><br></pre></td></tr></table></figure>
+<p>也可以使用这种形式指定分隔符（-F的意思就是指定分隔符）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ awk -F: <span class="string">'&#123;print $1,$NF&#125;'</span>  /etc/passwd</span><br></pre></td></tr></table></figure>
+<p>如果指定多个分隔符，使用中括号<code>[]</code>包起来，里面指定具体的分隔符</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ awk -F <span class="string">'[-:]'</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>FILENAME</code>在处理多文件时候，可以打印出当前的文件名</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN&#123;FS="[ :]"&#125; &#123;print FILENAME "\t" $1,$NF&#125;'</span> score.txt  /etc/passwd</span><br><span class="line">score.txt	marry <span class="number">14</span></span><br><span class="line">score.txt	join <span class="number">24</span></span><br><span class="line">score.txt	smile <span class="number">34</span></span><br><span class="line">score.txt	jack <span class="number">44</span></span><br><span class="line">/etc/passwd	root /bin/bash</span><br><span class="line">/etc/passwd	bin /sbin/nologin</span><br></pre></td></tr></table></figure>
+<h5 id="使用重定向拆分文件"><a href="#使用重定向拆分文件" class="headerlink" title="使用重定向拆分文件"></a>使用重定向拆分文件</h5><p>准备文件 netstat.txt</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ cat netstat.txt</span><br><span class="line">Proto Recv-Q Send-Q Local-Address           Foreign-Address         State</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">111</span>             <span class="number">0.0</span>.<span class="number">0.0</span>:*               LISTEN</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">22</span>              <span class="number">0.0</span>.<span class="number">0.0</span>:*               LISTEN</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">25</span>            <span class="number">0.0</span>.<span class="number">0.0</span>:*               LISTEN</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">192.168</span>.<span class="number">10.10</span>:<span class="number">22</span>        <span class="number">192.168</span>.<span class="number">10.1</span>:<span class="number">65016</span>      ESTABLISHED</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">192.168</span>.<span class="number">10.10</span>:<span class="number">22</span>        <span class="number">192.168</span>.<span class="number">10.1</span>:<span class="number">57253</span>      ESTABLISHED</span><br><span class="line">tcp6       <span class="number">0</span>      <span class="number">0</span> :::<span class="number">111</span>                  :::*                    LISTEN</span><br><span class="line">tcp6       <span class="number">0</span>      <span class="number">0</span> :::<span class="number">22</span>                   :::*                    LISTEN</span><br><span class="line">tcp6       <span class="number">0</span>      <span class="number">0</span> ::<span class="number">1</span>:<span class="number">25</span>                  :::*                    LISTEN</span><br><span class="line">udp        <span class="number">0</span>      <span class="number">0</span> <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">1018</span>            <span class="number">0.0</span>.<span class="number">0.0</span>:*               FIN_WAIT2</span><br><span class="line">udp6       <span class="number">0</span>      <span class="number">0</span> :::<span class="number">1018</span>                 :::*                    FIN_WAIT2</span><br><span class="line">udp6       <span class="number">0</span>      <span class="number">0</span> :::<span class="number">111</span>                  :::*                    ESTABLISHED</span><br><span class="line">udp6       <span class="number">0</span>      <span class="number">0</span> ::<span class="number">1</span>:<span class="number">323</span>                 :::*                    ESTABLISHED</span><br></pre></td></tr></table></figure>
+<p>以空格为分隔符，按照<code>$6</code>(第6列)也就是<code>State</code>列进行拆分文件<code>netstat.txt</code>（其中NR!=1表示不处理表头）</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'NR!=1&#123;print &gt; $6&#125;'</span> netstat.txt</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">ESTABLISHED  FIN_WAIT2  LISTEN  netstat.txt</span><br><span class="line"></span><br><span class="line">$ cat ESTABLISHED</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">192.168</span>.<span class="number">10.10</span>:<span class="number">22</span>        <span class="number">192.168</span>.<span class="number">10.1</span>:<span class="number">65016</span>      ESTABLISHED</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">192.168</span>.<span class="number">10.10</span>:<span class="number">22</span>        <span class="number">192.168</span>.<span class="number">10.1</span>:<span class="number">57253</span>      ESTABLISHED</span><br><span class="line">udp6       <span class="number">0</span>      <span class="number">0</span> :::<span class="number">111</span>                  :::*                    ESTABLISHED</span><br><span class="line">udp6       <span class="number">0</span>      <span class="number">0</span> ::<span class="number">1</span>:<span class="number">323</span>                 :::*                    ESTABLISHED</span><br><span class="line"></span><br><span class="line">$ cat FIN_WAIT2</span><br><span class="line">udp        <span class="number">0</span>      <span class="number">0</span> <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">1018</span>            <span class="number">0.0</span>.<span class="number">0.0</span>:*               FIN_WAIT2</span><br><span class="line">udp6       <span class="number">0</span>      <span class="number">0</span> :::<span class="number">1018</span>                 :::*                    FIN_WAIT2</span><br><span class="line"></span><br><span class="line">$ cat  LISTEN</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">111</span>             <span class="number">0.0</span>.<span class="number">0.0</span>:*               LISTEN</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">22</span>              <span class="number">0.0</span>.<span class="number">0.0</span>:*               LISTEN</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">25</span>            <span class="number">0.0</span>.<span class="number">0.0</span>:*               LISTEN</span><br><span class="line">tcp6       <span class="number">0</span>      <span class="number">0</span> :::<span class="number">111</span>                  :::*                    LISTEN</span><br><span class="line">tcp6       <span class="number">0</span>      <span class="number">0</span> :::<span class="number">22</span>                   :::*                    LISTEN</span><br><span class="line">tcp6       <span class="number">0</span>      <span class="number">0</span> ::<span class="number">1</span>:<span class="number">25</span>                  :::*                    LISTEN</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>{print &gt; $6}</code> 是按照第6列进行拆分，将所有列输出到文件中，我们也可以指定列输出到文件中</p>
+</blockquote>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'NR!=1&#123;print $1,$4&gt; $6&#125;'</span> netstat.txt</span><br></pre></td></tr></table></figure>
+<h5 id="awk使用printf格式化输出"><a href="#awk使用printf格式化输出" class="headerlink" title="awk使用printf格式化输出"></a>awk使用<code>printf</code>格式化输出</h5><p><code>printf</code>  <font color="#5CB85C">格式说明符</font></p>
+<table>
+<thead>
+<tr>
+<th>格式符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%s</td>
+<td>打印字符串</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>打印十进制数</td>
+</tr>
+<tr>
+<td>%f</td>
+<td>打印一个浮点数</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>打印十六进制数</td>
+</tr>
+<tr>
+<td>%o</td>
+<td>打印八进制数</td>
+</tr>
+<tr>
+<td>%e</td>
+<td>打印数字的科学计数法形式</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>打印单个字符的ASCII码</td>
+</tr>
+</tbody>
+</table>
+<p><code>printf</code> <font color="#5CB85C">修饰符</font></p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>左对齐</td>
+</tr>
+<tr>
+<td>+</td>
+<td>右对齐</td>
+</tr>
+<tr>
+<td>#</td>
+<td>8进制显示在前面加0，16进制显示在前面加0X</td>
+</tr>
+</tbody>
+</table>
+<p>上面演示的案例，我们都是用<code>print</code>来做输出（默认是输出每行内容，用回车键作为换行），现在我们使用<code>printf</code>（默认没有加任何的输出分隔符）来进行格式化打印输出</p>
+<p>使用<code>%s</code>以字符串形式输出/etc/passwd文件中第一列</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ awk -F: <span class="string">'&#123;printf "%s\n",$1&#125;'</span> /etc/passwd</span><br><span class="line">root</span><br><span class="line">bin</span><br><span class="line">daemon</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <code>\n</code> 来指定输出每行的的分隔符</p>
+</blockquote>
+<p>使用<code>$s</code>、<code>%f</code>、<code>%d</code>、<code>%x</code>等多个格式符来输出</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$  awk -F: <span class="string">'&#123;printf "%s %f %d %x\n",$1,$3,$3,$3&#125;'</span> /etc/passwd</span><br><span class="line">sshd <span class="number">74.000000</span> <span class="number">74</span> <span class="number">4</span>a</span><br><span class="line">postfix <span class="number">89.000000</span> <span class="number">89</span> <span class="number">59</span></span><br><span class="line">chrony <span class="number">998.000000</span> <span class="number">998</span> <span class="number">3</span>e6</span><br><span class="line">vagrant <span class="number">1000.000000</span> <span class="number">1000</span> <span class="number">3</span>e8</span><br><span class="line">vboxadd <span class="number">997.000000</span> <span class="number">997</span> <span class="number">3</span>e5</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用了不同的格式符，输出了/etc/passwd文件中的$1，$3列，对于稍微有点强迫症患者的朋友来说，可以看出输出结果并不美观，比如：每列都没有对齐（向左或者向右），浮点数列没有控制指定个数的精度等，下面我们就来解决这个问题</p>
+</blockquote>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$  awk -F: <span class="string">'&#123;printf "%-20s %-0.2f \t\t %-20d %-20x\n",$1,$3,$3,$3&#125;'</span> /etc/passwd</span><br><span class="line">sshd                 <span class="number">74.00</span> 		     <span class="number">74</span>                   <span class="number">4</span>a</span><br><span class="line">postfix              <span class="number">89.00</span> 		     <span class="number">89</span>                   <span class="number">59</span></span><br><span class="line">chrony               <span class="number">998.00</span> 		 <span class="number">998</span>                  <span class="number">3</span>e6</span><br><span class="line">vagrant              <span class="number">1000.00</span> 		 <span class="number">1000</span>                 <span class="number">3</span>e8</span><br><span class="line">vboxadd              <span class="number">997.00</span> 		 <span class="number">997</span>                  <span class="number">3</span>e5</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们可以在每个格式符的前面加上数字，比如：%<strong>20</strong>s，表示这一列占位20个字符</p>
+<p>使用 %<strong>0.2</strong>f 来指定这一列输出的精度，保留2位小数 </p>
+<p>使用 <code>-</code>格式符，表示输出的结果向左对齐</p>
+</blockquote>
+<h5 id="关系运算符、布尔运算符和匹配正则表达式"><a href="#关系运算符、布尔运算符和匹配正则表达式" class="headerlink" title="关系运算符、布尔运算符和匹配正则表达式"></a>关系运算符、布尔运算符和匹配正则表达式</h5><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt;、 &lt;=、 &gt;、 &gt;=、 != 、 ==</td>
+<td>小于、小于等于…（关系运算符）</td>
+</tr>
+<tr>
+<td>~</td>
+<td>匹配正则表达式</td>
+</tr>
+<tr>
+<td>~！</td>
+<td>不匹配正则表达式</td>
+</tr>
+<tr>
+<td>\</td>
+<td>\</td>
+<td></td>
+<td>逻辑或</td>
+</tr>
+<tr>
+<td>&amp;&amp;</td>
+<td>逻辑与</td>
+</tr>
+<tr>
+<td>！</td>
+<td>非</td>
+</tr>
+</tbody>
+</table>
+<p>匹配输出第一列字符等于<code>smile</code>的行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'$1=="smile" &#123;print $0&#125;'</span> score.txt</span><br><span class="line">smile <span class="number">55</span>  <span class="number">78</span>  <span class="number">80</span>  <span class="number">34</span></span><br></pre></td></tr></table></figure>
+<p>匹配输出第一列字符等于<code>smile</code>的行 ，或者第2列大于 <code>80</code>的行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'$1=="smile" || $2 &gt; 80  &#123;print $0&#125;'</span> score.txt</span><br><span class="line">marry <span class="number">90</span>  <span class="number">49</span>  <span class="number">23</span>  <span class="number">14</span></span><br><span class="line">smile <span class="number">55</span>  <span class="number">78</span>  <span class="number">80</span>  <span class="number">34</span></span><br></pre></td></tr></table></figure>
+<p>使用正则，匹配输出包含<code>44</code>的行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'/44/ &#123;print $0&#125;'</span> score.txt</span><br><span class="line">join  <span class="number">44</span>  <span class="number">55</span>  <span class="number">66</span>  <span class="number">24</span></span><br><span class="line">jack  <span class="number">20</span>  <span class="number">51</span>  <span class="number">66</span>  <span class="number">44</span></span><br></pre></td></tr></table></figure>
+<p>使用正则，匹配输出<font color="green">不包含<code>44</code>的行</font></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'!/44/ &#123;print $0&#125;'</span> score.txt</span><br><span class="line">marry <span class="number">90</span>  <span class="number">49</span>  <span class="number">23</span>  <span class="number">14</span></span><br><span class="line">smile <span class="number">55</span>  <span class="number">78</span>  <span class="number">80</span>  <span class="number">34</span></span><br></pre></td></tr></table></figure>
+<p>使用正则，匹配输出以<code>join</code>字符开头的行到以<code>jack</code>字符开头结束的行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'/^join/,/^jack/ &#123;print $0&#125;'</span> score.txt</span><br><span class="line">join  <span class="number">44</span>  <span class="number">55</span>  <span class="number">66</span>  <span class="number">24</span></span><br><span class="line">smile <span class="number">55</span>  <span class="number">78</span>  <span class="number">80</span>  <span class="number">34</span></span><br><span class="line">jack  <span class="number">20</span>  <span class="number">51</span>  <span class="number">66</span>  <span class="number">44</span></span><br></pre></td></tr></table></figure>
+<p>使用正则，匹配第1列字符包含<code>jack</code>并且最后一列大于等于<code>34</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'$1 ~ /jack/ &amp;&amp;  $NF &gt;= 34 &#123;print $0&#125;'</span> score.txt</span><br><span class="line">jack  <span class="number">20</span>  <span class="number">51</span>  <span class="number">66</span>  <span class="number">44</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>~ 表示模式开始；/ / 中表示的是匹配的具体模式</p>
+</blockquote>
+<p>现在看下正则模式取反的示例</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'$1 !~ /jack/ &amp;&amp;  $NF &gt;= 24 &#123;print $0&#125;'</span> score.txt</span><br><span class="line">join  <span class="number">44</span>  <span class="number">55</span>  <span class="number">66</span>  <span class="number">24</span></span><br><span class="line">smile <span class="number">55</span>  <span class="number">78</span>  <span class="number">80</span>  <span class="number">34</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong><code>!~</code></strong> ，第1列不包含字符<code>jack</code> 并且最后列的值大于等于<code>24</code></p>
+</blockquote>
+<h5 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h5><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+ 、 -</td>
+<td>加、减</td>
+</tr>
+<tr>
+<td>* 、/ 、 %</td>
+<td>乘、除、求于</td>
+</tr>
+<tr>
+<td>++、–</td>
+<td>增加或减少，作为前缀或后缀，如（++x、x–）</td>
+</tr>
+</tbody>
+</table>
+<p>我们先来看一下简单的加法和除法运算</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN&#123;</span></span><br><span class="line"><span class="string">  num1=10;</span></span><br><span class="line"><span class="string">  num2=20;</span></span><br><span class="line"><span class="string">  printf "%d %0.2f\n", num1+num2,num1/num2</span></span><br><span class="line"><span class="string">&#125;'</span></span><br><span class="line"><span class="number">30</span> <span class="number">0.50</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>awk 声明的变量可以在任何多个花括号脚本中使用</p>
+</blockquote>
+<p>计算/etc/services中空白行的数量</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'/^$/ &#123;sum++&#125; END&#123;print sum&#125;'</span> /etc/services</span><br><span class="line"><span class="number">17</span></span><br></pre></td></tr></table></figure>
+<h5 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h5><table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>length(str)</td>
+<td>计算字符串长度</td>
+</tr>
+<tr>
+<td>index(str1,str2)</td>
+<td>在str1中查找str2的位置</td>
+</tr>
+<tr>
+<td>tolower(str)</td>
+<td>转换为小写</td>
+</tr>
+<tr>
+<td>toupper(str)</td>
+<td>转换为大写</td>
+</tr>
+<tr>
+<td>substr(str,m,n)</td>
+<td>从str的第m个字符开始，截取m位</td>
+</tr>
+<tr>
+<td>split(str,arr,fs)</td>
+<td>按fs切割字符，结果保存arr中</td>
+</tr>
+<tr>
+<td>match(str,RE)</td>
+<td>在str中按照RE查找</td>
+</tr>
+</tbody>
+</table>
+<p>由于字符串函数是我们工作中常用的函数，比较简单，下面我们使用<code>split()</code>函数来做演示</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN&#123;</span></span><br><span class="line"><span class="string">  str="java#python#go";</span></span><br><span class="line"><span class="string">  split(str,arr,"#");</span></span><br><span class="line"><span class="string">  for(item in arr)&#123;</span></span><br><span class="line"><span class="string">    print arr[item]</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;'</span></span><br><span class="line">java</span><br><span class="line">python</span><br><span class="line">go</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其中我们使用了for循环来遍历 arr 数组，下面我们会讲到</p>
+</blockquote>
+<h5 id="awk动作中使用条件及循环语句（可见awk是个脚本解释器）"><a href="#awk动作中使用条件及循环语句（可见awk是个脚本解释器）" class="headerlink" title="awk动作中使用条件及循环语句（可见awk是个脚本解释器）"></a>awk动作中使用条件及循环语句（可见awk是个脚本解释器）</h5><p>条件表达式</p>
+<ul>
+<li><strong>if语句</strong></li>
+</ul>
+<p>语法格式如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(条件)&#123;</span><br><span class="line">    动作</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ awk -F: <span class="string">'&#123;if($3&gt;100 &amp;&amp; $3&lt;1000) print $0&#125;'</span> /etc/passwd</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>if - else 语句</strong></li>
+</ul>
+<p>语法格式如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(条件)&#123;</span><br><span class="line">    动作</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    动作</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN &#123;</span></span><br><span class="line"><span class="string">    num = 11; </span></span><br><span class="line"><span class="string">    if (num % 2 == 0) &#123;</span></span><br><span class="line"><span class="string">      printf "%d 是偶数\n", num</span></span><br><span class="line"><span class="string">    &#125;else &#123;</span></span><br><span class="line"><span class="string">      printf "%d 是奇数\n", num </span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>if - else - if 语句</strong></li>
+</ul>
+<p>语法格式如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(条件)&#123;</span><br><span class="line">    动作</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(条件)&#123;</span><br><span class="line">    动作</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    动作</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ awk  -F: <span class="string">'&#123;</span></span><br><span class="line"><span class="string">    if($3&lt;100) &#123;</span></span><br><span class="line"><span class="string">      print  "系统用户", $1</span></span><br><span class="line"><span class="string">    &#125; </span></span><br><span class="line"><span class="string">    else if($3&gt;100 &amp;&amp; $3 &lt;900) &#123;</span></span><br><span class="line"><span class="string">      print  "普通用户", $1</span></span><br><span class="line"><span class="string">    &#125; else &#123;</span></span><br><span class="line"><span class="string">      print  "其它用户", $1</span></span><br><span class="line"><span class="string">    &#125;   </span></span><br><span class="line"><span class="string">&#125;'</span>  /etc/passwd</span><br></pre></td></tr></table></figure>
+<p>循环语句</p>
+<ul>
+<li><strong>while 语句</strong></li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(条件)&#123;</span><br><span class="line">    循环体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN &#123;i=1; while(i&lt;6)&#123; print i; ++i &#125; &#125;'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>do - while语句</strong></li>
+</ul>
+<p>语法格式：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    循环体</span><br><span class="line">&#125;<span class="keyword">while</span>(条件)</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'BEGIN&#123;i=1;do&#123;print i;i++&#125;while(i&lt;6)&#125;'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>for 语句</strong></li>
+</ul>
+<p>语法格式：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(变量;条件;表达式)&#123;</span><br><span class="line">    动作</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN&#123;</span></span><br><span class="line"><span class="string">  sum=0;</span></span><br><span class="line"><span class="string">  for(i=1;i&lt;=100;i++)&#123;</span></span><br><span class="line"><span class="string">    sum+=i</span></span><br><span class="line"><span class="string">  &#125; </span></span><br><span class="line"><span class="string">  print sum</span></span><br><span class="line"><span class="string">&#125;'</span></span><br></pre></td></tr></table></figure>
+<h5 id="常用选项"><a href="#常用选项" class="headerlink" title="常用选项"></a>常用选项</h5><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-v</td>
+<td>参数传递</td>
+</tr>
+<tr>
+<td>-V</td>
+<td>查看awk的版本号</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>指定脚本文件</td>
+</tr>
+<tr>
+<td>-F</td>
+<td>指定分隔符</td>
+</tr>
+</tbody>
+</table>
+<p>使用<code>-v</code>引入外部变量</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ a=<span class="number">1</span></span><br><span class="line">$ b=<span class="string">"spring is framework"</span></span><br><span class="line">$ awk -v c=<span class="string">"<span class="variable">$a</span>"</span> -v d=<span class="string">"<span class="variable">$b</span>"</span> <span class="string">'BEGIN&#123;print c , d&#125;'</span></span><br></pre></td></tr></table></figure>
+<p>把awk的执行动作写在脚本中，使用<code>-f</code>指定脚本文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vim print.awk</span><br><span class="line">$ <span class="keyword">BEGIN</span>&#123;print c , d&#125;</span><br></pre></td></tr></table></figure>
+<p>执行脚本文件：<code>print.awk</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -v c=<span class="string">"<span class="variable">$a</span>"</span> -v d=<span class="string">"<span class="variable">$b</span>"</span> -f print.awk</span><br></pre></td></tr></table></figure>
+<p>使用<code>-F</code>指定分隔符</p>
+<p>我们之前可以使用内置变量<code>FS</code>来指定分隔符，比如：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN&#123;FS=":"&#125; &#123;print $1&#125;'</span> /etc/passwd</span><br></pre></td></tr></table></figure>
+<p>现在等价于：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ awk -F <span class="string">":"</span> <span class="string">'&#123;print $1&#125;'</span>  /etc/passwd</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">$ awk -F: <span class="string">'&#123;print $1&#125;'</span>  /etc/passwd</span><br></pre></td></tr></table></figure>
+
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/linux/">linux</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2019/02/25/awk命令使用详解/#comments" id="sourceId::2019/02/25/awk命令使用详解/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/02/20/sed命令/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">sed命令</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="SOHUCS" sid="2019/02/25/awk命令使用详解/"></div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2019/02/25/awk命令使用详解/" class="title">awk命令使用详解</a></p>
+                            <p class="item-date"><time datetime="2019-02-24T23:37:10.000Z" itemprop="datePublished">2019-02-25</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2019/02/20/sed命令/" class="title">sed命令</a></p>
+                            <p class="item-date"><time datetime="2019-02-20T03:37:10.000Z" itemprop="datePublished">2019-02-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2019/02/19/grep命令/" class="title">grep命令</a></p>
+                            <p class="item-date"><time datetime="2019-02-19T03:30:44.000Z" itemprop="datePublished">2019-02-19</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">19</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">16</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/activemq/" style="font-size: 11.67px;">activemq</a> <a href="/tags/btrace/" style="font-size: 11.67px;">btrace</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/idea/" style="font-size: 11.67px;">idea</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/设计模式/" style="font-size: 18.33px;">设计模式</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html">docker</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-expand-info" class="row" style="text-align: left;">
+            <div class="col-md-3 col-sm-6">
+                <!--关注我们-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">其他平台</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="https://github.com/dyc87112">Github</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="http://gitee.com/didispace">码云</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">联系合作</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="#">微信：glj88258</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">QQ：1175327069</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">邮箱：1175327069@qq.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--友情链接-->
+                
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">友情链接</h3>
+                    <div class="widget">
+                        <ul>
+                            <span class="label">
+                                <a target="_blank" href="http://cmsblogs.com/">chenssy</a>
+                            </span>
+
+                             <span class="label">
+                                <a target="_blank" href="http://blog.didispace.com/">程序猿DD</a>
+                            </span>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">我的公众号</h3>
+                    <div class="widget">
+                        <img style="width: 150px;height: 150px;" src="/css/images/qrcode_for_gh.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-base-info">
+            <div class="copy-info">
+                © 2018 顾立剑 版权所有<br>
+            </div>
+            <div class="busuanzi-info">
+                <span id="busuanzi_container_site_pv" style="display: inline;">访问量<span class="foot-count" id="busuanzi_value_site_pv">5868330</span>次</span>
+                <span id="busuanzi_container_site_uv" style="display: inline;">访客数<span class="foot-count" id="busuanzi_value_site_uv">359288</span>人次</span>
+                <br>
+                <span style="color: #888">苏ICP备15055047号-3</span>
+            </div>
+        </div>
+    </div>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+</footer>
+        
+    
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytaiyU6E"></script>
+    <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+    <script type="text/javascript">
+    window.changyan.api.config({
+    appid: 'cytaiyU6E',
+    conf: 'eae4b65d27f952474df2788e98a39555'
+    });
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

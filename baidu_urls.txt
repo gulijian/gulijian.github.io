@@ -1,5 +1,5 @@
+http://www.gulj.cn/2019/02/25/awk命令使用详解/
 http://www.gulj.cn/2019/02/20/sed命令/
 http://www.gulj.cn/2019/02/19/grep命令/
 http://www.gulj.cn/2019/02/14/find和grep命令-1/
 http://www.gulj.cn/2018/07/30/Btrace监控调试基本教程/
-http://www.gulj.cn/2018/07/30/Java-线上问题排查神器-BTrace-入门/
