@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Java设计模式—装饰器模式 | 小白程序之路 | 博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="1、介绍装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。 这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能 ①、要点：  不改变原类文件 不使用继承 动态扩展">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java设计模式—装饰器模式">
+<meta property="og:url" content="http://www.gulj.cn/2017/09/27/Java设计模式-装饰器模式/index.html">
+<meta property="og:site_name" content="小白程序之路 | 博客">
+<meta property="og:description" content="1、介绍装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。 这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能 ①、要点：  不改变原类文件 不使用继承 动态扩展">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.gulj.cn/images/java_design_decorator.png">
+<meta property="og:image" content="http://www.gulj.cn/images/java_design_decorator_simple.png">
+<meta property="og:image" content="http://www.gulj.cn/images/java_design_decorator_simple_2.png">
+<meta property="og:updated_time" content="2019-02-14T07:07:12.862Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java设计模式—装饰器模式">
+<meta name="twitter:description" content="1、介绍装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。 这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能 ①、要点：  不改变原类文件 不使用继承 动态扩展">
+<meta name="twitter:image" content="http://www.gulj.cn/images/java_design_decorator.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="小白程序之路 | 博客" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/images/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">小白程序之路 | 博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/categories/Java/">Java</a>
+                
+                    <a class="main-nav-link" href="/categories/运维/">运维</a>
+                
+                    <a class="main-nav-link" href="/categories/工具/">工具</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/categories/Java/">Java</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/运维/">运维</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/工具/">工具</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">顾立剑</h2>
+            <h3 id="title">没有收拾残局的能力，就别放纵善变的情绪</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国-上海</span>
+            <a id="follow" target="_blank" href="https://github.com/gulijian">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                41
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                16
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/gulijian" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://git.oschina.net/gulijian" target="_blank" title="git" class=tooltip>
+                            <i class="fa fa-git"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="mailto:1175327069@qq.com" target="_blank" title="envelope" class=tooltip>
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Java设计模式-装饰器模式" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Java设计模式—装饰器模式
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/09/27/Java设计模式-装饰器模式/">
+            <time datetime="2017-09-27T01:42:22.000Z" itemprop="datePublished">2017-09-27</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Java/">Java</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/设计模式/">设计模式</a>
+    </div>
+
+                        
+                            <div class="article-tag">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_container_page_pv" style="display: inline;"> <span id="busuanzi_value_page_pv">0</span>  ℃</span>
+</div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h3><p>装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。</p>
+<p>这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能</p>
+<p><strong>①、要点</strong>：</p>
+<ul>
+<li>不改变原类文件</li>
+<li>不使用继承</li>
+<li>动态扩展</li>
+</ul>
+<a id="more"></a>
+<p><strong>②、使用场景：</strong></p>
+<ul>
+<li>扩展一个类的功能</li>
+<li>动态增加功能，动态撤销</li>
+</ul>
+<p>在不想增加很多子类的情况下扩展类。</p>
+<p><strong>③、优点：</strong></p>
+<p>装饰类和被装饰类可以独立发展，不会相互耦合，<strong>装饰模式是继承的一个替代模式</strong>，装饰模式可以动态扩展一个实现类的功能。</p>
+<h3 id="2、类图（经典）"><a href="#2、类图（经典）" class="headerlink" title="2、类图（经典）"></a>2、类图（经典）</h3><p><img src="/images/java_design_decorator.png" alt=""></p>
+<p>在装饰模式中的角色有：</p>
+<ul>
+<li><strong>抽象构件(Component)角色：</strong>给出一个抽象接口，以规范准备接收附加责任的对象</li>
+<li><strong>具体构件(ConcreteComponent)角色：</strong>定义一个将要接收附加责任的类</li>
+<li><strong>装饰(Decorator)角色：</strong>持有一个构件(Component)对象的实例，并定义一个与抽象构件接口一致的接口</li>
+<li><strong>具体装饰(ConcreteDecorator)角色：</strong>负责给构件对象“贴上”附加的责任。</li>
+</ul>
+<p>类图的结构可以变化的地方：</p>
+<ul>
+<li>Component接口可以是接口也可以是抽象类，甚至是一个普通的父类（这个强烈不推荐，普通的类作为继承体系的超级父类不易于维护）</li>
+<li>装饰器的抽象父类Decorator并不是必须的。</li>
+</ul>
+<h3 id="3、代码示例"><a href="#3、代码示例" class="headerlink" title="3、代码示例"></a>3、代码示例</h3><p>抽象构件角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体的接口实现类，也就是俗称的原始对象，或者说待装饰对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteComponent</span> <span class="keyword">implements</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//TODO  相关的业务代码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>抽象装饰器父类，它主要是为装饰器定义了我们需要装饰的目标是什么，并对Component进行了基础的装饰</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> <span class="keyword">implements</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Component component;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Decorator</span><span class="params">(Component component)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.component = component;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        component.operation();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体装饰角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteDecoratorA</span> <span class="keyword">extends</span> <span class="title">Decorator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteDecoratorA</span><span class="params">(Component component)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(component);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.operation();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// TODO 相关的修饰业务代码 A</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteDecoratorB</span> <span class="keyword">extends</span> <span class="title">Decorator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteDecoratorA</span><span class="params">(Component component)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(component);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.operation();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// TODO 相关的修饰业务代码 B</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDecoratorPattern</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//原来的对象</span></span><br><span class="line">        Component component = <span class="keyword">new</span> ConcreteComponent();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//装饰成A</span></span><br><span class="line">        Decorator concreteDecoratorA = <span class="keyword">new</span> ConcreteDecoratorA(component);</span><br><span class="line">        <span class="comment">//装饰成A以后再装饰成B</span></span><br><span class="line">        Decorator concreteDecoratorB = <span class="keyword">new</span> ConcreteDecoratorB(concreteDecoratorA);</span><br><span class="line">        concreteDecoratorB.operation();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//简写方式</span></span><br><span class="line">        Decorator decorator = <span class="keyword">new</span> ConcreteDecoratorA(<span class="keyword">new</span> ConcreteDecoratorB(component));</span><br><span class="line">        decorator.operation();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4、装饰模式的简化类图"><a href="#4、装饰模式的简化类图" class="headerlink" title="4、装饰模式的简化类图"></a>4、装饰模式的简化类图</h3><p>如果只有一个ConcreteComponent类，那么可以考虑去掉抽象的Component类（接口），把Decorator作为一个ConcreteComponent子类。如下图所示:</p>
+<p><img src="/images/java_design_decorator_simple.png" alt=""></p>
+<p>如果只有一个ConcreteDecorator类，那么就没有必要建立一个单独的Decorator类，而可以把Decorator和ConcreteDecorator的责任合并成一个类。甚至在只有两个ConcreteDecorator类的情况下，都可以这样做。如下图所示：</p>
+<p><img src="/images/java_design_decorator_simple_2.png" alt=""></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/设计模式/">设计模式</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2017/09/27/Java设计模式-装饰器模式/#comments" id="sourceId::2017/09/27/Java设计模式-装饰器模式/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/09/28/Java设计模式—适配器模式/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Java设计模式—适配器模式
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/09/26/Java设计模式-策略模式/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Java设计模式—策略模式</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="SOHUCS" sid="2017/09/27/Java设计模式-装饰器模式/"></div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2019/02/25/awk命令使用详解/" class="title">awk命令使用详解</a></p>
+                            <p class="item-date"><time datetime="2019-02-24T23:37:10.000Z" itemprop="datePublished">2019-02-25</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2019/02/20/sed命令/" class="title">sed命令</a></p>
+                            <p class="item-date"><time datetime="2019-02-20T03:37:10.000Z" itemprop="datePublished">2019-02-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2019/02/19/grep命令/" class="title">grep命令</a></p>
+                            <p class="item-date"><time datetime="2019-02-19T03:30:44.000Z" itemprop="datePublished">2019-02-19</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">19</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">16</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/activemq/" style="font-size: 11.67px;">activemq</a> <a href="/tags/btrace/" style="font-size: 11.67px;">btrace</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/idea/" style="font-size: 11.67px;">idea</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/设计模式/" style="font-size: 18.33px;">设计模式</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html">docker</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-expand-info" class="row" style="text-align: left;">
+            <div class="col-md-3 col-sm-6">
+                <!--关注我们-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">其他平台</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="https://github.com/dyc87112">Github</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="http://gitee.com/didispace">码云</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">联系合作</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="#">微信：glj88258</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">QQ：1175327069</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">邮箱：1175327069@qq.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--友情链接-->
+                
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">友情链接</h3>
+                    <div class="widget">
+                        <ul>
+                            <span class="label">
+                                <a target="_blank" href="http://cmsblogs.com/">chenssy</a>
+                            </span>
+
+                             <span class="label">
+                                <a target="_blank" href="http://blog.didispace.com/">程序猿DD</a>
+                            </span>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">我的公众号</h3>
+                    <div class="widget">
+                        <img style="width: 150px;height: 150px;" src="/css/images/qrcode_for_gh.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-base-info">
+            <div class="copy-info">
+                © 2018 顾立剑 版权所有<br>
+            </div>
+            <div class="busuanzi-info">
+                <span id="busuanzi_container_site_pv" style="display: inline;">访问量<span class="foot-count" id="busuanzi_value_site_pv">5868330</span>次</span>
+                <span id="busuanzi_container_site_uv" style="display: inline;">访客数<span class="foot-count" id="busuanzi_value_site_uv">359288</span>人次</span>
+                <br>
+                <span style="color: #888">苏ICP备15055047号-3</span>
+            </div>
+        </div>
+    </div>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+</footer>
+        
+    
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytaiyU6E"></script>
+    <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+    <script type="text/javascript">
+    window.changyan.api.config({
+    appid: 'cytaiyU6E',
+    conf: 'eae4b65d27f952474df2788e98a39555'
+    });
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

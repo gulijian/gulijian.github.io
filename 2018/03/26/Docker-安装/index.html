@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>【Docker教程】Docker 安装 | 小白程序之路 | 博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="导读本系列的docker学习笔者均采用Vagrant和VirtualBox进行，下面我会给出这两款工具的简单介绍。 Vagrant介绍Vagrant是hashicorp这家公司的产品，是一个让你可以方便设置你想要的虚拟机的便携式工具，它底层支持VirtualBox、VMware甚至AWS作为虚拟机系统。 我们可以通过Vagrant提供的命令行工具vagrant，可以快速启动根据我们事先定义好的Va">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Docker教程】Docker 安装">
+<meta property="og:url" content="http://www.gulj.cn/2018/03/26/Docker-安装/index.html">
+<meta property="og:site_name" content="小白程序之路 | 博客">
+<meta property="og:description" content="导读本系列的docker学习笔者均采用Vagrant和VirtualBox进行，下面我会给出这两款工具的简单介绍。 Vagrant介绍Vagrant是hashicorp这家公司的产品，是一个让你可以方便设置你想要的虚拟机的便携式工具，它底层支持VirtualBox、VMware甚至AWS作为虚拟机系统。 我们可以通过Vagrant提供的命令行工具vagrant，可以快速启动根据我们事先定义好的Va">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.gulj.cn/images/docker-version-list.jpg">
+<meta property="og:image" content="http://www.gulj.cn/images/docker-play-groud.jpg">
+<meta property="og:updated_time" content="2019-02-14T07:07:12.859Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Docker教程】Docker 安装">
+<meta name="twitter:description" content="导读本系列的docker学习笔者均采用Vagrant和VirtualBox进行，下面我会给出这两款工具的简单介绍。 Vagrant介绍Vagrant是hashicorp这家公司的产品，是一个让你可以方便设置你想要的虚拟机的便携式工具，它底层支持VirtualBox、VMware甚至AWS作为虚拟机系统。 我们可以通过Vagrant提供的命令行工具vagrant，可以快速启动根据我们事先定义好的Va">
+<meta name="twitter:image" content="http://www.gulj.cn/images/docker-version-list.jpg">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="小白程序之路 | 博客" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/images/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">小白程序之路 | 博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/categories/Java/">Java</a>
+                
+                    <a class="main-nav-link" href="/categories/运维/">运维</a>
+                
+                    <a class="main-nav-link" href="/categories/工具/">工具</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/categories/Java/">Java</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/运维/">运维</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/工具/">工具</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">顾立剑</h2>
+            <h3 id="title">没有收拾残局的能力，就别放纵善变的情绪</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国-上海</span>
+            <a id="follow" target="_blank" href="https://github.com/gulijian">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                41
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                16
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/gulijian" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://git.oschina.net/gulijian" target="_blank" title="git" class=tooltip>
+                            <i class="fa fa-git"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="mailto:1175327069@qq.com" target="_blank" title="envelope" class=tooltip>
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Docker-安装" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            【Docker教程】Docker 安装
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/03/26/Docker-安装/">
+            <time datetime="2018-03-26T09:23:17.000Z" itemprop="datePublished">2018-03-26</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/运维/">运维</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/docker/">docker</a>
+    </div>
+
+                        
+                            <div class="article-tag">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_container_page_pv" style="display: inline;"> <span id="busuanzi_value_page_pv">0</span>  ℃</span>
+</div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h4 id="导读"><a href="#导读" class="headerlink" title="导读"></a>导读</h4><p>本系列的docker学习笔者均采用Vagrant和VirtualBox进行，下面我会给出这两款工具的简单介绍。</p>
+<h4 id="Vagrant"><a href="#Vagrant" class="headerlink" title="Vagrant"></a>Vagrant</h4><h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a><strong>介绍</strong></h5><p>Vagrant是hashicorp这家公司的产品，是一个让你可以方便设置你想要的虚拟机的便携式工具，它底层支持VirtualBox、VMware甚至AWS作为虚拟机系统。</p>
+<p>我们可以通过Vagrant提供的命令行工具vagrant，可以快速启动根据我们事先定义好的Vagrantfile文件，来创建一个或者多个虚拟机。</p>
+<p>Vagrantfile是用来定义vagrant project的，使用ruby语法。</p>
+<a id="more"></a>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a><strong>安装</strong></h5><p>Vagrant支持Mac、Window,Centos 等各种平台，下图展示支持的各种平台列表<br><img src="/images/docker-version-list.jpg" alt=""></p>
+<p>下载地址：<a href="https://www.vagrantup.com/downloads.html" target="_blank" rel="noopener">https://www.vagrantup.com/downloads.html</a></p>
+<ul>
+<li>查看是否安装成功</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看vagrant版本信息</span></span><br><span class="line">$ vagrant version</span><br></pre></td></tr></table></figure>
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a><strong>使用</strong></h5><ul>
+<li><p><strong>添加一个box</strong></p>
+<p><strong>格式</strong>：vagrant box add  远端的box地址或者本地的box文件名</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加 centos/7 的box</span></span><br><span class="line">$ vagrant box add centos/7</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过这个步骤，vagrant会去box列表中找centos/7这个镜像，如果没有就去官方下载</p>
+<p>box的名称我们通过官方提供的地址:<a href="https://app.vagrantup.com/boxes/search?page=1" target="_blank" rel="noopener">https://app.vagrantup.com/boxes/search?page=1</a> 去search</p>
+</blockquote>
+<ul>
+<li><p><strong>初始化</strong></p>
+<p><strong>格式</strong>： vagrant init  box列表中box的名称</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新建一个目录，为centos7</span></span><br><span class="line">$ mkdir centos7</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入centos7目录，初始化box,这里的（centos/7）就是我们第一步添加的box名称</span></span><br><span class="line">$ vagrant init centos/7</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这样就会在当前目录(centos7)生成一个Vagrantfile的文件,注意每个目录只能存放一个Vagrantfile文件，所以我们要事先定义好我们需要创建系统的目录</p>
+</blockquote>
+<ul>
+<li><p><strong>启动虚拟机</strong></p>
+<p>我们已经通过vagrant init centos/7 命令，得到了vagrantfile文件，下面我们可以通过vagrant up 命令来启动vagrantfile中定义的虚拟机</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vagrant up</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这样我们就在在Virtualbox中创建了一个虚拟机</p>
+</blockquote>
+<ul>
+<li><strong>连接虚拟机</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vagrant ssh</span><br></pre></td></tr></table></figure>
+<h5 id="Vagrant-的其它基本命令"><a href="#Vagrant-的其它基本命令" class="headerlink" title="Vagrant 的其它基本命令"></a>Vagrant 的其它基本命令</h5><ul>
+<li>查看命令帮助</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vagrant --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看虚拟机的状态</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vagrant status</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看box列表</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vagrant box list</span><br></pre></td></tr></table></figure>
+<ul>
+<li>停止虚拟机</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vagrant halt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>销毁虚拟机</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vagrant destory</span><br></pre></td></tr></table></figure>
+<hr>
+<h5 id="通过自定义Vagrantfile来创建虚拟机"><a href="#通过自定义Vagrantfile来创建虚拟机" class="headerlink" title="通过自定义Vagrantfile来创建虚拟机"></a>通过自定义Vagrantfile来创建虚拟机</h5><ul>
+<li><strong>编写Vagrantfile,灵活的设置虚拟机的参数</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- mode: ruby -*-</span></span><br><span class="line"><span class="comment"># vi: set ft=ruby :</span></span><br><span class="line">    </span><br><span class="line">Vagrant.require_version <span class="string">"&gt;= 1.6.0"</span></span><br><span class="line">    </span><br><span class="line">boxes = [</span><br><span class="line">    &#123;</span><br><span class="line">        :name =&gt; <span class="string">"docker-node-test1"</span>,</span><br><span class="line">        :eth1 =&gt; <span class="string">"192.168.215.10"</span>,</span><br><span class="line">        :mem =&gt; <span class="string">"2048"</span>,</span><br><span class="line">        :cpu =&gt; <span class="string">"2"</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line">    </span><br><span class="line">Vagrant.configure(2) <span class="keyword">do</span> |config|</span><br><span class="line">    </span><br><span class="line">  config.vm.box = <span class="string">"centos/7"</span></span><br><span class="line">    </span><br><span class="line">  boxes.each <span class="keyword">do</span> |opts|</span><br><span class="line">      config.vm.define opts[:name] <span class="keyword">do</span> |config|</span><br><span class="line">        config.vm.hostname = opts[:name]</span><br><span class="line">        config.vm.provider <span class="string">"vmware_fusion"</span> <span class="keyword">do</span> |v|</span><br><span class="line">          v.vmx[<span class="string">"memsize"</span>] = opts[:mem]</span><br><span class="line">          v.vmx[<span class="string">"numvcpus"</span>] = opts[:cpu]</span><br><span class="line">        end</span><br><span class="line">    </span><br><span class="line">        config.vm.provider <span class="string">"virtualbox"</span> <span class="keyword">do</span> |v|</span><br><span class="line">          v.customize [<span class="string">"modifyvm"</span>, :id, <span class="string">"--memory"</span>, opts[:mem]]</span><br><span class="line">          v.customize [<span class="string">"modifyvm"</span>, :id, <span class="string">"--cpus"</span>, opts[:cpu]]</span><br><span class="line">        end</span><br><span class="line">    </span><br><span class="line">        config.vm.network :private_network, ip: opts[:eth1]</span><br><span class="line">      end</span><br><span class="line">  end</span><br><span class="line">    </span><br><span class="line">  <span class="comment">#config.vm.synced_folder "./labs", "/home/vagrant/labs"</span></span><br><span class="line">  <span class="comment">#config.vm.provision "bash", privileged: true, path: "./setup.sh"</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Vagrantfile下载地址： xxxx</p>
+</blockquote>
+<ul>
+<li><strong>创建虚拟机</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vagrant up</span><br></pre></td></tr></table></figure>
+<h5 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h5><p> 在 Mac 平台上安装</p>
+<blockquote>
+<p>下载地址：<a href="https://www.docker.com/community-edition" target="_blank" rel="noopener">https://www.docker.com/community-edition</a></p>
+</blockquote>
+<p> 在 <strong>centos7</strong> 平台上安装步骤</p>
+<blockquote>
+<p>官网地址：<a href="https://docs.docker.com/install/linux/docker-ce/centos/#install-from-a-package" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/centos/#install-from-a-package</a></p>
+</blockquote>
+<ul>
+<li>卸载老的版本</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum remove docker \</span><br><span class="line">                    docker-client \</span><br><span class="line">                    docker-client-latest \</span><br><span class="line">                    docker-common \</span><br><span class="line">                    docker-latest \</span><br><span class="line">                    docker-latest-logrotate \</span><br><span class="line">                    docker-logrotate \</span><br><span class="line">                    docker-selinux \</span><br><span class="line">                    docker-engine-selinux \</span><br><span class="line">                    docker-engine</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>安装docker ce (注意docker 有docker ce 和 docker ee 两个版本，我们学习使用docker ce版本)</p>
+<p>①、安装依赖包</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install -y yum-utils \</span><br><span class="line">    device-mapper-persistent-data \</span><br><span class="line">    lvm2</span><br></pre></td></tr></table></figure>
+<p> ②、设置稳定仓库地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum-config-manager \</span><br><span class="line">--add-repo \</span><br><span class="line">https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+<p> ③、【可选】启用 edge 和 test 仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启用  --enable</span></span><br><span class="line">$ sudo yum-config-manager --<span class="built_in">enable</span> docker-ce-edge</span><br><span class="line"></span><br><span class="line">$ sudo yum-config-manager --<span class="built_in">enable</span> docker-ce-test</span><br><span class="line"></span><br><span class="line"><span class="comment"># 禁用  --disable</span></span><br><span class="line">$ sudo yum-config-manager --<span class="built_in">disable</span> docker-ce-edge</span><br></pre></td></tr></table></figure>
+<p>④、安装稳定版本的docker ce</p>
+<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install docker-ce</span><br></pre></td></tr></table></figure>
+</code></pre><p>⑤、【可选】查看具体的docker ce 版本，这样我们可以在生产环境安装具体的docker ce 版本</p>
+<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看docker ce 版本列表</span></span><br><span class="line">$ yum list docker-ce --showduplicates | sort -r</span><br><span class="line"></span><br><span class="line">docker-ce.x86_64            18.03.ce-1.el7.centos             docker-ce-stable</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用命令安装具体的docker ce 版本</span></span><br><span class="line">$ sudo yum install &lt;FULLY-QUALIFIED-PACKAGE-NAME&gt;</span><br></pre></td></tr></table></figure>
+</code></pre><p>⑥、启动docker</p>
+<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+</code></pre><p>⑦、验证docker是否正确安装，可以通过运行 helloworld 镜像</p>
+<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+</code></pre><h4 id="docker-machine-创建docker主机"><a href="#docker-machine-创建docker主机" class="headerlink" title="docker-machine 创建docker主机"></a>docker-machine 创建docker主机</h4><p>如果我们已经在mac平台安装过docker，默认会自带docker-machine；到现在我们已经知道了，可以通过virtualbox这个虚拟机软件直接创建虚拟机，安装docker，得到一台docker主机、也可以通过编写vagrantfile创建虚拟机，安装docker，也能得到一台docker主机、现在我们还可以通过docker-machine命令，来创建一台带有docker的主机</p>
+<ul>
+<li>查看版本信息</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker-machine -v</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"> </span><br><span class="line">$ docker-machine create -d virtualbox demo</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建docker虚拟机 (使用 virtualbox 类型的驱动)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-machine create demo</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>你也可以在创建时加上如下参数，来配置主机或者主机上的 Docker。</p>
+</blockquote>
+<blockquote>
+<p>–engine-opt dns=114.114.114.114 配置 Docker 的默认 DNS</p>
+</blockquote>
+<blockquote>
+<p>–engine-registry-mirror <a href="https://registry.docker-cn.com" target="_blank" rel="noopener">https://registry.docker-cn.com</a> 配置 Docker 的仓库镜像</p>
+</blockquote>
+<blockquote>
+<p>–virtualbox-memory 2048 配置主机内存</p>
+</blockquote>
+<blockquote>
+<p>–virtualbox-cpu-count 2 配置主机 CPU</p>
+</blockquote>
+<ul>
+<li>查看虚拟机列表</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-machine ls</span><br></pre></td></tr></table></figure>
+<ul>
+<li>进入虚拟机</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-machine ssh demo</span><br></pre></td></tr></table></figure>
+<ul>
+<li>停止虚拟机</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-machine stop demo</span><br></pre></td></tr></table></figure>
+<p>现在我们已经在mac(宿主机)上安装了docker，又通过 docker-machine 方式创建，得到了一台docker主机；那么现在我们有这样一种需求，如何让宿主机上的docker client端连接，通过docker-machine创建的docker  server端。</p>
+<p><strong>步骤</strong></p>
+<ul>
+<li>查看docker-machine创建虚拟机的环境变量</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 mac（宿主机上） 执行 查看docker-machine</span></span><br><span class="line">$ docker-machine env demo</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> DOCKER_TLS_VERIFY=<span class="string">"1"</span></span><br><span class="line"><span class="built_in">export</span> DOCKER_HOST=<span class="string">"tcp://192.168.99.100:2376"</span></span><br><span class="line"><span class="built_in">export</span> DOCKER_CERT_PATH=<span class="string">"/Users/gulj/.docker/machine/machines/demo"</span></span><br><span class="line"><span class="built_in">export</span> DOCKER_MACHINE_NAME=<span class="string">"demo"</span></span><br><span class="line"><span class="comment"># Run this command to configure your shell:</span></span><br><span class="line"><span class="comment"># eval $(docker-machine env demo)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置宿主机的docker环境变量为docker-machine创建的docker主机环境变量</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ eval $(docker-machine env demo)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看是否修改成功</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ docker version</span><br><span class="line">Client:</span><br><span class="line"> Version:	17.12.0-ce</span><br><span class="line"> API version:	1.35</span><br><span class="line"> Go version:	go1.9.2</span><br><span class="line"> Git commit:	c97c6d6</span><br><span class="line"> Built:	Wed Dec 27 20:03:51 2017</span><br><span class="line"> OS/Arch:	darwin/amd64</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Engine:</span><br><span class="line">  Version:	18.03.0-ce</span><br><span class="line">  API version:	1.37 (minimum version 1.12)</span><br><span class="line">  Go version:	go1.9.4</span><br><span class="line">  Git commit:	0520e24</span><br><span class="line">  Built:	Wed Mar 21 23:14:54 2018</span><br><span class="line">  OS/Arch:	linux/amd64</span><br><span class="line">  Experimental:	<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这样宿主机的docker client端就已经连接到通过docker-machine创建的docker主机server端，那么我们在本地操作的docker任何命令，直接作用于 docker-machine 创建的docker主机</p>
+</blockquote>
+<h4 id="Docker-在线实验室-，无需安装，直接使用"><a href="#Docker-在线实验室-，无需安装，直接使用" class="headerlink" title="Docker 在线实验室 ，无需安装，直接使用"></a>Docker 在线实验室 ，无需安装，直接使用</h4><h5 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h5><p>  <a href="https://labs.play-with-docker.com/" target="_blank" rel="noopener">https://labs.play-with-docker.com/</a></p>
+<h5 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h5><p>Play With Docker ( Docker 在线实验室) 是一个运行在浏览器中的 Docker Playground，无需安装任何环境，就可以在线体验 Docker</p>
+<h5 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h5><p><img src="/images/docker-play-groud.jpg" alt=""></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/docker/">docker</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2018/03/26/Docker-安装/#comments" id="sourceId::2018/03/26/Docker-安装/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/03/27/docker-初识/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    【Docker教程】Docker 初识
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/12/27/Charles进行HTTPS抓包/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Charles进行HTTPS抓包</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="SOHUCS" sid="2018/03/26/Docker-安装/"></div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2019/02/25/awk命令使用详解/" class="title">awk命令使用详解</a></p>
+                            <p class="item-date"><time datetime="2019-02-24T23:37:10.000Z" itemprop="datePublished">2019-02-25</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2019/02/20/sed命令/" class="title">sed命令</a></p>
+                            <p class="item-date"><time datetime="2019-02-20T03:37:10.000Z" itemprop="datePublished">2019-02-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2019/02/19/grep命令/" class="title">grep命令</a></p>
+                            <p class="item-date"><time datetime="2019-02-19T03:30:44.000Z" itemprop="datePublished">2019-02-19</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">19</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">16</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/activemq/" style="font-size: 11.67px;">activemq</a> <a href="/tags/btrace/" style="font-size: 11.67px;">btrace</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/idea/" style="font-size: 11.67px;">idea</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/设计模式/" style="font-size: 18.33px;">设计模式</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html">docker</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-expand-info" class="row" style="text-align: left;">
+            <div class="col-md-3 col-sm-6">
+                <!--关注我们-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">其他平台</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="https://github.com/dyc87112">Github</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="http://gitee.com/didispace">码云</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">联系合作</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="#">微信：glj88258</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">QQ：1175327069</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">邮箱：1175327069@qq.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--友情链接-->
+                
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">友情链接</h3>
+                    <div class="widget">
+                        <ul>
+                            <span class="label">
+                                <a target="_blank" href="http://cmsblogs.com/">chenssy</a>
+                            </span>
+
+                             <span class="label">
+                                <a target="_blank" href="http://blog.didispace.com/">程序猿DD</a>
+                            </span>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">我的公众号</h3>
+                    <div class="widget">
+                        <img style="width: 150px;height: 150px;" src="/css/images/qrcode_for_gh.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-base-info">
+            <div class="copy-info">
+                © 2018 顾立剑 版权所有<br>
+            </div>
+            <div class="busuanzi-info">
+                <span id="busuanzi_container_site_pv" style="display: inline;">访问量<span class="foot-count" id="busuanzi_value_site_pv">5868330</span>次</span>
+                <span id="busuanzi_container_site_uv" style="display: inline;">访客数<span class="foot-count" id="busuanzi_value_site_uv">359288</span>人次</span>
+                <br>
+                <span style="color: #888">苏ICP备15055047号-3</span>
+            </div>
+        </div>
+    </div>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+</footer>
+        
+    
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytaiyU6E"></script>
+    <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+    <script type="text/javascript">
+    window.changyan.api.config({
+    appid: 'cytaiyU6E',
+    conf: 'eae4b65d27f952474df2788e98a39555'
+    });
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

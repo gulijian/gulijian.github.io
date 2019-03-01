@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>小白程序之路 | 博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="本站是小白程序之路（顾立剑）的技术分享博客。内容涵盖Java后端技术、大数据、优秀开发工具、Mac推荐工具、视屏书籍分享、运维开发、系统监控等相关的研究与知识分享">
+<meta name="keywords" content="小白程序之路, 小白程序之路博客, Spring Boot, Spring Cloud, 微服务, 开发工具, Mac推荐工具， 顾立剑">
+<meta property="og:type" content="website">
+<meta property="og:title" content="小白程序之路 | 博客">
+<meta property="og:url" content="http://www.gulj.cn/index.html">
+<meta property="og:site_name" content="小白程序之路 | 博客">
+<meta property="og:description" content="本站是小白程序之路（顾立剑）的技术分享博客。内容涵盖Java后端技术、大数据、优秀开发工具、Mac推荐工具、视屏书籍分享、运维开发、系统监控等相关的研究与知识分享">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小白程序之路 | 博客">
+<meta name="twitter:description" content="本站是小白程序之路（顾立剑）的技术分享博客。内容涵盖Java后端技术、大数据、优秀开发工具、Mac推荐工具、视屏书籍分享、运维开发、系统监控等相关的研究与知识分享">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="小白程序之路 | 博客" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/images/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">小白程序之路 | 博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/categories/Java/">Java</a>
+                
+                    <a class="main-nav-link" href="/categories/运维/">运维</a>
+                
+                    <a class="main-nav-link" href="/categories/工具/">工具</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/categories/Java/">Java</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/运维/">运维</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/工具/">工具</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">顾立剑</h2>
+            <h3 id="title">没有收拾残局的能力，就别放纵善变的情绪</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国-上海</span>
+            <a id="follow" target="_blank" href="https://github.com/gulijian">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                41
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                16
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/gulijian" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://git.oschina.net/gulijian" target="_blank" title="git" class=tooltip>
+                            <i class="fa fa-git"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="mailto:1175327069@qq.com" target="_blank" title="envelope" class=tooltip>
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main">
+    <article id="post-awk命令使用详解" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/02/25/awk命令使用详解/">awk命令使用详解</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/02/25/awk命令使用详解/">
+            <time datetime="2019-02-24T23:37:10.000Z" itemprop="datePublished">2019-02-25</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/运维/">运维</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/linux/">linux</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h1 id="awk-命令"><a href="#awk-命令" class="headerlink" title="awk 命令"></a>awk 命令</h1><h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>AWK是一种处理文本文件的语言，是一个强大的文本分析工具，之所以叫AWK是因为其取了三位创始人 Alfred Aho，Peter Weinberger， 和 Brian Kernighan 的 Family Name 的首字符。</p>
+<h5 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h5><ul>
+<li>第一种形式</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN&#123;&#125;pattern&#123;commands&#125;END&#123;&#125;'</span> file</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二种形式</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ standard output | <span class="string">'BEGIN&#123;&#125;pattern&#123;commands&#125;END&#123;&#125;'</span></span><br></pre></td></tr></table></figure></p>
+            <p class="article-more-link">
+                <a href="/2019/02/25/awk命令使用详解/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/linux/">linux</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2019/02/25/awk命令使用详解/#comments" id="sourceId::2019/02/25/awk命令使用详解/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-sed命令" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/02/20/sed命令/">sed命令</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/02/20/sed命令/">
+            <time datetime="2019-02-20T03:37:10.000Z" itemprop="datePublished">2019-02-20</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/运维/">运维</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/linux/">linux</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>sed（Stream Editor） ， 流编辑器。对标准输出或文件逐行处理</p>
+<h5 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h5><ul>
+<li>第一种形式</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ stdout | sed [option] <span class="string">"pattern command"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二种形式</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed [option] <span class="string">"pattern command"</span> file</span><br></pre></td></tr></table></figure></p>
+            <p class="article-more-link">
+                <a href="/2019/02/20/sed命令/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/linux/">linux</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2019/02/20/sed命令/#comments" id="sourceId::2019/02/20/sed命令/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-grep命令" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/02/19/grep命令/">grep命令</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/02/19/grep命令/">
+            <time datetime="2019-02-19T03:30:44.000Z" itemprop="datePublished">2019-02-19</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/运维/">运维</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/linux/">linux</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h1 id="grep-命令"><a href="#grep-命令" class="headerlink" title="grep 命令"></a>grep 命令</h1><h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>Linux grep命令用于查找文件里符合条件的字符串。</p>
+<h5 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h5><ul>
+<li>第一种形式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep [option][pattern][file1,file2]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二种形式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">command</span> | grep [option][pattern]</span></span><br></pre></td></tr></table></figure></p>
+            <p class="article-more-link">
+                <a href="/2019/02/19/grep命令/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/linux/">linux</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2019/02/19/grep命令/#comments" id="sourceId::2019/02/19/grep命令/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-find和grep命令-1" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/02/14/find和grep命令-1/">find命令</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/02/14/find和grep命令-1/">
+            <time datetime="2019-02-14T07:17:44.000Z" itemprop="datePublished">2019-02-14</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/运维/">运维</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/linux/">linux</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h5 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find 【路径】【选项】【操作】</span><br></pre></td></tr></table></figure></p>
+            <p class="article-more-link">
+                <a href="/2019/02/14/find和grep命令-1/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/linux/">linux</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2019/02/14/find和grep命令-1/#comments" id="sourceId::2019/02/14/find和grep命令-1/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-Btrace监控调试基本教程" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/07/30/Btrace监控调试基本教程/">Btrace监控调试基本教程</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/07/30/Btrace监控调试基本教程/">
+            <time datetime="2018-07-30T07:53:46.000Z" itemprop="datePublished">2018-07-30</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Java/">Java</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/btrace/">btrace</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h4 id="拦截方法"><a href="#拦截方法" class="headerlink" title="拦截方法"></a>拦截方法</h4><ul>
+<li><h5 id="普通方法"><a href="#普通方法" class="headerlink" title="普通方法"></a>普通方法</h5></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OnMethod</span>( clazz = <span class="string">""</span>, method = <span class="string">""</span>)</span><br></pre></td></tr></table></figure>
+<p>上一篇文章我们已经介绍，不清楚的小伙伴，可自行前往查看 </p>
+<ul>
+<li><h5 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h5></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OnMethod</span>( clazz = <span class="string">""</span>, method = <span class="string">"&lt;init&gt;"</span>)</span><br></pre></td></tr></table></figure></p>
+            <p class="article-more-link">
+                <a href="/2018/07/30/Btrace监控调试基本教程/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/btrace/">btrace</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2018/07/30/Btrace监控调试基本教程/#comments" id="sourceId::2018/07/30/Btrace监控调试基本教程/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-Java-线上问题排查神器-BTrace-入门" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/07/30/Java-线上问题排查神器-BTrace-入门/">Java 线上问题排查神器 BTrace 入门</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/07/30/Java-线上问题排查神器-BTrace-入门/">
+            <time datetime="2018-07-30T03:27:13.000Z" itemprop="datePublished">2018-07-30</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Java/">Java</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/btrace/">btrace</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>BTrace是Java平台的安全，动态跟踪工具。</p>
+<p>BTrace可用于动态跟踪正在运行的Java程序（类似于OpenSolaris应用程序和操作系统的DTrace）。 BTrace动态检测目标应用程序的类以注入跟踪代码（“字节码跟踪”）</p>
+<p>BTrace是检查和解决线上的问题的利器，BTrace 可以通过编写脚本的方式，在服务不用重启的情况下，获取程序执行过程中相关信息。</p></p>
+            <p class="article-more-link">
+                <a href="/2018/07/30/Java-线上问题排查神器-BTrace-入门/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/btrace/">btrace</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2018/07/30/Java-线上问题排查神器-BTrace-入门/#comments" id="sourceId::2018/07/30/Java-线上问题排查神器-BTrace-入门/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-Spring集成ActiveMQ" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/06/20/Spring集成ActiveMQ/">Spring集成ActiveMQ</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/06/20/Spring集成ActiveMQ/">
+            <time datetime="2018-06-20T10:29:51.000Z" itemprop="datePublished">2018-06-20</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Java/">Java</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/activemq/">activemq</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h4 id="核心类介绍"><a href="#核心类介绍" class="headerlink" title="核心类介绍"></a>核心类介绍</h4><ul>
+<li>ConnectionFactory 用于管理连接的连接工厂<ul>
+<li>一个Spring为我们提供的连接池</li>
+<li>Spring 中提供了 SingleConnectionFactory 和 CachingConnectionFactory</li>
+</ul>
+</li>
+<li>JmsTemplate  用于发送和接收消息的模板类</li>
+<li>MessageListener 消息监听器</li>
+</ul></p>
+            <p class="article-more-link">
+                <a href="/2018/06/20/Spring集成ActiveMQ/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/activemq/">activemq</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2018/06/20/Spring集成ActiveMQ/#comments" id="sourceId::2018/06/20/Spring集成ActiveMQ/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-ActiveMQ入门教程" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/06/12/ActiveMQ入门教程/">ActiveMQ入门教程</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/06/12/ActiveMQ入门教程/">
+            <time datetime="2018-06-12T07:10:18.000Z" itemprop="datePublished">2018-06-12</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Java/">Java</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/activemq/">activemq</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><h5 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h5><p>ActiveMQ 是Apache出的，最流行的，功能强大的即时通讯和集成模式的开源服务器。ActiveMQ 是一个完全支持JMS1.1和J2EE 1.4规范的 JMS Provider实现。提供客户端支持跨语言和协议，带有易于在充分支持JMS 1.1和1.4使用J2EE企业集成模式和许多先进的功能。</p>
+<h5 id="什么是JMS？"><a href="#什么是JMS？" class="headerlink" title="什么是JMS？"></a>什么是JMS？</h5><p>Java消息服务(Java Message Service) 即JMS，是一个java平台中关于面向消息中间件的API，用于在两个应用程序之间，或分布式系统中发送消息，进行异步通信。</p>
+<h5 id="什么是AMQP？"><a href="#什么是AMQP？" class="headerlink" title="什么是AMQP？"></a>什么是AMQP？</h5><p>AMQP(advanced message queuing protocol) 是一个提供统一消息服务的应用层标准层协议，基于此协议的客户端与消息中间件可传递性，并不受客户端/中间件不同产品，不同开发语言等条件的限制。</p></p>
+            <p class="article-more-link">
+                <a href="/2018/06/12/ActiveMQ入门教程/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/activemq/">activemq</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2018/06/12/ActiveMQ入门教程/#comments" id="sourceId::2018/06/12/ActiveMQ入门教程/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="mac-OSX平台使用jenv管理多个Java版本" class="article article-type-mac" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/06/08/OSX平台使用jenv管理多个Java版本/">Mac OSX平台使用jenv管理多个Java版本</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/06/08/OSX平台使用jenv管理多个Java版本/">
+            <time datetime="2018-06-08T08:45:28.000Z" itemprop="datePublished">2018-06-08</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Java/">Java</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/mac/">mac</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h4 id="JDK安装"><a href="#JDK安装" class="headerlink" title="JDK安装"></a>JDK安装</h4><ul>
+<li>JDK下载</li>
+</ul>
+<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html" target="_blank" rel="noopener">jdk7下载链接</a></p>
+<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">jdk8下载链接</a></p>
+<blockquote>
+<p>下载自己需要的扩展名为dmg的Jdk版本，按照提示直接一步步安装即可</p>
+</blockquote>
+<ul>
+<li>配置JDK环境变量</li>
+</ul>
+<p>打开 vim ~/.bash_profile 文件 进行添加</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_8_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home</span><br><span class="line"><span class="built_in">export</span> JAVA_7_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home</span><br><span class="line"><span class="comment"># 默认激活 jdk8</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=<span class="variable">$JAVA_8_HOME</span></span><br></pre></td></tr></table></figure></p>
+            <p class="article-more-link">
+                <a href="/2018/06/08/OSX平台使用jenv管理多个Java版本/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/mac/">mac</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2018/06/08/OSX平台使用jenv管理多个Java版本/#comments" id="sourceId::2018/06/08/OSX平台使用jenv管理多个Java版本/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-OSX平台开发工具和常用软件推荐" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/06/07/OSX平台开发工具和常用软件推荐/">Mac OSX平台开发工具和常用软件推荐</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/06/07/OSX平台开发工具和常用软件推荐/">
+            <time datetime="2018-06-07T01:30:46.000Z" itemprop="datePublished">2018-06-07</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/mac/">mac</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h4 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h4><blockquote>
+<h5 id="Beyond-Compare-4"><a href="#Beyond-Compare-4" class="headerlink" title="Beyond Compare 4"></a><a href="">Beyond Compare 4</a></h5></blockquote>
+<p><img src="http://p6nkwri76.bkt.clouddn.com/15283665142155.jpg" alt=""></p>
+<p>Beyond Compare 是一款强大专业的文件和文件夹对比工具。使用它可以很方便地比较出两个文件或文件夹的差异，相差的每一个字节用颜色加以标识，让您查看方便，支持众多种格式的对比。只需使用简单操作方式方可开启快捷省事的文件对比体验，找出您所需差异、合并变化，然后同步文件，并生成报告一气呵成。</p>
+<pre><code>因版本问题，不再提供下载，还请大家支持正版！
+</code></pre></p>
+            <p class="article-more-link">
+                <a href="/2018/06/07/OSX平台开发工具和常用软件推荐/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/mac/">mac</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2018/06/07/OSX平台开发工具和常用软件推荐/#comments" id="sourceId::2018/06/07/OSX平台开发工具和常用软件推荐/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <nav id="page-nav">
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    </nav>
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2019/02/25/awk命令使用详解/" class="title">awk命令使用详解</a></p>
+                            <p class="item-date"><time datetime="2019-02-24T23:37:10.000Z" itemprop="datePublished">2019-02-25</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2019/02/20/sed命令/" class="title">sed命令</a></p>
+                            <p class="item-date"><time datetime="2019-02-20T03:37:10.000Z" itemprop="datePublished">2019-02-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/运维/">运维</a></p>
+                            <p class="item-title"><a href="/2019/02/19/grep命令/" class="title">grep命令</a></p>
+                            <p class="item-date"><time datetime="2019-02-19T03:30:44.000Z" itemprop="datePublished">2019-02-19</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">19</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">16</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/activemq/" style="font-size: 11.67px;">activemq</a> <a href="/tags/btrace/" style="font-size: 11.67px;">btrace</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/idea/" style="font-size: 11.67px;">idea</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/设计模式/" style="font-size: 18.33px;">设计模式</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html">docker</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-expand-info" class="row" style="text-align: left;">
+            <div class="col-md-3 col-sm-6">
+                <!--关注我们-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">其他平台</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="https://github.com/dyc87112">Github</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="http://gitee.com/didispace">码云</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">联系合作</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="#">微信：glj88258</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">QQ：1175327069</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">邮箱：1175327069@qq.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--友情链接-->
+                
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">友情链接</h3>
+                    <div class="widget">
+                        <ul>
+                            <span class="label">
+                                <a target="_blank" href="http://cmsblogs.com/">chenssy</a>
+                            </span>
+
+                             <span class="label">
+                                <a target="_blank" href="http://blog.didispace.com/">程序猿DD</a>
+                            </span>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">我的公众号</h3>
+                    <div class="widget">
+                        <img style="width: 150px;height: 150px;" src="/css/images/qrcode_for_gh.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-base-info">
+            <div class="copy-info">
+                © 2018 顾立剑 版权所有<br>
+            </div>
+            <div class="busuanzi-info">
+                <span id="busuanzi_container_site_pv" style="display: inline;">访问量<span class="foot-count" id="busuanzi_value_site_pv">5868330</span>次</span>
+                <span id="busuanzi_container_site_uv" style="display: inline;">访客数<span class="foot-count" id="busuanzi_value_site_uv">359288</span>人次</span>
+                <br>
+                <span style="color: #888">苏ICP备15055047号-3</span>
+            </div>
+        </div>
+    </div>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+</footer>
+        
+    
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytaiyU6E"></script>
+    <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+    <script type="text/javascript">
+    window.changyan.api.config({
+    appid: 'cytaiyU6E',
+    conf: 'eae4b65d27f952474df2788e98a39555'
+    });
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
