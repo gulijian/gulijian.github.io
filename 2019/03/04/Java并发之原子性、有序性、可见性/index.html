@@ -3,24 +3,25 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Java设计模式—装饰器模式 | 小白程序之路</title>
+    <title>Java并发之原子性、有序性、可见性 | 小白程序之路</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="1、介绍装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。 这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能 ①、要点：  不改变原类文件 不使用继承 动态扩展">
-<meta name="keywords" content="设计模式">
+    <meta name="description" content="原子性​    原子性指的是一个或者多个操作在 CPU 执行的过程中不被中断的特性  线程切换 带来的原子性问题  Java 并发程序都是基于多线程的，操作系统为了充分利用CPU的资源，将CPU分成若干个时间片，在多线程环境下，线程会被操作系统调度进行任务切换。">
+<meta name="keywords" content="并发编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java设计模式—装饰器模式">
-<meta property="og:url" content="http://www.gulj.cn/2017/09/27/Java设计模式-装饰器模式/index.html">
+<meta property="og:title" content="Java并发之原子性、有序性、可见性">
+<meta property="og:url" content="http://www.gulj.cn/2019/03/04/Java并发之原子性、有序性、可见性/index.html">
 <meta property="og:site_name" content="小白程序之路">
-<meta property="og:description" content="1、介绍装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。 这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能 ①、要点：  不改变原类文件 不使用继承 动态扩展">
+<meta property="og:description" content="原子性​    原子性指的是一个或者多个操作在 CPU 执行的过程中不被中断的特性  线程切换 带来的原子性问题  Java 并发程序都是基于多线程的，操作系统为了充分利用CPU的资源，将CPU分成若干个时间片，在多线程环境下，线程会被操作系统调度进行任务切换。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://www.gulj.cn/images/java_design_decorator.png">
-<meta property="og:image" content="http://www.gulj.cn/images/java_design_decorator_simple.png">
-<meta property="og:image" content="http://www.gulj.cn/images/java_design_decorator_simple_2.png">
-<meta property="og:updated_time" content="2019-02-14T07:07:12.862Z">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/WechatIMG36.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/image-20190304163607329.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/image-20190304173844373.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/image-20190304183341997.png">
+<meta property="og:updated_time" content="2019-03-04T13:05:33.942Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java设计模式—装饰器模式">
-<meta name="twitter:description" content="1、介绍装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。 这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能 ①、要点：  不改变原类文件 不使用继承 动态扩展">
-<meta name="twitter:image" content="http://www.gulj.cn/images/java_design_decorator.png">
+<meta name="twitter:title" content="Java并发之原子性、有序性、可见性">
+<meta name="twitter:description" content="原子性​    原子性指的是一个或者多个操作在 CPU 执行的过程中不被中断的特性  线程切换 带来的原子性问题  Java 并发程序都是基于多线程的，操作系统为了充分利用CPU的资源，将CPU分成若干个时间片，在多线程环境下，线程会被操作系统调度进行任务切换。">
+<meta name="twitter:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/WechatIMG36.png">
     
 
     
@@ -205,7 +206,7 @@
 </aside>
 
             
-            <section id="main"><article id="post-Java设计模式-装饰器模式" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-Java并发之原子性、有序性、可见性" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -213,7 +214,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            Java设计模式—装饰器模式
+            Java并发之原子性、有序性、可见性
         </h1>
     
 
@@ -227,8 +228,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/09/27/Java设计模式-装饰器模式/">
-            <time datetime="2017-09-27T01:42:22.000Z" itemprop="datePublished">2017-09-27</time>
+        <a href="/2019/03/04/Java并发之原子性、有序性、可见性/">
+            <time datetime="2019-03-04T12:34:40.000Z" itemprop="datePublished">2019-03-04</time>
         </a>
     </div>
 
@@ -248,7 +249,7 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/设计模式/">设计模式</a>
+        <a class="tag-link" href="/tags/并发编程/">并发编程</a>
     </div>
 
                         
@@ -266,51 +267,82 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h3 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h3><p>装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。</p>
-<p>这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能</p>
-<p><strong>①、要点</strong>：</p>
-<ul>
-<li>不改变原类文件</li>
-<li>不使用继承</li>
-<li>动态扩展</li>
-</ul>
+            <h5 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h5><p>​    原子性指的是一个或者多个操作在 CPU 执行的过程中不被中断的特性</p>
+<blockquote>
+<p><font color="red"><strong>线程切换</strong></font> 带来的原子性问题</p>
+</blockquote>
+<p>Java 并发程序都是基于多线程的，操作系统为了充分利用CPU的资源，将CPU分成若干个时间片，在多线程环境下，线程会被操作系统调度进行任务切换。</p>
 <a id="more"></a>
-<p><strong>②、使用场景：</strong></p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/WechatIMG36.png" alt="image-20190304155302961"></p>
+<p>为了直观的了解什么是原子性，我们看下下面哪些操作是原子性操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> count = <span class="number">1</span>; <span class="comment">//1</span></span><br><span class="line">count++;       <span class="comment">//2</span></span><br><span class="line"><span class="keyword">int</span> a = count; <span class="comment">//3</span></span><br></pre></td></tr></table></figure>
+<p>上面展示语句中，除了语句1是原子操作，其它两个语句都不是原子性操作，下面我们来分析一下语句2</p>
+<p>其实语句2在执行的时候，包含三个指令操作</p>
 <ul>
-<li>扩展一个类的功能</li>
-<li>动态增加功能，动态撤销</li>
+<li>指令 1：首先，需要把变量 count 从内存加载到 CPU的寄存器</li>
+<li>指令 2：之后，在寄存器中执行 +1 操作；</li>
+<li>指令 3：最后，将结果写入内存</li>
 </ul>
-<p>在不想增加很多子类的情况下扩展类。</p>
-<p><strong>③、优点：</strong></p>
-<p>装饰类和被装饰类可以独立发展，不会相互耦合，<strong>装饰模式是继承的一个替代模式</strong>，装饰模式可以动态扩展一个实现类的功能。</p>
-<h3 id="2、类图（经典）"><a href="#2、类图（经典）" class="headerlink" title="2、类图（经典）"></a>2、类图（经典）</h3><p><img src="/images/java_design_decorator.png" alt=""></p>
-<p>在装饰模式中的角色有：</p>
+<p>对于上面的三条指令来说，如果线程 A 在指令 1 执行完后做线程切换，线程 A 和线程 B 按照下图的序列执行，那么我们会发现两个线程都执行了 count+=1 的操作，但是得到的结果不是我们期望的 2，而是 1。</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/image-20190304163607329.png" alt="image-20190304163607329"></p>
+<blockquote>
+<p>操作系统做任务切换，可以发生在任何一条CPU 指令执行完</p>
+</blockquote>
+<h5 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h5><p>​    有序性指的是程序按照代码的先后顺序执行</p>
+<blockquote>
+<p> <strong><font color="red">编译优化 </font></strong>带来的有序性问题</p>
+</blockquote>
+<p>为了性能优化，编译器和处理器会进行指令重排序，有时候会改变程序中语句的先后顺序，比如程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">5</span>;     <span class="comment">//1</span></span><br><span class="line">b = <span class="number">20</span>;    <span class="comment">//2</span></span><br><span class="line">c = a + b; <span class="comment">//3</span></span><br></pre></td></tr></table></figure>
+<p>编译器优化后可能变成</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">b = <span class="number">20</span>;    <span class="comment">//1</span></span><br><span class="line">a = <span class="number">5</span>;     <span class="comment">//2</span></span><br><span class="line">c = a + b; <span class="comment">//3</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，编译器调整了语句的顺序，但是不影响程序的最终结果</p>
+<p><strong>synchronized</strong>（具有有序性、原子性、可见性）表示锁在同一时刻只能由一个线程进行获取，当锁被占用后，其他线程只能等待。</p>
+<p>在单例模式的实现上有一种双重检验锁定的方式（Double-checked Locking）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> Singleton instance;</span><br><span class="line">  <span class="function"><span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">synchronized</span>(Singleton.class) &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>)</span><br><span class="line">          instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们先看  <code>instance = new Singleton()</code> 的未被编译器优化的操作</p>
 <ul>
-<li><strong>抽象构件(Component)角色：</strong>给出一个抽象接口，以规范准备接收附加责任的对象</li>
-<li><strong>具体构件(ConcreteComponent)角色：</strong>定义一个将要接收附加责任的类</li>
-<li><strong>装饰(Decorator)角色：</strong>持有一个构件(Component)对象的实例，并定义一个与抽象构件接口一致的接口</li>
-<li><strong>具体装饰(ConcreteDecorator)角色：</strong>负责给构件对象“贴上”附加的责任。</li>
+<li><p>指令 1：分配一块内存 M；</p>
+</li>
+<li><p>指令 2：在内存 M 上初始化 Singleton 对象；</p>
+</li>
+<li><p>指令 3：然后 M 的地址赋值给 instance 变量。</p>
+</li>
 </ul>
-<p>类图的结构可以变化的地方：</p>
+<p>编译器优化后的操作指令</p>
 <ul>
-<li>Component接口可以是接口也可以是抽象类，甚至是一个普通的父类（这个强烈不推荐，普通的类作为继承体系的超级父类不易于维护）</li>
-<li>装饰器的抽象父类Decorator并不是必须的。</li>
+<li><p>指令 1：分配一块内存 M；</p>
+</li>
+<li><p>指令 2：将 M 的地址赋值给 instance 变量；</p>
+</li>
+<li><p>指令 3：然后在内存 M 上初始化 Singleton 对象。</p>
+</li>
 </ul>
-<h3 id="3、代码示例"><a href="#3、代码示例" class="headerlink" title="3、代码示例"></a>3、代码示例</h3><p>抽象构件角色</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>具体的接口实现类，也就是俗称的原始对象，或者说待装饰对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteComponent</span> <span class="keyword">implements</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//TODO  相关的业务代码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>抽象装饰器父类，它主要是为装饰器定义了我们需要装饰的目标是什么，并对Component进行了基础的装饰</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> <span class="keyword">implements</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Component component;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Decorator</span><span class="params">(Component component)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.component = component;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        component.operation();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>具体装饰角色</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteDecoratorA</span> <span class="keyword">extends</span> <span class="title">Decorator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteDecoratorA</span><span class="params">(Component component)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(component);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.operation();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// TODO 相关的修饰业务代码 A</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteDecoratorB</span> <span class="keyword">extends</span> <span class="title">Decorator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteDecoratorA</span><span class="params">(Component component)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(component);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.operation();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// TODO 相关的修饰业务代码 B</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDecoratorPattern</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//原来的对象</span></span><br><span class="line">        Component component = <span class="keyword">new</span> ConcreteComponent();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//装饰成A</span></span><br><span class="line">        Decorator concreteDecoratorA = <span class="keyword">new</span> ConcreteDecoratorA(component);</span><br><span class="line">        <span class="comment">//装饰成A以后再装饰成B</span></span><br><span class="line">        Decorator concreteDecoratorB = <span class="keyword">new</span> ConcreteDecoratorB(concreteDecoratorA);</span><br><span class="line">        concreteDecoratorB.operation();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//简写方式</span></span><br><span class="line">        Decorator decorator = <span class="keyword">new</span> ConcreteDecoratorA(<span class="keyword">new</span> ConcreteDecoratorB(component));</span><br><span class="line">        decorator.operation();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4、装饰模式的简化类图"><a href="#4、装饰模式的简化类图" class="headerlink" title="4、装饰模式的简化类图"></a>4、装饰模式的简化类图</h3><p>如果只有一个ConcreteComponent类，那么可以考虑去掉抽象的Component类（接口），把Decorator作为一个ConcreteComponent子类。如下图所示:</p>
-<p><img src="/images/java_design_decorator_simple.png" alt=""></p>
-<p>如果只有一个ConcreteDecorator类，那么就没有必要建立一个单独的Decorator类，而可以把Decorator和ConcreteDecorator的责任合并成一个类。甚至在只有两个ConcreteDecorator类的情况下，都可以这样做。如下图所示：</p>
-<p><img src="/images/java_design_decorator_simple_2.png" alt=""></p>
+<p>现在有A，B两个线程，我们假设线程A先执行<code>getInstance()</code>方法，当执行编译器优化后的操作指令<code>2</code>时（此时候未完成对象的初始化），这时候发生了线程切换，那么线程B进入，刚好执行到第一次判断 <code>instance==null</code>会发现<code>instance</code>不等于<code>null</code>了，所以直接返回<code>instance</code>，而此时的 instance 是没有初始化过的。</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/image-20190304173844373.png" alt="image-20190304173844373"></p>
+<p>现行的比较通用的做法就是采用静态内部类的方式来实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonDemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonDemoHandler</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> SingletonDemo instance = <span class="keyword">new</span> SingletonDemo();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonDemo <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonDemoHandler.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h5><p>​    可见性指的是当一个线程修改了共享变量后，其他线程能够立即得知这个修改</p>
+<blockquote>
+<p><font color="red"><strong>缓存</strong> </font>导致的可见性问题</p>
+</blockquote>
+<p>首先我们来看一下Java内存模型（JMM）</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/image-20190304183341997.png" alt="image-20190304183341997"></p>
+<ul>
+<li>我们定义的所有变量都储存在<code>主内存</code>中</li>
+<li>每个线程都有自己<code>独立的工作内存</code>，里面保存该线程使用到的变量的副本（主内存中该变量的一份拷贝）</li>
+<li>线程对共享变量所有的操作都必须在自己的工作内存中进行，不能直接从主内存中读写（不能越级）</li>
+<li>不同线程之间也无法直接访问其他线程的工作内存中的变量，线程间变量值的传递需要通过主内存来进行。（同级不能相互访问）</li>
+</ul>
+<p>共享变量可见性的实现原理：</p>
+<p>线程1对共享变量的修改要被线程2及时看到的话，要经过如下步骤：</p>
+<ol>
+<li>把工作内存1中更新的变量值刷新到主内存</li>
+<li>把主内存中的变量的值更新到工作内存2中</li>
+</ol>
+<blockquote>
+<p>可以使用 <strong>synchronized</strong> 、<strong>volatile</strong> 、<strong>final</strong> 来保证可见性</p>
+</blockquote>
 
         
         </div>
@@ -318,7 +350,7 @@
             
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/设计模式/">设计模式</a>
+        <a class="tag-link" href="/tags/并发编程/">并发编程</a>
     </div>
 
             <div class="share-container">
@@ -381,7 +413,7 @@
            
             <!-- 
     
-        <a href="http://www.gulj.cn/2017/09/27/Java设计模式-装饰器模式/#comments" id="sourceId::2017/09/27/Java设计模式-装饰器模式/" class="article-comment-link cy_cmt_count">评论</a>
+        <a href="http://www.gulj.cn/2019/03/04/Java并发之原子性、有序性、可见性/#comments" id="sourceId::2019/03/04/Java并发之原子性、有序性、可见性/" class="article-comment-link cy_cmt_count">评论</a>
     
  -->
         </footer>
@@ -390,19 +422,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2017/09/28/Java设计模式—适配器模式/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    Java设计模式—适配器模式
-                
-            </div>
-        </a>
     
-    
-        <a href="/2017/09/26/Java设计模式-策略模式/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/02/25/awk命令使用详解/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">Java设计模式—策略模式</div>
+            <div class="article-nav-title">awk命令使用详解</div>
         </a>
     
 </nav>
@@ -415,7 +438,7 @@
     
     
         <section id="comments">
-    <div id="SOHUCS" sid="2017/09/27/Java设计模式-装饰器模式/"></div>
+    <div id="SOHUCS" sid="2019/03/04/Java并发之原子性、有序性、可见性/"></div>
 </section>
     
 
