@@ -5,13 +5,33 @@
     
   <url>
     <loc>http://www.gulj.cn/2019/03/04/Java%E5%B9%B6%E5%8F%91%E4%B9%8B%E5%8E%9F%E5%AD%90%E6%80%A7%E3%80%81%E6%9C%89%E5%BA%8F%E6%80%A7%E3%80%81%E5%8F%AF%E8%A7%81%E6%80%A7/</loc>
-    <lastmod>2019-03-04T13:05:33.942Z</lastmod>
+    <lastmod>2019-03-10T12:21:17.695Z</lastmod>
     <data>
         <display>
         <title>Java并发之原子性、有序性、可见性</title>
         <pubTime>2019-03-04T12:34:40.000Z</pubTime>
         
         <tag>并发编程</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://www.gulj.cn/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.gulj.cn/2019/03/10/Java%E7%89%88-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%B0%E7%BB%84/</loc>
+    <lastmod>2019-03-10T12:21:08.706Z</lastmod>
+    <data>
+        <display>
+        <title>Java版-数据结构-数组</title>
+        <pubTime>2019-03-10T12:19:33.000Z</pubTime>
+        
+        <tag>数据结构</tag>
          
          
            
@@ -164,12 +184,12 @@
 
     
   <url>
-    <loc>http://www.gulj.cn/2017/09/17/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>http://www.gulj.cn/2017/09/18/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2019-02-14T07:07:12.866Z</lastmod>
     <data>
         <display>
-        <title>java设计模式-建造者模式</title>
-        <pubTime>2017-09-17T10:43:13.000Z</pubTime>
+        <title>java设计模式-单例模式</title>
+        <pubTime>2017-09-18T09:43:24.000Z</pubTime>
         
         <tag>设计模式</tag>
          
@@ -204,12 +224,12 @@
 
     
   <url>
-    <loc>http://www.gulj.cn/2017/09/18/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>http://www.gulj.cn/2017/09/17/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2019-02-14T07:07:12.866Z</lastmod>
     <data>
         <display>
-        <title>java设计模式-单例模式</title>
-        <pubTime>2017-09-18T09:43:24.000Z</pubTime>
+        <title>java设计模式-建造者模式</title>
+        <pubTime>2017-09-17T10:43:13.000Z</pubTime>
         
         <tag>设计模式</tag>
          
@@ -218,6 +238,43 @@
              
               <breadCrumb title="Java" url="http://www.gulj.cn/categories/Java/"/>
           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.gulj.cn/2018/03/28/docker-%E9%95%9C%E5%83%8F%E5%8F%91%E5%B8%83/</loc>
+    <lastmod>2019-02-14T07:07:12.865Z</lastmod>
+    <data>
+        <display>
+        <title>【Docker教程】Docker 镜像发布</title>
+        <pubTime>2018-03-28T05:37:58.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维" url="http://www.gulj.cn/categories/%E8%BF%90%E7%BB%B4/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.gulj.cn/2017/08/15/hexo-%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2019-02-14T07:07:12.865Z</lastmod>
+    <data>
+        <display>
+        <title>Hexo 博客配置</title>
+        <pubTime>2017-08-15T07:34:40.000Z</pubTime>
+        
+        <tag>hexo</tag>
+         
+         
+           
         </display>
     </data>
     </url>
@@ -244,29 +301,12 @@
 
     
   <url>
-    <loc>http://www.gulj.cn/2017/08/15/hexo-%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2019-02-14T07:07:12.865Z</lastmod>
+    <loc>http://www.gulj.cn/2018/03/29/docker-%E5%AE%B9%E5%99%A8/</loc>
+    <lastmod>2019-02-14T07:07:12.864Z</lastmod>
     <data>
         <display>
-        <title>Hexo 博客配置</title>
-        <pubTime>2017-08-15T07:34:40.000Z</pubTime>
-        
-        <tag>hexo</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.gulj.cn/2018/03/28/docker-%E9%95%9C%E5%83%8F%E5%8F%91%E5%B8%83/</loc>
-    <lastmod>2019-02-14T07:07:12.865Z</lastmod>
-    <data>
-        <display>
-        <title>【Docker教程】Docker 镜像发布</title>
-        <pubTime>2018-03-28T05:37:58.000Z</pubTime>
+        <title>【Docker教程】Docker 容器</title>
+        <pubTime>2018-03-29T06:17:03.000Z</pubTime>
         
         <tag>docker</tag>
          
@@ -341,39 +381,19 @@
 
     
   <url>
-    <loc>http://www.gulj.cn/2018/03/29/docker-%E5%AE%B9%E5%99%A8/</loc>
-    <lastmod>2019-02-14T07:07:12.864Z</lastmod>
-    <data>
-        <display>
-        <title>【Docker教程】Docker 容器</title>
-        <pubTime>2018-03-29T06:17:03.000Z</pubTime>
-        
-        <tag>docker</tag>
-         
-         
-           
-             
-              <breadCrumb title="运维" url="http://www.gulj.cn/categories/%E8%BF%90%E7%BB%B4/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.gulj.cn/2018/06/07/OSX%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E5%92%8C%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/</loc>
+    <loc>http://www.gulj.cn/2018/06/20/Spring%E9%9B%86%E6%88%90ActiveMQ/</loc>
     <lastmod>2019-02-14T07:07:12.863Z</lastmod>
     <data>
         <display>
-        <title>Mac OSX平台开发工具和常用软件推荐</title>
-        <pubTime>2018-06-07T01:30:46.000Z</pubTime>
+        <title>Spring集成ActiveMQ</title>
+        <pubTime>2018-06-20T10:29:51.000Z</pubTime>
         
-        <tag>mac</tag>
+        <tag>activemq</tag>
          
          
            
              
-              <breadCrumb title="工具" url="http://www.gulj.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+              <breadCrumb title="Java" url="http://www.gulj.cn/categories/Java/"/>
           
         </display>
     </data>
@@ -421,19 +441,19 @@
 
     
   <url>
-    <loc>http://www.gulj.cn/2018/06/20/Spring%E9%9B%86%E6%88%90ActiveMQ/</loc>
+    <loc>http://www.gulj.cn/2018/06/07/OSX%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E5%92%8C%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/</loc>
     <lastmod>2019-02-14T07:07:12.863Z</lastmod>
     <data>
         <display>
-        <title>Spring集成ActiveMQ</title>
-        <pubTime>2018-06-20T10:29:51.000Z</pubTime>
+        <title>Mac OSX平台开发工具和常用软件推荐</title>
+        <pubTime>2018-06-07T01:30:46.000Z</pubTime>
         
-        <tag>activemq</tag>
+        <tag>mac</tag>
          
          
            
              
-              <breadCrumb title="Java" url="http://www.gulj.cn/categories/Java/"/>
+              <breadCrumb title="工具" url="http://www.gulj.cn/categories/%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
@@ -441,14 +461,14 @@
 
     
   <url>
-    <loc>http://www.gulj.cn/2017/09/28/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>http://www.gulj.cn/2018/06/08/OSX%E5%B9%B3%E5%8F%B0%E4%BD%BF%E7%94%A8jenv%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AAJava%E7%89%88%E6%9C%AC/</loc>
     <lastmod>2019-02-14T07:07:12.862Z</lastmod>
     <data>
         <display>
-        <title>Java设计模式—适配器模式</title>
-        <pubTime>2017-09-28T03:31:50.000Z</pubTime>
+        <title>Mac OSX平台使用jenv管理多个Java版本</title>
+        <pubTime>2018-06-08T08:45:28.000Z</pubTime>
         
-        <tag>设计模式</tag>
+        <tag>mac</tag>
          
          
            
@@ -467,26 +487,6 @@
         <display>
         <title>Java设计模式—代理模式</title>
         <pubTime>2017-09-20T07:54:23.000Z</pubTime>
-        
-        <tag>设计模式</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://www.gulj.cn/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.gulj.cn/2017/09/27/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2019-02-14T07:07:12.862Z</lastmod>
-    <data>
-        <display>
-        <title>Java设计模式—装饰器模式</title>
-        <pubTime>2017-09-27T01:42:22.000Z</pubTime>
         
         <tag>设计模式</tag>
          
@@ -521,14 +521,34 @@
 
     
   <url>
-    <loc>http://www.gulj.cn/2018/06/08/OSX%E5%B9%B3%E5%8F%B0%E4%BD%BF%E7%94%A8jenv%E7%AE%A1%E7%90%86%E5%A4%9A%E4%B8%AAJava%E7%89%88%E6%9C%AC/</loc>
+    <loc>http://www.gulj.cn/2017/09/28/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2019-02-14T07:07:12.862Z</lastmod>
     <data>
         <display>
-        <title>Mac OSX平台使用jenv管理多个Java版本</title>
-        <pubTime>2018-06-08T08:45:28.000Z</pubTime>
+        <title>Java设计模式—适配器模式</title>
+        <pubTime>2017-09-28T03:31:50.000Z</pubTime>
         
-        <tag>mac</tag>
+        <tag>设计模式</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://www.gulj.cn/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.gulj.cn/2017/09/27/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2019-02-14T07:07:12.862Z</lastmod>
+    <data>
+        <display>
+        <title>Java设计模式—装饰器模式</title>
+        <pubTime>2017-09-27T01:42:22.000Z</pubTime>
+        
+        <tag>设计模式</tag>
          
          
            
@@ -581,6 +601,26 @@
 
     
   <url>
+    <loc>http://www.gulj.cn/2018/07/30/Java-%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E7%A5%9E%E5%99%A8-BTrace-%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2019-02-14T07:07:12.861Z</lastmod>
+    <data>
+        <display>
+        <title>Java 线上问题排查神器 BTrace 入门</title>
+        <pubTime>2018-07-30T03:27:13.000Z</pubTime>
+        
+        <tag>btrace</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://www.gulj.cn/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.gulj.cn/2017/09/12/Java-%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%EF%BC%8C%E6%9E%84%E9%80%A0%E5%9D%97%EF%BC%8C%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</loc>
     <lastmod>2019-02-14T07:07:12.861Z</lastmod>
     <data>
@@ -601,19 +641,39 @@
 
     
   <url>
-    <loc>http://www.gulj.cn/2018/07/30/Java-%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E7%A5%9E%E5%99%A8-BTrace-%E5%85%A5%E9%97%A8/</loc>
-    <lastmod>2019-02-14T07:07:12.861Z</lastmod>
+    <loc>http://www.gulj.cn/2017/11/10/ElasticSearch%E5%B8%B8%E7%94%A8API%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2019-02-14T07:07:12.860Z</lastmod>
     <data>
         <display>
-        <title>Java 线上问题排查神器 BTrace 入门</title>
-        <pubTime>2018-07-30T03:27:13.000Z</pubTime>
+        <title>ElasticSearch常用API使用教程</title>
+        <pubTime>2017-11-10T02:44:00.000Z</pubTime>
         
-        <tag>btrace</tag>
+        <tag>elasticsearch</tag>
          
          
            
              
               <breadCrumb title="Java" url="http://www.gulj.cn/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.gulj.cn/2017/08/20/Frp-%E7%9A%84%E4%BB%8B%E7%BB%8D%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2019-02-14T07:07:12.860Z</lastmod>
+    <data>
+        <display>
+        <title>Frp 的介绍使用与安装</title>
+        <pubTime>2017-08-20T10:53:05.000Z</pubTime>
+        
+        <tag>frp</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="http://www.gulj.cn/categories/%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
@@ -649,46 +709,6 @@
         <pubTime>2017-09-12T03:13:27.000Z</pubTime>
         
         <tag>java</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://www.gulj.cn/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.gulj.cn/2017/08/20/Frp-%E7%9A%84%E4%BB%8B%E7%BB%8D%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%AE%89%E8%A3%85/</loc>
-    <lastmod>2019-02-14T07:07:12.860Z</lastmod>
-    <data>
-        <display>
-        <title>Frp 的介绍使用与安装</title>
-        <pubTime>2017-08-20T10:53:05.000Z</pubTime>
-        
-        <tag>frp</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="http://www.gulj.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.gulj.cn/2017/11/10/ElasticSearch%E5%B8%B8%E7%94%A8API%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2019-02-14T07:07:12.860Z</lastmod>
-    <data>
-        <display>
-        <title>ElasticSearch常用API使用教程</title>
-        <pubTime>2017-11-10T02:44:00.000Z</pubTime>
-        
-        <tag>elasticsearch</tag>
          
          
            
