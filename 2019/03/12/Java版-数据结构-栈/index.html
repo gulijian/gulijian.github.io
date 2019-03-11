@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Java版-数据结构-栈 | 小白程序之路</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="介绍栈是一种后进先出的线性表数据结构，分为栈顶和栈底两端，仅允许在表的一端插入元素，这一端被称为栈顶，另外一端称之为栈底。栈，只有两种操作，分为入栈（压栈）和出栈（退栈）；向栈中添加元素的操作叫做入栈，相反从栈中删除元素叫做出栈。 特点 只能从栈顶添加元素或者删除元素 后进先出的数据结构，Last In First Out（LIFO）">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java版-数据结构-栈">
+<meta property="og:url" content="http://www.gulj.cn/2019/03/12/Java版-数据结构-栈/index.html">
+<meta property="og:site_name" content="小白程序之路">
+<meta property="og:description" content="介绍栈是一种后进先出的线性表数据结构，分为栈顶和栈底两端，仅允许在表的一端插入元素，这一端被称为栈顶，另外一端称之为栈底。栈，只有两种操作，分为入栈（压栈）和出栈（退栈）；向栈中添加元素的操作叫做入栈，相反从栈中删除元素叫做出栈。 特点 只能从栈顶添加元素或者删除元素 后进先出的数据结构，Last In First Out（LIFO）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311222134128.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311222101553.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311230707333.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311231917661.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311232716815.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311233500400.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311234438000.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/qrcode_for_gh.jpg">
+<meta property="og:updated_time" content="2019-03-11T19:15:17.583Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java版-数据结构-栈">
+<meta name="twitter:description" content="介绍栈是一种后进先出的线性表数据结构，分为栈顶和栈底两端，仅允许在表的一端插入元素，这一端被称为栈顶，另外一端称之为栈底。栈，只有两种操作，分为入栈（压栈）和出栈（退栈）；向栈中添加元素的操作叫做入栈，相反从栈中删除元素叫做出栈。 特点 只能从栈顶添加元素或者删除元素 后进先出的数据结构，Last In First Out（LIFO）">
+<meta name="twitter:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311222134128.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="小白程序之路" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">小白程序之路</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/categories/Java/">Java</a>
+                
+                    <a class="main-nav-link" href="/categories/运维/">运维</a>
+                
+                    <a class="main-nav-link" href="/categories/工具/">工具</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/categories/Java/">Java</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/运维/">运维</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/工具/">工具</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">顾立剑</h2>
+            <h3 id="title">没有收拾残局的能力，就别放纵善变的情绪</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国-上海</span>
+            <a id="follow" target="_blank" href="https://github.com/gulijian">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                44
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                18
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/gulijian" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://git.oschina.net/gulijian" target="_blank" title="git" class=tooltip>
+                            <i class="fa fa-git"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="mailto:1175327069@qq.com" target="_blank" title="envelope" class=tooltip>
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Java版-数据结构-栈" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Java版-数据结构-栈
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/03/12/Java版-数据结构-栈/">
+            <time datetime="2019-03-11T19:13:59.000Z" itemprop="datePublished">2019-03-12</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Java/">Java</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/数据结构/">数据结构</a>
+    </div>
+
+                        
+                            <div class="article-tag">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_container_page_pv" style="display: inline;"> <span id="busuanzi_value_page_pv">0</span>  ℃</span>
+</div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>栈是一种后进先出的线性表数据结构，分为栈顶和栈底两端，仅允许在表的一端插入元素，这一端被称为栈顶，另外一端称之为栈底。栈，只有两种操作，分为入栈（压栈）和出栈（退栈）；向栈中添加元素的操作叫做入栈，相反从栈中删除元素叫做出栈。</p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>只能从栈顶添加元素或者删除元素</li>
+<li>后进先出的数据结构，Last In First Out（LIFO）</li>
+</ul>
+<a id="more"></a>
+<p>为了大家更好的形象了解我们通过示意图来看一下栈的<code>入栈</code>和<code>出栈</code>操作</p>
+<h5 id="入栈操作示意图"><a href="#入栈操作示意图" class="headerlink" title="入栈操作示意图"></a><font color="green">入栈操作示意图</font></h5><p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311222134128.png" alt="image-20190311222134128"></p>
+<h5 id="出栈操作示意图（后进的元素先出）"><a href="#出栈操作示意图（后进的元素先出）" class="headerlink" title="出栈操作示意图（后进的元素先出）"></a><font color="green">出栈操作示意图</font>（后进的元素先出）</h5><p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311222101553.png" alt="image-20190311222101553"></p>
+<h4 id="栈的基本操作"><a href="#栈的基本操作" class="headerlink" title="栈的基本操作"></a>栈的基本操作</h4><ul>
+<li>向栈中添加一个元素（入栈）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(E e)</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>从栈中删除一个元素（出栈）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">E <span class="title">pop</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看栈顶元素</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">E <span class="title">peek</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看栈中元素个数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>判断栈是否为空</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>实现栈的方式，实际上底层有多种实现方式，比如：动态数组等，这里我们使用Java语言本身为我们提供的集合<code>LinkedList</code></p>
+<h5 id="接口定义：Stack"><a href="#接口定义：Stack" class="headerlink" title="接口定义：Stack"></a>接口定义：Stack<e></e></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Stack</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 向栈中添加元素</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> e</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(E e)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 从栈中删除元素</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取栈顶元素</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">E <span class="title">peek</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取栈中元素个数</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 判断栈中是否为空</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="LinkedListStack-类实现接口Stack"><a href="#LinkedListStack-类实现接口Stack" class="headerlink" title="LinkedListStack 类实现接口Stack"></a>LinkedListStack<e> 类实现接口Stack<e></e></e></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedListStack</span>&lt;<span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">Stack</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 存放栈元素</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    LinkedList&lt;E&gt; list;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 构造栈结构</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedListStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        list = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        list.addLast(e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        list.removeLast();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> list.getLast();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> list.size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> list.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"LinkedListStack&#123;"</span> +</span><br><span class="line">                <span class="string">"list="</span> + list +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="测试类：LinkedListStackTest"><a href="#测试类：LinkedListStackTest" class="headerlink" title="测试类：LinkedListStackTest"></a>测试类：LinkedListStackTest</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLinkedListStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 栈</span></span><br><span class="line">    Stack&lt;String&gt; stack = <span class="keyword">new</span> LinkedListStack&lt;&gt;();</span><br><span class="line">    <span class="comment">// 准备入栈元素</span></span><br><span class="line">    List&lt;String&gt; prepareElements = Arrays.asList(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>, <span class="string">"E"</span>);</span><br><span class="line">    <span class="comment">// 入栈</span></span><br><span class="line">    prepareElements.forEach(x -&gt; &#123;</span><br><span class="line">        stack.push(x);</span><br><span class="line">        System.out.println(<span class="string">"入栈操作："</span> + stack);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 出栈</span></span><br><span class="line">    stack.pop();</span><br><span class="line">    System.out.println(<span class="string">"出栈操作："</span> + stack);</span><br><span class="line">    <span class="comment">// 获取栈顶元素</span></span><br><span class="line">    String peekElement = stack.peek();</span><br><span class="line">    System.out.println(<span class="string">"栈顶元素："</span> + peekElement);</span><br><span class="line">    <span class="comment">// 获取栈中元素的个数</span></span><br><span class="line">    <span class="keyword">int</span> stackSize = stack.getSize();</span><br><span class="line">    System.out.println(<span class="string">"栈中元素个数："</span> + stackSize);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">入栈操作：LinkedListStack&#123;list=[A]&#125;</span><br><span class="line">入栈操作：LinkedListStack&#123;list=[A, B]&#125;</span><br><span class="line">入栈操作：LinkedListStack&#123;list=[A, B, C]&#125;</span><br><span class="line">入栈操作：LinkedListStack&#123;list=[A, B, C, D]&#125;</span><br><span class="line">入栈操作：LinkedListStack&#123;list=[A, B, C, D, E]&#125;</span><br><span class="line">出栈操作：LinkedListStack&#123;list=[A, B, C, D]&#125;</span><br><span class="line">栈顶元素：D</span><br><span class="line">栈中元素个数：<span class="number">4</span></span><br></pre></td></tr></table></figure>
+<h4 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h4><h5 id="虚拟机栈的入栈和出栈操作"><a href="#虚拟机栈的入栈和出栈操作" class="headerlink" title="虚拟机栈的入栈和出栈操作"></a>虚拟机栈的入栈和出栈操作</h5><p>在Java虚拟机运行时数据区有一块被称之为：<code>虚拟机栈</code>，它是线程私有的，声明周期与线程相同。</p>
+<p>我们编写的每个Java方法，每个方法都会在执行的时候同时都会创建一个<code>栈帧</code>（Stack Frame）用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用直至执行完成的过程，就对应这一个<code>栈帧</code>在虚拟机栈中<code>入栈</code>到<code>出栈</code>的过程。</p>
+<p>现在我们假设有A、B、C三个方法，在A方法中调用B方法（A-&gt;B），在B方法中调用C方法（B-&gt;C），C方法执行本方法业务逻辑。</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311230707333.png" alt="image-20190311230707333"></p>
+<p>当程序执行到<code>A()</code>方法的中的第二行时，此时程序会中断<code>A()</code>方法并开始调用<code>B()</code>方法，然后会在虚拟机栈中记录调用B()方法的栈帧，我这里暂且称之为<code>A2</code>（实际存储的并不是O(∩_∩)O哈！）示意图如下：</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311231917661.png" alt="image-20190311231917661"></p>
+<p>同理，当程序执行到<code>B()</code>方法中第二行时，此时程序也会中断<code>B()</code>方法开始调用<code>C()</code>方法，然后同样地会在虚拟机栈中生成调用<code>C()</code>方法的栈帧并记录，我这里暂且称之为<code>B2</code>，示意图如下：</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311232716815.png" alt="image-20190311232716815"></p>
+<p>当程序开始执行到<code>C()</code>方法时，直到执行完<code>C()</code>方法时，这时候，程序该如何执行呢？</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311233500400.png" alt="image-20190311233500400"></p>
+<p>此时就要查看一下虚拟机栈了，发现虚拟机栈，栈中栈顶的元素是<code>B2</code>，我们的程序就知道了，它是执行到<code>B()</code>方法的<code>B2</code>位置就中断了，去执行<code>C()</code>方法了；现在<code>C()</code>方法执行完成之后，它就可以跳回到<code>B2</code>的位置继续执行了，当<code>B()</code>方法执行完之后，虚拟机栈中的<code>B2</code>栈帧也就可以出栈了，依次类推….</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190312/image-20190311234438000.png" alt="image-20190311234438000"></p>
+<blockquote>
+<p>如果一个方法，使用递归调用，若递归临界点判断有误，则方法就会一直的被进行入栈操作，如果超过虚拟机栈的默认容量大小，则会出现我们常见的 <code>StackOverflowError</code> 异常</p>
+</blockquote>
+<p>完整版代码GitHub仓库地址：<a href="https://github.com/gulijian/java-data-structure-example/tree/master/data-structure-stack-example" target="_blank" rel="noopener">Java版数据结构-栈</a>  欢迎大家【<font color="red"><strong>关注</strong></font>】和【<font color="red"><strong>Star</strong></font>】</p>
+<p>本次我们完成的是基于Java自身自带的集合<code>LinkedList</code>来实现栈，有兴趣的童鞋，可以使用动态数组方式来实现；接下来，笔者还会一一的实现其它常见的数组结构。</p>
+<ul>
+<li>静态数组</li>
+<li>动态数组</li>
+<li>栈</li>
+<li>队列</li>
+<li>链表</li>
+<li>循环链表</li>
+<li>二分搜索树</li>
+<li>优先队列</li>
+<li>堆</li>
+<li>线段树</li>
+<li>字典树</li>
+<li>AVL</li>
+<li>红黑树</li>
+<li>哈希表</li>
+<li>….</li>
+</ul>
+<p>持续更新中，欢迎大家关注公众号：<font color="green"><strong>小白程序之路（whiteontheroad）</strong></font>，第一时间获取最新信息！！！</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/qrcode_for_gh.jpg" alt=""></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/数据结构/">数据结构</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2019/03/12/Java版-数据结构-栈/#comments" id="sourceId::2019/03/12/Java版-数据结构-栈/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/03/10/Java版-数据结构-数组/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Java版-数据结构-数组</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="SOHUCS" sid="2019/03/12/Java版-数据结构-栈/"></div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+  <div class="widget-wrap">
+      <div class="widget" style="padding:0px 5px">
+          <div style="background:#1abc9c;margin-top:10px;">
+                <h5 style="text-align:center;color:white;font-size:15px;padding-top:16px">吐血推荐关注公众号</h5>
+                <img  src="/css/images/qrcode_for_gh.jpg" style="width:100%;margin-top:18px;margin-bottom:-6px">
+          </div>
+      </div>
+  </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2019/03/12/Java版-数据结构-栈/" class="title">Java版-数据结构-栈</a></p>
+                            <p class="item-date"><time datetime="2019-03-11T19:13:59.000Z" itemprop="datePublished">2019-03-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2019/03/10/Java版-数据结构-数组/" class="title">Java版-数据结构-数组</a></p>
+                            <p class="item-date"><time datetime="2019-03-10T12:19:33.000Z" itemprop="datePublished">2019-03-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2019/03/04/Java并发之原子性、有序性、可见性/" class="title">Java并发之原子性、有序性、可见性</a></p>
+                            <p class="item-date"><time datetime="2019-03-04T12:34:40.000Z" itemprop="datePublished">2019-03-04</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">22</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">16</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/activemq/" style="font-size: 11.67px;">activemq</a> <a href="/tags/btrace/" style="font-size: 11.67px;">btrace</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/idea/" style="font-size: 11.67px;">idea</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/数据结构/" style="font-size: 11.67px;">数据结构</a> <a href="/tags/设计模式/" style="font-size: 18.33px;">设计模式</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html">docker</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-expand-info" class="row" style="text-align: left;">
+            <div class="col-md-3 col-sm-6">
+                <!--关注我们-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">其他平台</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="https://github.com/dyc87112">Github</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="http://gitee.com/didispace">码云</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">联系合作</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="#">微信：glj88258</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">QQ：1175327069</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">邮箱：1175327069@qq.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--友情链接-->
+                
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">友情链接</h3>
+                    <div class="widget">
+                        <ul>
+                            <span class="label">
+                                <a target="_blank" href="http://cmsblogs.com/">chenssy</a>
+                            </span>
+
+                             <span class="label">
+                                <a target="_blank" href="http://blog.didispace.com/">程序猿DD</a>
+                            </span>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">我的公众号</h3>
+                    <div class="widget">
+                        <img style="width: 150px;height: 150px;" src="/css/images/qrcode_for_gh.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-base-info">
+            <div class="copy-info">
+                © 2018 顾立剑 版权所有<br>
+            </div>
+            <div class="busuanzi-info">
+                <span id="busuanzi_container_site_pv" style="display: inline;">访问量<span class="foot-count" id="busuanzi_value_site_pv">5868330</span>次</span>
+                <span id="busuanzi_container_site_uv" style="display: inline;">访客数<span class="foot-count" id="busuanzi_value_site_uv">359288</span>人次</span>
+                <br>
+                <span style="color: #888">苏ICP备15055047号-3</span>
+            </div>
+        </div>
+    </div>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+</footer>
+        
+    
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytaiyU6E"></script>
+    <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+    <script type="text/javascript">
+    window.changyan.api.config({
+    appid: 'cytaiyU6E',
+    conf: 'eae4b65d27f952474df2788e98a39555'
+    });
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
