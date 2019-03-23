@@ -1,5 +1,5 @@
+http://www.gulj.cn/2019/03/23/Java版-数据结构-队列（循环队列）/
 http://www.gulj.cn/2019/03/14/Java版-数据结构-队列（数组队列）/
 http://www.gulj.cn/2019/03/12/Java版-数据结构-栈/
 http://www.gulj.cn/2019/03/10/Java版-数据结构-数组/
 http://www.gulj.cn/2019/03/04/Java并发之原子性、有序性、可见性/
-http://www.gulj.cn/2019/02/25/awk命令使用详解/

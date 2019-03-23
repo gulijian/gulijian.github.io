@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Java版-数据结构-队列（循环队列） | 小白程序之路</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="前情回顾  在上一篇，笔者给大家介绍了数组队列，并且在文末提出了数组队列实现上的劣势，以及带来的性能问题（因为数组队列，在出队的时候，我们往往要将数组中的元素往前挪动一个位置，这个动作的时间复杂度O(n)级别），如果不清楚的小伙伴欢迎查看阅读。为了方便大家查阅，笔者在这里贴出相关的地址：  Java版-数据结构-数组 Java版-数据结构-栈 Java版-数据结构-队列（数组队列） 为了解决数组队">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java版-数据结构-队列（循环队列）">
+<meta property="og:url" content="http://www.gulj.cn/2019/03/23/Java版-数据结构-队列（循环队列）/index.html">
+<meta property="og:site_name" content="小白程序之路">
+<meta property="og:description" content="前情回顾  在上一篇，笔者给大家介绍了数组队列，并且在文末提出了数组队列实现上的劣势，以及带来的性能问题（因为数组队列，在出队的时候，我们往往要将数组中的元素往前挪动一个位置，这个动作的时间复杂度O(n)级别），如果不清楚的小伙伴欢迎查看阅读。为了方便大家查阅，笔者在这里贴出相关的地址：  Java版-数据结构-数组 Java版-数据结构-栈 Java版-数据结构-队列（数组队列） 为了解决数组队">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321003646859.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321011926946.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321012501661.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321012912749.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321014047456.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321015054219.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321020004501.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190323120553239.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190323123428055.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190323124927705.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/qrcode_for_gh.jpg">
+<meta property="og:updated_time" content="2019-03-23T06:16:38.567Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java版-数据结构-队列（循环队列）">
+<meta name="twitter:description" content="前情回顾  在上一篇，笔者给大家介绍了数组队列，并且在文末提出了数组队列实现上的劣势，以及带来的性能问题（因为数组队列，在出队的时候，我们往往要将数组中的元素往前挪动一个位置，这个动作的时间复杂度O(n)级别），如果不清楚的小伙伴欢迎查看阅读。为了方便大家查阅，笔者在这里贴出相关的地址：  Java版-数据结构-数组 Java版-数据结构-栈 Java版-数据结构-队列（数组队列） 为了解决数组队">
+<meta name="twitter:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321003646859.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="小白程序之路" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">小白程序之路</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/categories/Java/">Java</a>
+                
+                    <a class="main-nav-link" href="/categories/运维/">运维</a>
+                
+                    <a class="main-nav-link" href="/categories/工具/">工具</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/categories/Java/">Java</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/运维/">运维</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/工具/">工具</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">顾立剑</h2>
+            <h3 id="title">没有收拾残局的能力，就别放纵善变的情绪</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国-上海</span>
+            <a id="follow" target="_blank" href="https://github.com/gulijian">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                46
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                19
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/gulijian" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://git.oschina.net/gulijian" target="_blank" title="git" class=tooltip>
+                            <i class="fa fa-git"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="mailto:1175327069@qq.com" target="_blank" title="envelope" class=tooltip>
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Java版-数据结构-队列（循环队列）" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Java版-数据结构-队列（循环队列）
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/03/23/Java版-数据结构-队列（循环队列）/">
+            <time datetime="2019-03-23T05:47:55.000Z" itemprop="datePublished">2019-03-23</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Java/">Java</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/数据结构/">数据结构</a>
+    </div>
+
+                        
+                            <div class="article-tag">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_container_page_pv" style="display: inline;"> <span id="busuanzi_value_page_pv">0</span>  ℃</span>
+</div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h4 id="前情回顾"><a href="#前情回顾" class="headerlink" title="前情回顾"></a>前情回顾</h4><p>  在上一篇，笔者给大家介绍了<code>数组队列</code>，并且在文末提出了<code>数组队列</code>实现上的劣势，以及带来的性能问题（因为数组队列，在出队的时候，我们往往要将数组中的元素往前挪动一个位置，这个动作的时间复杂度O(n)级别），如果不清楚的小伙伴欢迎查看阅读。为了方便大家查阅，笔者在这里贴出相关的地址：</p>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/TCCJ5Y1nA4KjPQPcJDHIyg" target="_blank" rel="noopener">Java版-数据结构-数组</a></li>
+<li><a href="https://mp.weixin.qq.com/s/e-RLO2aN1Z9ORzQ9CRlBjw" target="_blank" rel="noopener">Java版-数据结构-栈</a></li>
+<li><p><a href="https://mp.weixin.qq.com/s/M1OTQmbP4NOHb1eggrdN7w" target="_blank" rel="noopener">Java版-数据结构-队列（数组队列）</a></p>
+<p>为了解决<code>数组队列</code>带来的问题，本篇给大家介绍一下<code>循环队列</code>。</p>
+<a id="more"></a>
+</li>
+</ul>
+<h4 id="思路分析图解"><a href="#思路分析图解" class="headerlink" title="思路分析图解"></a>思路分析图解</h4><p>  啰嗦一下，由于笔者不太会弄贴出来的图片带有动画效果，比如元素的移动或者删除（毕竟这样看大家比较直观），笔者在这里只能通过静态图片的方式，帮助大家理解实现原理，希望大家不要见怪，如果有朋友知道如何搞的话，欢迎在评论区慧言。</p>
+<p>  在这里，我们声明了一个容量大小为<code>8</code>的数组，并标出了索引<code>0-7</code>，然后使用<code>front</code>和<code>tail</code>分别来表示队列的，<strong>队首</strong>和<strong>队尾</strong>；在下图中，<code>front</code>和<code>tail</code>的位置一开始都指向是了索引<code>0</code>的位置，这意味着当<code>front == tai</code>的时候 <font color="red">队列为空</font> 大家务必牢记这一点，以便区分后面介绍队列快满时的临界条件</p>
+<p>  <img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321003646859.png" alt="image-20190321003646859"></p>
+<p>  为了大家更好地理解下面的内容，在这里，我简单做几点说明</p>
+<ul>
+<li><code>front</code>：表示队列队首，始终指向队列中的<strong>第一个</strong>元素（当队列空时，<code>front</code>指向索引为0的位置）</li>
+<li><p><code>tail</code>：表示队列队尾，始终指向队列中的<strong>最后一个</strong>元素的<strong>下一个位置</strong></p>
+</li>
+<li><p>元素入队，维护<code>tail</code>的位置，进行<code>tail++</code>操作</p>
+</li>
+<li><p>元素出队，维护<code>front</code>的位置，进行<code>front++</code>操作</p>
+<blockquote>
+<p>上面所说的，元素进行入队和出队操作，都简单的进行<code>++</code>操作，来维护<code>tail</code>和<code>front</code>的位置，其实是不严谨的，正确的维护<code>tail</code>的位置应该是<code>(tail + 1) % capacity</code>，同理<code>front</code>的位置应该是<code>(front + 1) % capacity</code>，这也是为什么叫做循环队列的原因，大家先在这里知道下，暂时不理解也没关系，后面相信大家会知晓。</p>
+</blockquote>
+<p>下面我们看一下，现在如果有一个元素<code>a</code>入队，现在的示意图：</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321011926946.png" alt="image-20190321011926946"></p>
+<blockquote>
+<p>我们现在看到了元素<code>a</code>入队，我们的<code>tail</code>指向的位置发生了变化，进行了<code>++</code>操作，而<code>front</code>的位置，没有发生改变，仍旧指向索引为<code>0</code>的位置，还记得笔者上面所说的，<code>front</code>的位置，始终指向队列中的<strong>第一个</strong>元素，<code>tail</code>的位置，始终指向队列中的<strong>最后一个</strong>元素的<strong>下一个位置</strong></p>
+</blockquote>
+<p>现在，我们再来几个元素<code>b、c、d、e</code>进行入队操作，看一下此时的示意图：</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321012501661.png" alt="image-20190321012501661"></p>
+<p>想必大家都能知晓示意图是这样，好像没什么太多的变化（还请大家别着急，笔者这也是方便大家理解到底是什么循环队列，还请大家原谅我O(∩_∩)O哈！）</p>
+<p>看完了元素的入队的操作情况，那现在我们看一下，元素的出队操作是什么样的？</p>
+<p>元素<code>a</code>出队，示意图如下：</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321012912749.png" alt="image-20190321012912749"></p>
+<p>现在元素<code>a</code>已经出队，<code>front</code>的位置指向了索引为<code>1</code>的位置，现在数组中所有的元素不再需要往前挪动一个位置</p>
+<p>这一点和我们的数组队列（我们的数组队列需要元素出队，后面的元素都要往前挪动一个位置）完全不同，我们只需要改变一下<code>front</code>的指向就可以了，由之前的O(n)操作，变成了O(1)的操作</p>
+<p>我们再次进行元素<code>b</code>出队，示意图如下：</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321014047456.png" alt="image-20190321014047456"></p>
+<p>到这里，可能有的小伙伴会问，为什么叫做，循环队列？那么现在我们尝试一下，我们让元素<code>f、g</code>分别进行入队操作，此时的示意图如下：</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321015054219.png" alt="image-20190321015054219"></p>
+<p>大家目测看下来还是没什么变化，如果此时，我们再让一个元素<code>h</code>元素进行入队操作，那么<code>问题来了</code>我们的<code>tail</code>的位置该如何指向呢？示意图如下：</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190321020004501.png" alt="image-20190321020004501">根据我们之前说的，元素入队：维护<code>tail</code>的位置，进行<code>tail++</code>操作，而此时我们的<code>tail</code>已经指向了索引为<code>7</code>的位置，如果我们此时对<code>tail</code>进行<code>++</code>操作，显然不可能（数组越界）</p>
+<p>细心的小伙伴，会发现此时我们的队列并没有满，还剩两个位置（这是因为我们元素出队后，当前的空间，没有被后面的元素挤掉），大家可以把我们的数组想象成一个环状，那么索引<code>7</code>之后的位置就是索引<code>0</code></p>
+<p>如何才能从索引<code>7</code>的位置计算到索引<code>0</code>的位置，之前我们一直说进行<code>tail++</code>操作，笔者也在开头指出了，这是不严谨的，应该的是<code>(tail + 1) % capacity</code>这样就变成了<code>(7 + 1) % 8</code>等于 0 </p>
+<p>所以此时如果让元素<code>h</code>入队，那么我们的<code>tail</code>就指向了索引为<code>0</code>的位置，示意图如下：</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190323120553239.png" alt="image-20190323120553239"></p>
+<p>假设现在又有新的元素<code>k</code>入队了，那么tail的位置等于<code>（tail + 1） % capacity</code> 也就是<code>（0 + 1）% 8</code>等于<code>1</code>就指向了索引为<code>1</code>的位置</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190323123428055.png" alt="image-20190323123428055"></p>
+<p>那么问题来了，我们的循环队列还能不能在进行元素入队呢？我们来分析一下，从图中显示，我们还有一个索引为<code>0</code>的空的空间位置，也就是此时<code>tail</code>指向的位置</p>
+<p>按照之前的逻辑，假设现在能放入一个新元素，我们的<code>tail</code>进行<code>(tail +1) % capacity</code>计算结果为<code>2</code>（如果元素成功入队，此时队列已经满了），此时我们会发现表示队首的<code>front</code>也指向了索引为<code>2</code>的位置</p>
+<p>如果新元素成功入队的话，我们的<code>tail</code>也等于<code>2</code>，那么此时就成了 <code>tail == front</code> ，一开始我们提到过，当队列为空的<code>tail == front</code>，现在呢，如果队列为满时<code>tail</code>也等于<code>front</code>，那么我们就无法区分，队列为满时和队列为空时收的情况了</p>
+<p>所以，在循环队列中，我们总是浪费一个空间，来区分队列为满时和队列为空时的情况，也就是当  <code>( tail + 1 ) % capacity == front</code>的时候，表示队列已经满了，当<code>front == tail</code>的时候，表示队列为空。</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190324/image-20190323124927705.png" alt="image-20190323124927705"></p>
+<p>了解了循环队列的实现原理之后，下面我们用代码实现一下。</p>
+</li>
+</ul>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>  <strong>接口定义</strong> ：<strong>Queue<e></e></strong></p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Queue</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 入队</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> e</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(E e)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 出队</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">E <span class="title">dequeue</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取队首元素</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">E <span class="title">getFront</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取队列中元素的个数</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 判断队列是否为空</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  <strong>接口实现：LoopQueue<e></e></strong></p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoopQueue</span>&lt;<span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">Queue</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 承载队列元素的数组</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> E[] data;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 队首的位置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> front;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 队尾的位置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> tail;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 队列中元素的个数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 指定容量，初始化队列大小</span></span><br><span class="line"><span class="comment">     * (由于循环队列需要浪费一个空间，所以我们初始化队列的时候，要将用户传入的容量加1)</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> capacity</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoopQueue</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        data = (E[]) <span class="keyword">new</span> Object[capacity + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 模式容量，初始化队列大小</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoopQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 检查队列为满</span></span><br><span class="line">        <span class="keyword">if</span> ((tail + <span class="number">1</span>) % data.length == front) &#123;</span><br><span class="line">            <span class="comment">// 队列扩容</span></span><br><span class="line">            resize(getCapacity() * <span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        data[tail] = e;</span><br><span class="line">        tail = (tail + <span class="number">1</span>) % data.length;</span><br><span class="line">        size++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">dequeue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"队列为空"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 出队元素</span></span><br><span class="line">        E element = data[front];</span><br><span class="line">        <span class="comment">// 元素出队后，将空间置为null</span></span><br><span class="line">        data[front] = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 维护front的索引位置(循环队列)</span></span><br><span class="line">        front = (front + <span class="number">1</span>) % data.length;</span><br><span class="line">        <span class="comment">// 维护size大小</span></span><br><span class="line">        size--;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 元素出队后，可以指定条件，进行缩容</span></span><br><span class="line">        <span class="keyword">if</span> (size == getCapacity() / <span class="number">2</span> &amp;&amp; getCapacity() / <span class="number">2</span> != <span class="number">0</span>) &#123;</span><br><span class="line">            resize(getCapacity() / <span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> element;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">getFront</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"队列为空"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> data[front];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> size;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> front == tail;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 队列快满时，队列扩容；元素出队操作，指定条件可以进行缩容</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">resize</span><span class="params">(<span class="keyword">int</span> newCapacity)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 这里的加1还是因为循环队列我们在实际使用的过程中要浪费一个空间</span></span><br><span class="line">        E[] newData = (E[]) <span class="keyword">new</span> Object[newCapacity + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            <span class="comment">// 注意这里的写法：因为在数组中，front 可能不是在索引为0的位置，相对于i有一个偏移量</span></span><br><span class="line">            newData[i] = data[(i + front) % data.length];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 将新的数组引用赋予原数组的指向</span></span><br><span class="line">        data = newData;</span><br><span class="line">        <span class="comment">// 充值front的位置（front总是指向队列中第一个元素）</span></span><br><span class="line">        front = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// size 的大小不变，因为在这过程中，没有元素入队和出队</span></span><br><span class="line">        tail = size;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getCapacity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 注意：在初始化队列的时候，我们有意识的为队列加了一个空间，那么它的实际容量自然要减1</span></span><br><span class="line">        <span class="keyword">return</span> data.length - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"LoopQueue&#123;"</span> +</span><br><span class="line">                <span class="string">"【队首】data="</span> + Arrays.toString(data) + <span class="string">"【队尾】"</span> +</span><br><span class="line">                <span class="string">", front="</span> + front +</span><br><span class="line">                <span class="string">", tail="</span> + tail +</span><br><span class="line">                <span class="string">", size="</span> + size +</span><br><span class="line">                <span class="string">", capacity="</span> + getCapacity() +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  <strong>测试类：LoopQueueTest</strong></p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoopQueueTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLoopQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        LoopQueue&lt;Integer&gt; loopQueue = <span class="keyword">new</span> LoopQueue&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            loopQueue.enqueue(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 初始化队列数据</span></span><br><span class="line">        System.out.println(<span class="string">"原始队列: "</span> + loopQueue);</span><br><span class="line">        <span class="comment">// 元素0出队</span></span><br><span class="line">        loopQueue.dequeue();</span><br><span class="line">        System.out.println(<span class="string">"元素0出队: "</span> + loopQueue);</span><br><span class="line">        loopQueue.dequeue();</span><br><span class="line">        System.out.println(<span class="string">"元素1出队: "</span> + loopQueue);</span><br><span class="line">        loopQueue.dequeue();</span><br><span class="line">        System.out.println(<span class="string">"元素2出队: "</span> + loopQueue);</span><br><span class="line">        loopQueue.dequeue();</span><br><span class="line">        System.out.println(<span class="string">"元素3出队: "</span> + loopQueue);</span><br><span class="line">        loopQueue.dequeue();</span><br><span class="line">        System.out.println(<span class="string">"元素4出队,发生缩容: "</span> + loopQueue);</span><br><span class="line">        <span class="comment">// 队首元素</span></span><br><span class="line">        System.out.println(<span class="string">"队首元素："</span> + loopQueue.getFront());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="测试结果："><a href="#测试结果：" class="headerlink" title="测试结果："></a>测试结果：</h5>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">原始队列: LoopQueue&#123;【队首】data=[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="keyword">null</span>]【队尾】, front=<span class="number">0</span>, tail=<span class="number">10</span>, size=<span class="number">10</span>, capacity=<span class="number">10</span>&#125;</span><br><span class="line">元素<span class="number">0</span>出队: LoopQueue&#123;【队首】data=[<span class="keyword">null</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="keyword">null</span>]【队尾】, front=<span class="number">1</span>, tail=<span class="number">10</span>, size=<span class="number">9</span>, capacity=<span class="number">10</span>&#125;</span><br><span class="line">元素<span class="number">1</span>出队: LoopQueue&#123;【队首】data=[<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="keyword">null</span>]【队尾】, front=<span class="number">2</span>, tail=<span class="number">10</span>, size=<span class="number">8</span>, capacity=<span class="number">10</span>&#125;</span><br><span class="line">元素<span class="number">2</span>出队: LoopQueue&#123;【队首】data=[<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="keyword">null</span>]【队尾】, front=<span class="number">3</span>, tail=<span class="number">10</span>, size=<span class="number">7</span>, capacity=<span class="number">10</span>&#125;</span><br><span class="line">元素<span class="number">3</span>出队: LoopQueue&#123;【队首】data=[<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="keyword">null</span>]【队尾】, front=<span class="number">4</span>, tail=<span class="number">10</span>, size=<span class="number">6</span>, capacity=<span class="number">10</span>&#125;</span><br><span class="line">元素<span class="number">4</span>出队,发生缩容: LoopQueue&#123;【队首】data=[<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="keyword">null</span>]【队尾】, front=<span class="number">0</span>, tail=<span class="number">5</span>, size=<span class="number">5</span>, capacity=<span class="number">5</span>&#125;</span><br><span class="line">队首元素：<span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>  完整版代码GitHub仓库地址：<a href="https://github.com/gulijian/java-data-structure-example/tree/master/data-structure-queue-example" target="_blank" rel="noopener">Java版数据结构-队列（循环队列）</a>  欢迎大家【<font color="red"><strong>关注</strong></font>】和【<font color="red"><strong>Star</strong></font>】</p>
+<p>  至此笔者已经为大家带来了数据结构：静态数组、动态数组、栈、数组队列、循环队列；接下来，笔者还会一一的实现其它常见的数组结构，大家一起加油。</p>
+<ul>
+<li>静态数组</li>
+<li>动态数组</li>
+<li>栈</li>
+<li>数组队列</li>
+<li>循环队列</li>
+<li>链表</li>
+<li>循环链表</li>
+<li>二分搜索树</li>
+<li>优先队列</li>
+<li>堆</li>
+<li>线段树</li>
+<li>字典树</li>
+<li>AVL</li>
+<li>红黑树</li>
+<li>哈希表</li>
+<li><p>….</p>
+<p>持续更新中，欢迎大家关注公众号：<font color="green"><strong>小白程序之路（whiteontheroad）</strong></font>，第一时间获取最新信息！！！</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/qrcode_for_gh.jpg" alt="小白程序之路"></p>
+</li>
+</ul>
+
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/数据结构/">数据结构</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2019/03/23/Java版-数据结构-队列（循环队列）/#comments" id="sourceId::2019/03/23/Java版-数据结构-队列（循环队列）/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/03/14/Java版-数据结构-队列（数组队列）/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Java版-数据结构-队列（数组队列）</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="SOHUCS" sid="2019/03/23/Java版-数据结构-队列（循环队列）/"></div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+  <div class="widget-wrap">
+      <div class="widget" style="padding:0px 5px">
+          <div style="background:#1abc9c;margin-top:10px;">
+                <h5 style="text-align:center;color:white;font-size:15px;padding-top:16px">吐血推荐关注公众号</h5>
+                <img  src="/css/images/qrcode_for_gh.jpg" style="width:100%;margin-top:18px;margin-bottom:-6px">
+          </div>
+      </div>
+  </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2019/03/23/Java版-数据结构-队列（循环队列）/" class="title">Java版-数据结构-队列（循环队列）</a></p>
+                            <p class="item-date"><time datetime="2019-03-23T05:47:55.000Z" itemprop="datePublished">2019-03-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2019/03/14/Java版-数据结构-队列（数组队列）/" class="title">Java版-数据结构-队列（数组队列）</a></p>
+                            <p class="item-date"><time datetime="2019-03-13T22:51:53.000Z" itemprop="datePublished">2019-03-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2019/03/12/Java版-数据结构-栈/" class="title">Java版-数据结构-栈</a></p>
+                            <p class="item-date"><time datetime="2019-03-11T19:13:59.000Z" itemprop="datePublished">2019-03-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">16</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/activemq/" style="font-size: 11.67px;">activemq</a> <a href="/tags/btrace/" style="font-size: 11.67px;">btrace</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/idea/" style="font-size: 11.67px;">idea</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/数据结构/" style="font-size: 15px;">数据结构</a> <a href="/tags/设计模式/" style="font-size: 18.33px;">设计模式</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html">docker</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-expand-info" class="row" style="text-align: left;">
+            <div class="col-md-3 col-sm-6">
+                <!--关注我们-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">其他平台</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="https://github.com/dyc87112">Github</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="http://gitee.com/didispace">码云</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">联系合作</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="#">微信：glj88258</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">QQ：1175327069</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">邮箱：1175327069@qq.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--友情链接-->
+                
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">友情链接</h3>
+                    <div class="widget">
+                        <ul>
+                            <span class="label">
+                                <a target="_blank" href="http://cmsblogs.com/">chenssy</a>
+                            </span>
+
+                             <span class="label">
+                                <a target="_blank" href="http://blog.didispace.com/">程序猿DD</a>
+                            </span>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">我的公众号</h3>
+                    <div class="widget">
+                        <img style="width: 150px;height: 150px;" src="/css/images/qrcode_for_gh.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-base-info">
+            <div class="copy-info">
+                © 2018 顾立剑 版权所有<br>
+            </div>
+            <div class="busuanzi-info">
+                <span id="busuanzi_container_site_pv" style="display: inline;">访问量<span class="foot-count" id="busuanzi_value_site_pv">5868330</span>次</span>
+                <span id="busuanzi_container_site_uv" style="display: inline;">访客数<span class="foot-count" id="busuanzi_value_site_uv">359288</span>人次</span>
+                <br>
+                <span style="color: #888">苏ICP备15055047号-3</span>
+            </div>
+        </div>
+    </div>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+</footer>
+        
+    
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytaiyU6E"></script>
+    <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+    <script type="text/javascript">
+    window.changyan.api.config({
+    appid: 'cytaiyU6E',
+    conf: 'eae4b65d27f952474df2788e98a39555'
+    });
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

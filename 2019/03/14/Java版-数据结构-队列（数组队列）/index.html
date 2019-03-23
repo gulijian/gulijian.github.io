@@ -5,13 +5,13 @@
     
     <title>Java版-数据结构-队列（数组队列） | 小白程序之路</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Java版-数据结构-队列（数组队列）前言看过笔者前两篇介绍的Java版数据结构数组和栈的盆友，都给予了笔者一致的好评，在这里笔者感谢大家的认可！！！ 由于本章介绍的数据结构是队列，在队列的实现上会基于前面写的动态数组来实现，而队列又和栈不论是从特点上和操作上都有类似之处，所以在这里对这两种数据结构不了解的朋友，可以去看一下笔者前两篇文章介绍的数据结构数组和栈，这里笔者把链接贴出来（看过的盆友可以">
-<meta name="keywords" content="数据结构">
+    <meta name="description" content="前言看过笔者前两篇介绍的Java版数据结构数组和栈的盆友，都给予了笔者一致的好评，在这里笔者感谢大家的认可！！！ 由于本章介绍的数据结构是队列，在队列的实现上会基于前面写的动态数组来实现，而队列又和栈不论是从特点上和操作上都有类似之处，所以在这里对这两种数据结构不了解的朋友，可以去看一下笔者前两篇文章介绍的数据结构数组和栈，这里笔者把链接贴出来（看过的盆友可以跳过此步骤…）  Java版-数据结构">
+<meta name="keywords" content="数据结构,队列">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java版-数据结构-队列（数组队列）">
 <meta property="og:url" content="http://www.gulj.cn/2019/03/14/Java版-数据结构-队列（数组队列）/index.html">
 <meta property="og:site_name" content="小白程序之路">
-<meta property="og:description" content="Java版-数据结构-队列（数组队列）前言看过笔者前两篇介绍的Java版数据结构数组和栈的盆友，都给予了笔者一致的好评，在这里笔者感谢大家的认可！！！ 由于本章介绍的数据结构是队列，在队列的实现上会基于前面写的动态数组来实现，而队列又和栈不论是从特点上和操作上都有类似之处，所以在这里对这两种数据结构不了解的朋友，可以去看一下笔者前两篇文章介绍的数据结构数组和栈，这里笔者把链接贴出来（看过的盆友可以">
+<meta property="og:description" content="前言看过笔者前两篇介绍的Java版数据结构数组和栈的盆友，都给予了笔者一致的好评，在这里笔者感谢大家的认可！！！ 由于本章介绍的数据结构是队列，在队列的实现上会基于前面写的动态数组来实现，而队列又和栈不论是从特点上和操作上都有类似之处，所以在这里对这两种数据结构不了解的朋友，可以去看一下笔者前两篇文章介绍的数据结构数组和栈，这里笔者把链接贴出来（看过的盆友可以跳过此步骤…）  Java版-数据结构">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190314/image-20190314004824471.png">
 <meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190314/image-20190314004945601.png">
@@ -21,10 +21,10 @@
 <meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190314/image-20190314055125456.png">
 <meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190314/image-20190314055438791.png">
 <meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190314/image-20190314060105701.png">
-<meta property="og:updated_time" content="2019-03-13T22:54:32.941Z">
+<meta property="og:updated_time" content="2019-03-23T06:17:06.389Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java版-数据结构-队列（数组队列）">
-<meta name="twitter:description" content="Java版-数据结构-队列（数组队列）前言看过笔者前两篇介绍的Java版数据结构数组和栈的盆友，都给予了笔者一致的好评，在这里笔者感谢大家的认可！！！ 由于本章介绍的数据结构是队列，在队列的实现上会基于前面写的动态数组来实现，而队列又和栈不论是从特点上和操作上都有类似之处，所以在这里对这两种数据结构不了解的朋友，可以去看一下笔者前两篇文章介绍的数据结构数组和栈，这里笔者把链接贴出来（看过的盆友可以">
+<meta name="twitter:description" content="前言看过笔者前两篇介绍的Java版数据结构数组和栈的盆友，都给予了笔者一致的好评，在这里笔者感谢大家的认可！！！ 由于本章介绍的数据结构是队列，在队列的实现上会基于前面写的动态数组来实现，而队列又和栈不论是从特点上和操作上都有类似之处，所以在这里对这两种数据结构不了解的朋友，可以去看一下笔者前两篇文章介绍的数据结构数组和栈，这里笔者把链接贴出来（看过的盆友可以跳过此步骤…）  Java版-数据结构">
 <meta name="twitter:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190314/image-20190314004824471.png">
     
 
@@ -164,11 +164,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                45
+                46
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                18
+                19
                 <span>标签</span>
             </div>
         </div>
@@ -253,7 +253,7 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/数据结构/">数据结构</a>
+        <a class="tag-link" href="/tags/数据结构/">数据结构</a>, <a class="tag-link" href="/tags/队列/">队列</a>
     </div>
 
                         
@@ -271,7 +271,7 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h1 id="Java版-数据结构-队列（数组队列）"><a href="#Java版-数据结构-队列（数组队列）" class="headerlink" title="Java版-数据结构-队列（数组队列）"></a>Java版-数据结构-队列（数组队列）</h1><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>看过笔者前两篇介绍的<code>Java版</code>数据结构<code>数组</code>和<code>栈</code>的盆友，都给予了笔者一致的好评，在这里笔者感谢大家的认可！！！</p>
+            <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>看过笔者前两篇介绍的<code>Java版</code>数据结构<code>数组</code>和<code>栈</code>的盆友，都给予了笔者一致的好评，在这里笔者感谢大家的认可！！！</p>
 <p>由于本章介绍的数据结构是<code>队列</code>，在队列的实现上会基于前面写的<code>动态数组</code>来实现，而<code>队列</code>又和<code>栈</code>不论是从特点上和操作上都有类似之处，所以在这里对这两种数据结构不了解的朋友，可以去看一下笔者前两篇文章介绍的数据结构<code>数组</code>和<code>栈</code>，这里笔者把链接贴出来（看过的盆友可以跳过此步骤…）</p>
 <ul>
 <li><a href="https://mp.weixin.qq.com/s/TCCJ5Y1nA4KjPQPcJDHIyg" target="_blank" rel="noopener">Java版-数据结构-数组</a></li>
@@ -374,7 +374,7 @@
             
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/数据结构/">数据结构</a>
+        <a class="tag-link" href="/tags/数据结构/">数据结构</a>, <a class="tag-link" href="/tags/队列/">队列</a>
     </div>
 
             <div class="share-container">
@@ -446,6 +446,15 @@
         
 <nav id="article-nav">
     
+        <a href="/2019/03/23/Java版-数据结构-队列（循环队列）/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Java版-数据结构-队列（循环队列）
+                
+            </div>
+        </a>
+    
     
         <a href="/2019/03/12/Java版-数据结构-栈/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
@@ -492,6 +501,15 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2019/03/23/Java版-数据结构-队列（循环队列）/" class="title">Java版-数据结构-队列（循环队列）</a></p>
+                            <p class="item-date"><time datetime="2019-03-23T05:47:55.000Z" itemprop="datePublished">2019-03-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
                             <p class="item-title"><a href="/2019/03/14/Java版-数据结构-队列（数组队列）/" class="title">Java版-数据结构-队列（数组队列）</a></p>
                             <p class="item-date"><time datetime="2019-03-13T22:51:53.000Z" itemprop="datePublished">2019-03-14</time></p>
                         </div>
@@ -506,15 +524,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
-                            <p class="item-title"><a href="/2019/03/10/Java版-数据结构-数组/" class="title">Java版-数据结构-数组</a></p>
-                            <p class="item-date"><time datetime="2019-03-10T12:19:33.000Z" itemprop="datePublished">2019-03-10</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -524,7 +533,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">16</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">16</span></li></ul>
         </div>
     </div>
 
@@ -533,7 +542,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/activemq/" style="font-size: 11.67px;">activemq</a> <a href="/tags/btrace/" style="font-size: 11.67px;">btrace</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/idea/" style="font-size: 11.67px;">idea</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/数据结构/" style="font-size: 13.33px;">数据结构</a> <a href="/tags/设计模式/" style="font-size: 18.33px;">设计模式</a>
+            <a href="/tags/activemq/" style="font-size: 11.67px;">activemq</a> <a href="/tags/btrace/" style="font-size: 11.67px;">btrace</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/idea/" style="font-size: 11.67px;">idea</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/数据结构/" style="font-size: 15px;">数据结构</a> <a href="/tags/设计模式/" style="font-size: 18.33px;">设计模式</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a>
         </div>
     </div>
 
