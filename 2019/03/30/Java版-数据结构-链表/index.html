@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Java版-数据结构-链表 | 小白程序之路</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="####概要 之前我们分别学习了解了动态数组、栈、队列，其实他们的底层都是依托静态数组来实现的、只是通过我们定义的resize方法来动态扩容解决固定容量的问题，那么我们即将学习的链表，它其实是一种真正的动态数据结构。 介绍链表是一种最简单的动态数据结构，它能够辅助组成其它的数据结构，链表中的元素可存储在内存中的任何地方（不需要连续的内存，这一点和我们的数组具有很大的区别，数组需要连续的内存），链表">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java版-数据结构-链表">
+<meta property="og:url" content="http://www.gulj.cn/2019/03/30/Java版-数据结构-链表/index.html">
+<meta property="og:site_name" content="小白程序之路">
+<meta property="og:description" content="####概要 之前我们分别学习了解了动态数组、栈、队列，其实他们的底层都是依托静态数组来实现的、只是通过我们定义的resize方法来动态扩容解决固定容量的问题，那么我们即将学习的链表，它其实是一种真正的动态数据结构。 介绍链表是一种最简单的动态数据结构，它能够辅助组成其它的数据结构，链表中的元素可存储在内存中的任何地方（不需要连续的内存，这一点和我们的数组具有很大的区别，数组需要连续的内存），链表">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190330/image-20190327213801994.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190330/image-20190328144225867.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190330/image-20190330090951086.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190330/image-20190330093907204.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/qrcode_for_gh.jpg">
+<meta property="og:updated_time" content="2019-03-30T02:26:48.820Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java版-数据结构-链表">
+<meta name="twitter:description" content="####概要 之前我们分别学习了解了动态数组、栈、队列，其实他们的底层都是依托静态数组来实现的、只是通过我们定义的resize方法来动态扩容解决固定容量的问题，那么我们即将学习的链表，它其实是一种真正的动态数据结构。 介绍链表是一种最简单的动态数据结构，它能够辅助组成其它的数据结构，链表中的元素可存储在内存中的任何地方（不需要连续的内存，这一点和我们的数组具有很大的区别，数组需要连续的内存），链表">
+<meta name="twitter:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190330/image-20190327213801994.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="小白程序之路" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">小白程序之路</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/categories/Java/">Java</a>
+                
+                    <a class="main-nav-link" href="/categories/运维/">运维</a>
+                
+                    <a class="main-nav-link" href="/categories/工具/">工具</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/categories/Java/">Java</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/运维/">运维</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/工具/">工具</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile" class="">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">顾立剑</h2>
+            <h3 id="title">没有收拾残局的能力，就别放纵善变的情绪</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国-上海</span>
+            <a id="follow" target="_blank" href="https://github.com/gulijian">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                47
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                19
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/gulijian" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://git.oschina.net/gulijian" target="_blank" title="git" class=tooltip>
+                            <i class="fa fa-git"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="mailto:1175327069@qq.com" target="_blank" title="envelope" class=tooltip>
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Java版-数据结构-链表" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Java版-数据结构-链表
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-type">		  
+            <span class="article-type type-1">原创</span>  
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/03/30/Java版-数据结构-链表/">
+            <time datetime="2019-03-30T02:23:57.000Z" itemprop="datePublished">2019-03-30</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Java/">Java</a>
+    </div>
+ -->
+                        
+    <div class="article-tag">
+        <i class="fa fa-user"></i>
+        顾立剑
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/数据结构/">数据结构</a>
+    </div>
+
+                        
+                            <div class="article-tag">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_container_page_pv" style="display: inline;"> <span id="busuanzi_value_page_pv">0</span>  ℃</span>
+</div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>####概要</p>
+<p>之前我们分别学习了解了动态数组、栈、队列，其实他们的底层都是依托静态数组来实现的、只是通过我们定义的<code>resize</code>方法来动态扩容解决固定容量的问题，那么我们即将学习的链表，它其实是一种真正的动态数据结构。</p>
+<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>链表是一种最简单的动态数据结构，它能够辅助组成其它的数据结构，链表中的元素可存储在内存中的任何地方（不需要连续的内存，这一点和我们的数组具有很大的区别，数组需要连续的内存），链表中的每个元素都存储了下一个元素的地址，从而使一系列随机的内存地址<code>串接在一起</code>。</p>
+<a id="more"></a>
+<p>存储链表的数据的我们一般称为<code>节点（Node）</code>，节点一般分为两部分，一部分存储我们真正的数据，而另外一部分存储的是下一个节点的引用地址。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> E e; <span class="comment">// 存储的真正元素</span></span><br><span class="line">    <span class="keyword">private</span> Node next;  <span class="comment">// 存储下一个node的引用地址(指向下一个node)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如现在我们将元素A、B、C三个节点添加到链表中，示意图如下：</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190330/image-20190327213801994.png" alt="image-20190327213801994"></p>
+<p>从图中节点<code>A</code>到节点<code>B</code>之间的箭头代表，节点<code>A</code>指向了节点<code>B</code>（<strong>NodeA.next = NodeB</strong>），因为在实际业务中我们的链表长度不可能是无穷无尽的，基本上都是有限个节点，通常定义链表中的最后一个元素它的<code>next</code>存储的是<code>NULL</code>（空），换句话说，如果在链表中，一个节点的<code>next</code>是空（<code>NULL</code>）的话，那么它一定是最后一个节点（对应我们图中的<code>C</code>节点）。</p>
+<p>根据我们上面介绍的链表基本结构，下面我们用代码定义一下链表的基本骨架（这里我们引入了一个<code>虚拟的头结点</code>，下面我们会作说明）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 虚拟的头结点</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Node dummyHead;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 链表中节点的个数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建一个虚拟的头结点</span></span><br><span class="line">        dummyHead = <span class="keyword">new</span> Node();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 节点定义</span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 存储节点的元素</span></span><br><span class="line">        <span class="keyword">public</span> E e;</span><br><span class="line">        <span class="comment">// 存储下一个节点的地址</span></span><br><span class="line">        <span class="keyword">public</span> Node next;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.e = e;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(E e, Node next)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.e = e;</span><br><span class="line">            <span class="keyword">this</span>.next = next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Node&#123;"</span> +</span><br><span class="line">                    <span class="string">"e="</span> + e +</span><br><span class="line">                    <span class="string">", next="</span> + next +</span><br><span class="line">                    <span class="string">'&#125;'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>后面我们对链表的添加节点、删除节点以及查询节点，代码实现都会基于这个基本骨架</p>
+</blockquote>
+<h4 id="向链表中添加节点"><a href="#向链表中添加节点" class="headerlink" title="向链表中添加节点"></a>向链表中添加节点</h4><h5 id="思路分析："><a href="#思路分析：" class="headerlink" title="思路分析："></a>思路分析：</h5><p>一般我们向链表中添加节点，基本思路：找到添加节点位置的前一个节点<code>preNode</code>，然后再改变链表的地址引用；由于链表的第一个节点也就是头结点没有前节点，此时我们为了操作方便，为链表新增了<strong>不存储任何元素</strong>的一个<strong>虚拟的头结点</strong><code>dummyHead</code>（不是必须的，对用户来讲是不可见的），其实链表中真正的第一个节点是节点<code>A</code>（<strong>dummyHead.next</strong>），这样我们就能保证了，链表中存储元素的节点都有前一个节点。</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190330/image-20190328144225867.png" alt="image-20190328144225867"></p>
+<p>下面我们来看一下，如果现在有一个节点<code>D</code>，我们准备把它插入到节点<code>B</code>的位置，我们需要做哪些操作</p>
+<p>第一步：我们首先要找到节点<code>B</code>的前一个节点，也就是节点<code>A</code></p>
+<p>第二步：将新节点<code>D</code>的指向指到节点<code>B</code>（<code>NodeD.next = NodeA.next</code>），然后再将节点<code>A</code>的指向，指到节点<code>D</code>（<code>NodeA.next = NodeD</code>），这样我们的节点就能<code>串接起来了</code></p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190330/image-20190330090951086.png" alt="image-20190330090951086"></p>
+<h5 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 向链表中指定位置插入节点（学习使用，真正插入不会指定索引）</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> index 索引的位置</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> e 节点元素</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt; size) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"不是有效的索引"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node prev = dummyHead;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 找到index位置的前一个节点</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; index; i++) &#123;</span><br><span class="line">        prev = prev.next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 新建一个节点，进行挂接</span></span><br><span class="line">    Node node = <span class="keyword">new</span> Node(e);</span><br><span class="line">    node.next = prev.next;</span><br><span class="line">    prev.next = node;</span><br><span class="line"></span><br><span class="line">    size++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="链表的遍历"><a href="#链表的遍历" class="headerlink" title="链表的遍历"></a>链表的遍历</h4><p>进行链表遍历，我们需要从链表中真正的第一个元素开始，也就是<code>dummyHead.next</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 获取链表中index位置的元素</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> index  索引的位置</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span>  节点的元素</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt; size) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"不是有效的索引"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Node cur = dummyHead.next;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; index; i++) &#123;</span><br><span class="line">        cur = cur.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cur.e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="修改链表中元素"><a href="#修改链表中元素" class="headerlink" title="修改链表中元素"></a>修改链表中元素</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 修改链表中index位置节点的元素</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> index 索引的位置</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> e 节点的元素</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt; size) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"不是有效的索引"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Node cur = dummyHead.next;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; index; i++) &#123;</span><br><span class="line">        cur = cur.next;</span><br><span class="line">    &#125;</span><br><span class="line">    cur.e = e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="查找链表中是否包含某元素"><a href="#查找链表中是否包含某元素" class="headerlink" title="查找链表中是否包含某元素"></a>查找链表中是否包含某元素</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 查找链表中是否包含元素e</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> e</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    Node cur = dummyHead.next;</span><br><span class="line">    <span class="keyword">while</span> (cur != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (cur.e.equals(e)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cur = cur.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="删除链表中的元素"><a href="#删除链表中的元素" class="headerlink" title="删除链表中的元素"></a>删除链表中的元素</h4><p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190330/image-20190330093907204.png" alt="image-20190330093907204"></p>
+<p>在链表中删除元素，与在链表中添加元素有点类似</p>
+<p>第一步：我们首先找到删除节点位置的前一个节点，我们用<code>prev</code>表示，被删除的节点我们用<code>delNode</code>表示</p>
+<p>第二步：改变链表的引用地址：<code>prev.next = delNode.next</code>（等同于，将节点在链表中删除）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 删除链表中index位置的节点</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> index</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt; size) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"不是有效的索引"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node prev = dummyHead;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; index; i++) &#123;</span><br><span class="line">        prev = prev.next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node delNode = prev.next;</span><br><span class="line">    prev.next = delNode.next;</span><br><span class="line">    delNode.next = <span class="keyword">null</span>;</span><br><span class="line">    size--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完整版代码GitHub仓库地址：<a href="https://github.com/gulijian/java-data-structure-example/tree/master/data-structure-linkedlist-example" target="_blank" rel="noopener">Java版数据结构-链表</a> 欢迎大家【<font color="red"><strong>关注</strong></font>】和【<font color="red"><strong>Star</strong></font>】</p>
+<p>至此笔者已经为大家带来了数据结构：静态数组、动态数组、栈、数组队列、循环队列、链表；接下来，笔者还会一一的实现其它常见的数组结构，大家一起加油!</p>
+<ul>
+<li>静态数组</li>
+<li>动态数组</li>
+<li>栈</li>
+<li>数组队列</li>
+<li>循环队列</li>
+<li>链表</li>
+<li>循环链表</li>
+<li>二分搜索树</li>
+<li>优先队列</li>
+<li>堆</li>
+<li>线段树</li>
+<li>字典树</li>
+<li>AVL</li>
+<li>红黑树</li>
+<li>哈希表</li>
+<li>….</li>
+</ul>
+<p>持续更新中，欢迎大家关注公众号：<font color="green"><strong>小白程序之路（whiteontheroad）</strong></font>，第一时间获取最新信息！！！</p>
+<center><br><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/qrcode_for_gh.jpg" alt="小白程序之路"><br><br></center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+        <footer class="article-footer">
+            
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/数据结构/">数据结构</a>
+    </div>
+
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+           
+            <!-- 
+    
+        <a href="http://www.gulj.cn/2019/03/30/Java版-数据结构-链表/#comments" id="sourceId::2019/03/30/Java版-数据结构-链表/" class="article-comment-link cy_cmt_count">评论</a>
+    
+ -->
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/03/23/Java版-数据结构-队列（循环队列）/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Java版-数据结构-队列（循环队列）</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="SOHUCS" sid="2019/03/30/Java版-数据结构-链表/"></div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+  <div class="widget-wrap">
+      <div class="widget" style="padding:0px 5px">
+          <div style="background:#1abc9c;margin-top:10px;">
+                <h5 style="text-align:center;color:white;font-size:15px;padding-top:16px">吐血推荐关注公众号</h5>
+                <img  src="/css/images/qrcode_for_gh.jpg" style="width:100%;margin-top:18px;margin-bottom:-6px">
+          </div>
+      </div>
+  </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2019/03/30/Java版-数据结构-链表/" class="title">Java版-数据结构-链表</a></p>
+                            <p class="item-date"><time datetime="2019-03-30T02:23:57.000Z" itemprop="datePublished">2019-03-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2019/03/23/Java版-数据结构-队列（循环队列）/" class="title">Java版-数据结构-队列（循环队列）</a></p>
+                            <p class="item-date"><time datetime="2019-03-23T05:47:55.000Z" itemprop="datePublished">2019-03-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2019/03/14/Java版-数据结构-队列（数组队列）/" class="title">Java版-数据结构-队列（数组队列）</a></p>
+                            <p class="item-date"><time datetime="2019-03-13T22:51:53.000Z" itemprop="datePublished">2019-03-14</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/运维/">运维</a><span class="category-list-count">16</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/activemq/" style="font-size: 11.67px;">activemq</a> <a href="/tags/btrace/" style="font-size: 11.67px;">btrace</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/elasticsearch/" style="font-size: 10px;">elasticsearch</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/idea/" style="font-size: 11.67px;">idea</a> <a href="/tags/java/" style="font-size: 13.33px;">java</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/mac/" style="font-size: 15px;">mac</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/并发编程/" style="font-size: 10px;">并发编程</a> <a href="/tags/数据结构/" style="font-size: 16.67px;">数据结构</a> <a href="/tags/设计模式/" style="font-size: 18.33px;">设计模式</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/what.html">docker</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-expand-info" class="row" style="text-align: left;">
+            <div class="col-md-3 col-sm-6">
+                <!--关注我们-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">其他平台</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="https://github.com/dyc87112">Github</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="http://gitee.com/didispace">码云</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">联系合作</h3>
+                    <div class="widget">
+                        <ul>
+                            <li class="foot-li">
+                                <a href="#">微信：glj88258</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">QQ：1175327069</a>
+                            </li>
+                            <li class="foot-li">
+                                <a href="#">邮箱：1175327069@qq.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--友情链接-->
+                
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">友情链接</h3>
+                    <div class="widget">
+                        <ul>
+                            <span class="label">
+                                <a target="_blank" href="http://cmsblogs.com/">chenssy</a>
+                            </span>
+
+                             <span class="label">
+                                <a target="_blank" href="http://blog.didispace.com/">程序猿DD</a>
+                            </span>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <!--联系合作-->
+                <div class="widget-wrap widget-list">
+                    <h3 class="widget-title">我的公众号</h3>
+                    <div class="widget">
+                        <img style="width: 150px;height: 150px;" src="/css/images/qrcode_for_gh.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-base-info">
+            <div class="copy-info">
+                © 2018 顾立剑 版权所有<br>
+            </div>
+            <div class="busuanzi-info">
+                <span id="busuanzi_container_site_pv" style="display: inline;">访问量<span class="foot-count" id="busuanzi_value_site_pv">5868330</span>次</span>
+                <span id="busuanzi_container_site_uv" style="display: inline;">访客数<span class="foot-count" id="busuanzi_value_site_uv">359288</span>人次</span>
+                <br>
+                <span style="color: #888">苏ICP备15055047号-3</span>
+            </div>
+        </div>
+    </div>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+</footer>
+        
+    
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytaiyU6E"></script>
+    <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+    <script type="text/javascript">
+    window.changyan.api.config({
+    appid: 'cytaiyU6E',
+    conf: 'eae4b65d27f952474df2788e98a39555'
+    });
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
