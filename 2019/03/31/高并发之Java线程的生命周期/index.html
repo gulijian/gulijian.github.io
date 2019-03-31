@@ -3,37 +3,25 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Charles进行HTTPS抓包 | 小白程序之路</title>
+    <title>Java线程的生命周期 | 小白程序之路</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="介绍Charles其实是一款代理服务器，通过成为电脑或者浏览器的代理，然后截取请求和请求结果达到分析抓包的目的。charles有Window版本和Mac OS版本，也同时支持ios和Android手机系统 下载百度云：Charles 4.2.1 Mac破解版 环境 Charles 4.2.1 Iphone 7P ios 11.0.1">
-<meta name="keywords" content="charles">
+    <meta name="description" content="概要目前CPU的运算速度已经达到了百亿次每秒，甚至更高的量级，家用电脑即使维持操作系统正常运行的进程也会有数十个，线程更是数以百计。 线程是CPU的调度和分派的基本单位，为了更充分地利用CPU资源以及提高生产率和高效地完成任务，在现实场景中一般都会采用多线程处理。 线程的生命周期线程的生命周期大致可以分为下面五种状态：New(新建状态)、RUNABLE(就绪状态)、RUNNING(运行状态)、休眠">
+<meta name="keywords" content="并发编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Charles进行HTTPS抓包">
-<meta property="og:url" content="http://www.gulj.cn/2017/12/27/Charles进行HTTPS抓包/index.html">
+<meta property="og:title" content="Java线程的生命周期">
+<meta property="og:url" content="http://www.gulj.cn/2019/03/31/高并发之Java线程的生命周期/index.html">
 <meta property="og:site_name" content="小白程序之路">
-<meta property="og:description" content="介绍Charles其实是一款代理服务器，通过成为电脑或者浏览器的代理，然后截取请求和请求结果达到分析抓包的目的。charles有Window版本和Mac OS版本，也同时支持ios和Android手机系统 下载百度云：Charles 4.2.1 Mac破解版 环境 Charles 4.2.1 Iphone 7P ios 11.0.1">
+<meta property="og:description" content="概要目前CPU的运算速度已经达到了百亿次每秒，甚至更高的量级，家用电脑即使维持操作系统正常运行的进程也会有数十个，线程更是数以百计。 线程是CPU的调度和分派的基本单位，为了更充分地利用CPU资源以及提高生产率和高效地完成任务，在现实场景中一般都会采用多线程处理。 线程的生命周期线程的生命周期大致可以分为下面五种状态：New(新建状态)、RUNABLE(就绪状态)、RUNNING(运行状态)、休眠">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://www.gulj.cn/images/15143553748838.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143559937031.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143557791068.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143566512500.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143569471035.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143577308764.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143578310275.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143541586385.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143587906158.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143590599615.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143591666648.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143579689140.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143585596777.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143609984817.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143611054154.jpg">
-<meta property="og:image" content="http://www.gulj.cn/images/15143619290731.jpg">
-<meta property="og:updated_time" content="2019-02-14T07:07:12.859Z">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190331/image-20190331203604063.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190331/image-20190330184914554.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190331/image-20190330190001478.png">
+<meta property="og:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/qrcode_for_gh.jpg">
+<meta property="og:updated_time" content="2019-03-31T14:06:43.997Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Charles进行HTTPS抓包">
-<meta name="twitter:description" content="介绍Charles其实是一款代理服务器，通过成为电脑或者浏览器的代理，然后截取请求和请求结果达到分析抓包的目的。charles有Window版本和Mac OS版本，也同时支持ios和Android手机系统 下载百度云：Charles 4.2.1 Mac破解版 环境 Charles 4.2.1 Iphone 7P ios 11.0.1">
-<meta name="twitter:image" content="http://www.gulj.cn/images/15143553748838.jpg">
+<meta name="twitter:title" content="Java线程的生命周期">
+<meta name="twitter:description" content="概要目前CPU的运算速度已经达到了百亿次每秒，甚至更高的量级，家用电脑即使维持操作系统正常运行的进程也会有数十个，线程更是数以百计。 线程是CPU的调度和分派的基本单位，为了更充分地利用CPU资源以及提高生产率和高效地完成任务，在现实场景中一般都会采用多线程处理。 线程的生命周期线程的生命周期大致可以分为下面五种状态：New(新建状态)、RUNABLE(就绪状态)、RUNNING(运行状态)、休眠">
+<meta name="twitter:image" content="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190331/image-20190331203604063.png">
     
 
     
@@ -218,7 +206,7 @@
 </aside>
 
             
-            <section id="main"><article id="post-Charles进行HTTPS抓包" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-高并发之Java线程的生命周期" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -226,7 +214,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            Charles进行HTTPS抓包
+            Java线程的生命周期
         </h1>
     
 
@@ -240,8 +228,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/12/27/Charles进行HTTPS抓包/">
-            <time datetime="2017-12-27T07:28:29.000Z" itemprop="datePublished">2017-12-27</time>
+        <a href="/2019/03/31/高并发之Java线程的生命周期/">
+            <time datetime="2019-03-31T14:01:14.000Z" itemprop="datePublished">2019-03-31</time>
         </a>
     </div>
 
@@ -249,7 +237,7 @@
                         <!-- 
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/运维/">运维</a>
+        <a class="article-category-link" href="/categories/Java/">Java</a>
     </div>
  -->
                         
@@ -261,7 +249,7 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/charles/">charles</a>
+        <a class="tag-link" href="/tags/并发编程/">并发编程</a>
     </div>
 
                         
@@ -279,55 +267,69 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Charles其实是一款代理服务器，通过成为电脑或者浏览器的代理，然后截取请求和请求结果达到分析抓包的目的。charles有Window版本和Mac OS版本，也同时支持ios和Android手机系统</p>
-<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><strong>百度云</strong>：<a href="">Charles 4.2.1 Mac破解版</a></p>
-<h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul>
-<li>Charles 4.2.1</li>
-<li>Iphone 7P ios 11.0.1</li>
-</ul>
+            <h4 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h4><p>目前CPU的运算速度已经达到了百亿次每秒，甚至更高的量级，家用电脑即使维持操作系统正常运行的进程也会有数十个，线程更是数以百计。</p>
+<p>线程是CPU的调度和分派的基本单位，为了更充分地利用CPU资源以及提高生产率和高效地完成任务，在现实场景中一般都会采用多线程处理。</p>
+<h4 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h4><p>线程的生命周期大致可以分为下面五种状态：<strong>New</strong>(新建状态)、<strong>RUNABLE</strong>(就绪状态)、<strong>RUNNING</strong>(运行状态)、<strong>休眠状态</strong>、<strong>DEAD</strong>(终止状态)</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190331/image-20190331203604063.png" alt="image-20190331203604063"></p>
 <a id="more"></a>
-<h3 id="使用前提"><a href="#使用前提" class="headerlink" title="使用前提"></a>使用前提</h3><ul>
-<li>保证iOS设备iphone或ipad与运行Charles的mac电脑处于同一个wifi环境下</li>
-</ul>
-<h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><ul>
-<li><strong>①、配置HTTP代理，这步与抓取HTTP请求是一样的</strong></li>
-</ul>
-<p>打开: <strong>charles</strong> 的 <strong>Proxy</strong> 选项选择 <strong>Proxy Settings</strong></p>
-<p>按照下图配置:</p>
-<p><img src="/images/15143553748838.jpg" alt="">x<br><strong>备注</strong>：选择在8888端口上监听，然后确定。够选了SOCKS proxy，还能截获到浏览器的http访问请求。</p>
+<p>1、<strong>新建状态</strong>，是线程被创建且未启动的状态；这里的创建，仅仅是在JAVA的这种编程语言层面被创建，而在操作系统层面，真正的线程还没有被创建。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread t1 = <span class="keyword">new</span> Thread()</span><br></pre></td></tr></table></figure>
+<p>2、<strong>就绪状态</strong>，指的是调用start()方法之后，线程等待分配给CPU执行（这时候，线程已经在操作系统层面被创建）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t1.start()</span><br></pre></td></tr></table></figure>
+<p>3、<strong>运行状态</strong>，当CPU空闲时，线程被分得CPU时间片，执行Run()方法的状态</p>
+<p>4、<strong>休眠状态</strong>，运行状态的线程，如果调用一个阻塞的API或者等待某个事件，那么线程的状态就会转换到休眠状态，一般有以下几种情况</p>
 <ul>
-<li>②、<strong>配置SSL代理</strong></li>
+<li>同步阻塞：锁被其它线程占用</li>
+<li>主动阻塞：调用Thread的某些方法，主动让出CPU执行权，比如：sleep()、join()等方法</li>
+<li>等待阻塞：执行了wait()方法</li>
 </ul>
-<p>打开： <strong>charles</strong> 的 <strong>Proxy</strong> 选项选择 <strong>SSL Proxy Settings</strong><br>在 SSL Proxying 的Tab项中 点击 Add 按钮，按下图填写</p>
-<p><img src="/images/15143559937031.jpg" alt=""></p>
-<p>添加好之后，如下图展示：</p>
-<p><img src="/images/15143557791068.jpg" alt=""></p>
-<h3 id="手机端设置代理和安装Charles根证书"><a href="#手机端设置代理和安装Charles根证书" class="headerlink" title="手机端设置代理和安装Charles根证书"></a>手机端设置代理和安装Charles根证书</h3><h5 id="1、手机端安装Charles根证书"><a href="#1、手机端安装Charles根证书" class="headerlink" title="1、手机端安装Charles根证书"></a>1、手机端安装Charles根证书</h5><p>在Safri上地址栏粘贴 <strong>chls.pro/ss</strong> 点击立即前往，自动下载根证书<br><img src="/images/15143566512500.jpg" alt=""></p>
-<p>而在ios10.3之后，安装新的自定义证书默认是不受信任的，如果要信任已安装的自定义证书,需要手动打开开关以信任证书。</p>
-<p><strong>开始信任证书步骤：</strong><br>设置-&gt;通用-&gt;关于本机-&gt;证书信任设置-&gt; 找到charles proxy custom root certificate然后信任该证书即可.</p>
-<p><img src="/images/15143569471035.jpg" alt=""></p>
-<h5 id="2、手机端手机设置代理"><a href="#2、手机端手机设置代理" class="headerlink" title="2、手机端手机设置代理"></a><strong>2、手机端手机设置代理</strong></h5><p>打开： <strong>charles</strong> 的 <strong>Help</strong> 选项选择 <strong> Install Charles Root Certificate On a Mobile Device Or a Remote Browser </strong></p>
-<p><img src="/images/15143577308764.jpg" alt=""></p>
-<p>点击 ok 按钮</p>
-<p><img src="/images/15143578310275.jpg" alt=""></p>
-<p>首先在Mac上，查看IP地址：<br>方法一：系统偏好设置-&gt;网络-&gt;wifi-&gt;高级-&gt;TCP/IP<br>方法二：ifcofnig 命令 （在终端或者Iterm上）<br>本机Ip：192.168.6.174<br><img src="/images/15143541586385.jpg" alt=""></p>
-<p>打开手机：</p>
-<p><strong>设置</strong>界面，选择无线局域网</p>
-<p><img src="/images/15143587906158.jpg" alt=""></p>
-<p>进入<strong>无线局域网</strong>界面，点击所连的无线网旁边的 i 图标</p>
-<p><img src="/images/15143590599615.jpg" alt=""></p>
-<p>进入<strong>配置代理</strong>界面，点击底部的配置代理，改为手动模式</p>
-<p><img src="/images/15143591666648.jpg" alt=""></p>
-<p>配置代理<br>服务器地址：填写本机Mac的Ip地址，<br>端口：填写 charles 的 代理端口，默认是：8888；也可以自定义修改</p>
-<p><img src="/images/15143579689140.jpg" alt=""></p>
-<p>配置好之后，Mac上会弹出以下提示框，表示Charles软件检测到可供检测的设备。两个按钮选项：Allow 允许 ， Deny拒绝。我们要选择允许</p>
-<p><img src="/images/15143585596777.jpg" alt=""></p>
-<h3 id="电脑端-Mac-安装Charles根证书"><a href="#电脑端-Mac-安装Charles根证书" class="headerlink" title="电脑端(Mac)安装Charles根证书"></a>电脑端(Mac)安装Charles根证书</h3><p>直接在Charles的Help菜单中安装；安装完成后去系统的钥匙串访问中信任它</p>
-<p><img src="/images/15143609984817.jpg" alt=""></p>
-<p>在本机的系统的钥匙串访问中，找到Charles证书，默认是不被信任的，双击，该证书，修改为始终信任</p>
-<p><img src="/images/15143611054154.jpg" alt=""></p>
-<h3 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h3><p><img src="/images/15143619290731.jpg" alt=""></p>
-<p>__</p>
+<p>5、<strong>终止状态</strong>，线程执行完（<code>run()方法执行结束</code>）或者出现异常就会进入终止状态</p>
+<p>对应的是JAVA中Thread类<code>State</code>中的六种状态</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Thread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">   <span class="comment">//.........</span></span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> State &#123;</span><br><span class="line">        NEW, <span class="comment">// 初始化状态</span></span><br><span class="line">      </span><br><span class="line">        RUNNABLE, <span class="comment">// 可运行/运行状态</span></span><br><span class="line">      </span><br><span class="line">        BLOCKED, <span class="comment">// 阻塞状态</span></span><br><span class="line">        </span><br><span class="line">        WAITING, <span class="comment">// 无时限等待</span></span><br><span class="line">       </span><br><span class="line">        TIMED_WAITING, <span class="comment">// 有时限等待</span></span><br><span class="line">  </span><br><span class="line">        TERMINATED; <span class="comment">// 终止状态</span></span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="comment">// ..........</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="休眠状态-BLOCKED、WAITING、TIMED-WAITING-与RUNNING状态的转换"><a href="#休眠状态-BLOCKED、WAITING、TIMED-WAITING-与RUNNING状态的转换" class="headerlink" title="休眠状态(BLOCKED、WAITING、TIMED_WAITING)与RUNNING状态的转换"></a>休眠状态(<strong>BLOCKED</strong>、<strong>WAITING</strong>、<strong>TIMED_WAITING</strong>)与RUNNING状态的转换</h4><p>1、<strong>RUNNING状态与BLOCKED状态的转换</strong></p>
+<ul>
+<li><p>线程<strong>等待</strong> synchronized 的隐式锁，<strong>RUNNING</strong> —&gt; <strong>BLOCKED</strong></p>
+</li>
+<li><p>线程<strong>获得</strong> synchronized 的隐式锁，<strong>BLOCKED</strong> —&gt; <strong>RUNNING</strong></p>
+</li>
+</ul>
+<p>2、<strong>RUNNING状态与WAITING状态的转换</strong></p>
+<ul>
+<li>获得 synchronized 隐式锁的线程，调用无参数的Object.wait()方法</li>
+<li>调用无参数Thread.join()方法</li>
+<li>调用LockSupport.park()方法，线程阻塞切换到<strong>WAITING</strong>状态，</li>
+<li>调用LockSupport.unpark()方法，可唤醒线程，从<strong>WAITING</strong>状态切换到<strong>RUNNING</strong>状态</li>
+</ul>
+<p>3、<strong>RUNNING状态与TIMED_WAITING状态的转换</strong></p>
+<ul>
+<li>调用<strong>带超时参数</strong>的 Thread..sleep(long millis)方法</li>
+<li>获得 synchronized 隐式锁的线程，调用<strong>带超时参数</strong>的Object.wait(long timeout)方法</li>
+<li>调用<strong>带超时参数</strong>的Thread.join(long millis)方法</li>
+<li>调用<strong>带超时参数</strong>的LockSupport.parkNanos(Object blocker，long deadline)方法</li>
+<li>调用<strong>带超时参数</strong>的LockSupport.parkUntil(long deadline)方法</li>
+</ul>
+<h4 id="废弃掉的线程方法-：stop-、suspend-、resume"><a href="#废弃掉的线程方法-：stop-、suspend-、resume" class="headerlink" title="废弃掉的线程方法 ：stop()、suspend()、resume()"></a>废弃掉的线程方法 ：stop()、suspend()、resume()</h4><p><code>stop()</code>方法，会真正的杀死线程，不给线程任何喘息的机会，假设获得 synchronized 隐式锁的线程，此刻执行<code>stop()</code>方法，该锁不会被释放，导致其它线程没有任何机会获得锁，显然这样的结果不是我们想要见到的。</p>
+<p><code>suspend()</code> 和<code>resume()</code>方法同样，因为某种不可预料的原因，已经被建议不在使用</p>
+<p>不能使用<code>stop()、suspend() 、resume()</code> 这些方法来终止线程或者唤醒线程，那么我们应该使用什么方法来做呢？答案是：优雅的使用<code>Thread.interrupt()</code>方法来做</p>
+<h4 id="优雅的Thread-interrupt-方法中断线程"><a href="#优雅的Thread-interrupt-方法中断线程" class="headerlink" title="优雅的Thread.interrupt()方法中断线程"></a>优雅的Thread.interrupt()方法中断线程</h4><p><code>interrupt()</code> 方法仅仅是通知线程，线程有机会执行一些后续操作，同时也可以无视这个通知，这个方法通过修改了调用线程的中断状态来告知那个线程，说它被中断了，线程可以通过<code>isInterrupted()</code> 方法，检测是不是自己被中断。</p>
+<p>当线程被阻塞的时候，比如被Object.wait, Thread.join和Thread.sleep三种方法之一阻塞时；调用它的<code>interrput()</code>方法，会产生<strong>InterruptedException异常</strong>。</p>
+<blockquote>
+<p>扩展知识点</p>
+</blockquote>
+<h4 id="探秘局部变量不会引发并发问题的原因"><a href="#探秘局部变量不会引发并发问题的原因" class="headerlink" title="探秘局部变量不会引发并发问题的原因"></a>探秘局部变量不会引发并发问题的原因</h4><p>在Java领域，<strong>线程</strong>可以拥有自己的<strong>操作数栈，程序计数器、局部变量表</strong>等资源；我们都知道，多个线程同时访问<strong>共享变量</strong>的时候，会导致数据不一致性等并发问题；但是 Java 方法里面的局部变量是不存在并发问题的，具体为什么呢？我们先来了解一下这些基础知识。</p>
+<p>局部变量的作用域是方法内部的，当方法执行完了，局部变量也就销毁了，也就是说<strong>局部变量应该是和方法同生共死</strong>的。</p>
+<p>Java中的方法是如何调用的？当调用方法时，会<strong>创建新的栈帧</strong>，并压入调用栈；当方法返回时，对应的栈帧就会被自动弹出。也就是说，栈帧和方法是同生共死的。</p>
+<p>从上面我们可以得出：<strong>方法的调用就是压栈和出栈的过程</strong>，而在Java中的方法的<strong>局部变量</strong>又是存储在<strong>栈帧中</strong>，所以我们用下面的示意图帮助大家理解一下</p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190331/image-20190330184914554.png" alt="image-20190330184914554"></p>
+<p>说了那么多，我们还没有解释局部变量为啥不会产生并发问题，以上，我们知道了，方法的调用是压栈和出栈（栈帧）的过程，局部变量又存储在栈帧中。那么我们的线程和调用栈又有什么关系呢，答案是：<strong>每个线程都有自己独立的调用栈</strong></p>
+<p><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/img/blog-20190331/image-20190330190001478.png" alt="image-20190330190001478"></p>
+<p>到现在，相信大家都已经明白了，局部变量之所以不存在并发问题，是因为，每个线程都有自己的调用栈，局部变量都保存在线程各自的调用栈里面，没有共享，自然就不存在并发问题。</p>
+<p>欢迎大家关注公众号：<font color="green"><strong>小白程序之路（whiteontheroad）</strong></font>，第一时间获取最新信息！！！</p>
+<center><br><img src="https://blog-whiteontheroad-1256169749.cos.ap-shanghai.myqcloud.com/qrcode_for_gh.jpg" alt="小白程序之路"><br></center>
+
+
+
+
 
         
         </div>
@@ -335,7 +337,7 @@
             
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/charles/">charles</a>
+        <a class="tag-link" href="/tags/并发编程/">并发编程</a>
     </div>
 
             <div class="share-container">
@@ -398,7 +400,7 @@
            
             <!-- 
     
-        <a href="http://www.gulj.cn/2017/12/27/Charles进行HTTPS抓包/#comments" id="sourceId::2017/12/27/Charles进行HTTPS抓包/" class="article-comment-link cy_cmt_count">评论</a>
+        <a href="http://www.gulj.cn/2019/03/31/高并发之Java线程的生命周期/#comments" id="sourceId::2019/03/31/高并发之Java线程的生命周期/" class="article-comment-link cy_cmt_count">评论</a>
     
  -->
         </footer>
@@ -407,19 +409,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2018/03/26/Docker-安装/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    【Docker教程】Docker 安装
-                
-            </div>
-        </a>
     
-    
-        <a href="/2017/11/24/ELK5-X技术栈集群搭建/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/03/30/Java版-数据结构-链表/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">ELK(5.6.3)技术栈集群搭建</div>
+            <div class="article-nav-title">Java版-数据结构-链表</div>
         </a>
     
 </nav>
@@ -432,7 +425,7 @@
     
     
         <section id="comments">
-    <div id="SOHUCS" sid="2017/12/27/Charles进行HTTPS抓包/"></div>
+    <div id="SOHUCS" sid="2019/03/31/高并发之Java线程的生命周期/"></div>
 </section>
     
 
